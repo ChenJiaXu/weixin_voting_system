@@ -233,5 +233,6 @@
 <!-- Select2 -->
 <script src="<?php echo $base_url;?>/static/plugins/select2/i18n/zh-CN.js"></script>
 <script src="<?php echo $base_url;?>/static/my_config/my_js/my_js.js"></script>
+
 </body>
 </html>

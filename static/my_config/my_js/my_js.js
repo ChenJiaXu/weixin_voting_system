@@ -1,25 +1,44 @@
 
 $(function(){
 
+/*------------------------------------------left.php-------------------------------------------*/
+    //一级节点
+    $('.treeview').children('a').each(function(){
+        if($(this).attr('href').indexOf(window.location.href) != '-1'){
+            if($(this).hasClass("active") == false){
+                $(this).parent().addClass("active");
+            }
+        }
+    });
+    //二级节点,自动展开,定位到所点击的菜单
+    var level_two = $('.treeview-menu').children('li');
+    level_two.each(function(){
+       var active =  $(this).hasClass("active");
+       if(active == true){
+            $(this).parents("li").addClass("active");
+       }
+    });
+/*----------------------------------------./left.php---------------------------------------------*/
+
 /*------------------------------------voting_classification.php---------------------------------*/ 
     $('#voting_classification input[type="checkbox"]').iCheck({
-      checkboxClass: 'icheckbox_flat-blue',
-      radioClass: 'iradio_flat-blue'
+        checkboxClass: 'icheckbox_flat-blue',
+        radioClass: 'iradio_flat-blue'
     });
 
     //Enable check and uncheck all functionality
     $(".checkbox-toggle").click(function () {
-      var clicks = $(this).data('clicks');
-      if (clicks) {
-        //Uncheck all checkboxes
-        $("#voting_classification input[type='checkbox']").iCheck("uncheck");
-        $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
-      } else {
-        //Check all checkboxes
-        $("#voting_classification input[type='checkbox']").iCheck("check");
-        $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
-      }
-      $(this).data("clicks", !clicks);
+        var clicks = $(this).data('clicks');
+        if (clicks) {
+            //Uncheck all checkboxes
+            $("#voting_classification input[type='checkbox']").iCheck("uncheck");
+            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+        } else {
+            //Check all checkboxes
+            $("#voting_classification input[type='checkbox']").iCheck("check");
+            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+        }
+        $(this).data("clicks", !clicks);
     });
 /*-----------------------------------./voting_classification.php---------------------------------*/ 
 
@@ -27,23 +46,24 @@ $(function(){
 /*------------------------------------voting_management_form.php---------------------------------*/
     //投票活动信息管理-vm_date_start
     $('#vm_date_start').datetimepicker({
-      language:'zh-CN',
-      autoclose: true,
-      todayBtn: 'linked',
-      todayHighlight: true,
-      format: 'yyyy-mm-dd hh:ii:ss',
-      startDate: new Date()
+        language:'zh-CN',
+        autoclose: true,
+        todayBtn: 'linked',
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii:ss',
+        startDate: new Date()
     });
-    
+
     //投票活动信息管理-vm_date_end
     $('#vm_date_end').datetimepicker({
-      language:'zh-CN',
-      autoclose: true,
-      todayBtn: 'linked',
-      todayHighlight: true,
-      format: 'yyyy-mm-dd hh:ii:ss',
-      startDate: new Date()
+        language:'zh-CN',
+        autoclose: true,
+        todayBtn: 'linked',
+        todayHighlight: true,
+        format: 'yyyy-mm-dd hh:ii:ss',
+        startDate: new Date()
     });
+
     //投票活动信息管理-结束时间必须大于开始时间
     $('#vm_date_end').datetimepicker().on('changeDate', function(ev){
 
@@ -53,42 +73,40 @@ $(function(){
     //vm_bp();
 /*-------------------------------------voting_management_form.php-----------------------------------*/
 
-
-
 /*--------------------------------------------menu.php----------------------------------------------*/ 
     $('#menu').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-      "processing": true
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "processing": true
     });
     $('#menu input[type="checkbox"]').iCheck({
-      checkboxClass: 'icheckbox_flat-blue',
-      radioClass: 'iradio_flat-blue'
+        checkboxClass: 'icheckbox_flat-blue',
+        radioClass: 'iradio_flat-blue'
     });
 
     //Enable check and uncheck all functionality
     $(".menu-checkbox-toggle").click(function () {
-      var clicks = $(this).data('clicks');
-      if (clicks) {
-        //Uncheck all checkboxes
-        $("#menu input[type='checkbox']").iCheck("uncheck");
-        $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
-      } else {
+        var clicks = $(this).data('clicks');
+        if (clicks) {
+            //Uncheck all checkboxes
+            $("#menu input[type='checkbox']").iCheck("uncheck");
+            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+        } else {
         //Check all checkboxes
-        $("#menu input[type='checkbox']").iCheck("check");
-        $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
-      }
-      $(this).data("clicks", !clicks);
+            $("#menu input[type='checkbox']").iCheck("check");
+            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+        }
+        $(this).data("clicks", !clicks);
     });
 /*--------------------------------------------menu.php----------------------------------------------*/
 
 
 /*------------------------------------------menu_form.php-------------------------------------------*/
-    
+
 /*----------------------------------------./menu_form.php---------------------------------------------*/
 
 

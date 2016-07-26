@@ -30,7 +30,7 @@
             <li class="header">功能菜单列表</li>
             <?php foreach ($lefts as $left) { ?>
                 <?php if($left['level'] == 1){ ?>
-                    <li class="active treeview">
+                    <li class="treeview">
                         <?php if($left['routing'] == '#'){ ?>
                             <?php echo anchor($left['routing'],'<i class="'.$left['icon'].'"></i> <span>'.$left['name'].'</span><i class="fa fa-angle-left pull-right"></i>');?>
                         <?php }else{ ?> 

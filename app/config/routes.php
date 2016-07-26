@@ -76,6 +76,10 @@ $route['admin/basic_personnel/add'] = 'admin/user/Basic_Personnel/add';//投票�
 $route['admin/basic_personnel/edit/(:any)'] = 'admin/user/Basic_Personnel/edit/$1';//投票活动-编辑
 $route['admin/basic_personnel/delete/(:any)'] = 'admin/user/Basic_Personnel/delete/$1';//投票活动-删除
 
+$route['admin/image_space'] = 'admin/user/Image_Space';//图片空间
+$route['admin/image_space/add'] = 'admin/user/Image_Space/add';//图片空间-新增
+$route['admin/image_space/edit/(:any)'] = 'admin/user/Image_Space/edit/$1';//图片空间-编辑
+$route['admin/image_space/delete/(:any)'] = 'admin/user/Image_Space/delete/$1';//图片空间-删除
 
 //----------------------------------前台投票访问路径-----------------------------------------//
 $route['home/vote/vote_activity/index/(:any)'] = 'home/vote/Vote_Activity/index/$1'; //投票
