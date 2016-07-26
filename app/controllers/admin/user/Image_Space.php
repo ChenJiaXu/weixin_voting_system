@@ -7,6 +7,8 @@ class Image_Space extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('admin/menu/Menu_model');
+		$this->load->model('admin/user/Image_Space_model');
+		$this->lang->load('admin/user/image_space');
 	}
 
 	public function index(){
@@ -16,7 +18,7 @@ class Image_Space extends MY_Controller {
 		$data['is_delete_link'] = 'image_space/delete';
 
 		$data['base_url'] = $this->config->item('base_url');
-
+		$data['image_spaces'] = $this->Image_Space_model->getImageSpace();
 		$this->load_view('user/image_space',$data);
 	}
 
