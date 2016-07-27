@@ -3,18 +3,55 @@
 		<title>Upload Form</title>
 	</head>
 	<link href="<?php echo $base_url;?>/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<?php echo $base_url;?>/static/font-awesome-4.5.0/css/font-awesome.min.css">
     <link href="<?php echo $base_url;?>/static/plugins/fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $base_url;?>/static/plugins/zTree/css/zTreeStyle/zTreeStyle.css">
+    
     <style type="text/css">
+    	#tree-image{
+    		padding-top: 1em;
+    		height: 300px;
+    		min-height:300px;
+    		max-height:300px;
+    	}
     	.file-drop-zone{
     		overflow-y: auto;
     	}
+    	#fileinput{
+    		padding-top: 0.5em;
+    		height: 300px;
+    		min-height: 300px;
+    		max-height: 300px;
+    	}
+    	#image .panel-body{
+    		height: 250px;
+    		max-height: 250px;
+    		min-height: 250px;
+    	}
     </style>
 	<body>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2" style="height:300px;">
-					<input id="file" name="file" type="file" multiple class="file">	
+		<div class="container-fliud">
+			
+			<div class="row-fliud" id="tree-image">
+
+				<div class="col-lg-2">
+					<ul id="tree" class="ztree"></ul>
 				</div>
+
+				<div class="col-lg-9 col-lg-offset-1" id="image">
+					<div class="panel panel-default">
+					  	<div class="panel-heading"></div>
+					  	<div class="panel-body" id="image-body">
+					    
+					  	</div>
+					</div>
+				</div>
+				
+			</div>
+
+			<hr />
+			<div class="row-fliud" id="fileinput">
+				<input id="file" name="file" type="file" multiple class="file">		
 			</div>
 		</div>
 	<script src="<?php echo $base_url;?>/static/plugins/jQuery/jQuery-2.2.0.min.js"></script>
@@ -53,7 +90,56 @@
 		   // get message
 		   alert(msg);
 		});
+    </script>
+    <script type="text/javascript" src="<?php echo $base_url;?>/static/plugins/zTree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="<?php echo $base_url;?>/static/plugins/zTree/js/jquery.ztree.excheck.js"></script>
+    <script>
+    	var setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				onClick: zTreeOnClick
+			}
+		};
 
+		var data =[
+			{
+				name: "父节点1",
+				children: [
+					{name: "子节点1"},
+					{name: "子节点2"}
+				]
+			},
+			{
+				name: "父节点1",
+				children: [
+					{name: "子节点1"},
+					{name: "子节点2"}
+				]
+			},
+			{
+				name: "父节点1",
+				children: [
+					{name: "子节点1"},
+					{name: "子节点2"}
+				]
+			}
+		];
+		
+		$(document).ready(function(){
+			$.fn.zTree.init($("#tree"), setting, data);
+		});
+
+		function zTreeOnClick(event, treeId, treeNode) {
+		    alert(treeNode.name);
+		    $('#image-body').append(treeNode.name);
+		};
     </script>
 	</body>
 </html>
