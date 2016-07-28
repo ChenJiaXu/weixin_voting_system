@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?07 �?26 �?17:16
+-- 生成日期: 2016 �?07 �?28 �?17:30
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `basic_personnel` (
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用1:启用',
   `image` varchar(255) NOT NULL COMMENT '照片',
   PRIMARY KEY (`bp_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=18 ;
 
 --
 -- 转存表中的数据 `basic_personnel`
@@ -49,7 +49,31 @@ INSERT INTO `basic_personnel` (`bp_id`, `name`, `description`, `date_add`, `date
 (9, 'a', '我是小a', '2016-07-11 14:28:55', '2016-07-11 22:28:55', 1, 'bp/5.png'),
 (10, 'b', '我是小B', '2016-07-11 14:29:13', '2016-07-11 22:29:13', 1, 'bp/6.png'),
 (11, 'c', '我是小c', '2016-07-11 14:29:28', '2016-07-11 22:29:28', 1, 'bp/7.png'),
-(12, 'd', '我是小D', '2016-07-11 14:29:43', '2016-07-11 22:29:43', 1, 'bp/8.png');
+(12, 'd', '我是小D', '2016-07-11 14:29:43', '2016-07-11 22:29:43', 1, 'bp/8.png'),
+(17, '123', '123', '2016-07-28 09:09:46', '2016-07-28 17:09:46', 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `bp_image`
+--
+
+CREATE TABLE IF NOT EXISTS `bp_image` (
+  `bp_image_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '基础人员-图片表',
+  `bp_id` int(11) NOT NULL COMMENT '基础人员ID',
+  `image` varchar(255) NOT NULL COMMENT '图片名',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  PRIMARY KEY (`bp_image_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `bp_image`
+--
+
+INSERT INTO `bp_image` (`bp_image_id`, `bp_id`, `image`, `date_add`) VALUES
+(1, 17, '112.png', '2016-07-28 09:09:46'),
+(2, 17, '35.png', '2016-07-28 09:09:46'),
+(3, 17, '212.png', '2016-07-28 09:09:46');
 
 -- --------------------------------------------------------
 
@@ -118,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `date_update` datetime NOT NULL COMMENT '更新时间',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用 1:启用',
   PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `menu`
@@ -132,7 +156,9 @@ INSERT INTO `menu` (`menu_id`, `name`, `level`, `belong_to`, `routing`, `icon`, 
 (5, '投票活动分类', 2, 2, 'admin/voting_classification', 'fa fa-circle-o', '2016-07-23 06:21:24', '2016-07-23 14:21:24', 1),
 (6, '投票活动管理', 2, 2, 'admin/voting_management', 'fa fa-circle-o', '2016-07-23 06:24:39', '2016-07-23 14:24:39', 1),
 (7, '人员信息', 2, 3, 'admin/basic_personnel', 'fa fa-user', '2016-07-23 06:25:34', '2016-07-23 14:25:34', 1),
-(8, '图片空间', 2, 3, 'admin/image_space', 'fa fa-photo', '2016-07-23 09:26:45', '2016-07-26 16:53:10', 1);
+(8, '图片空间', 2, 3, 'admin/image_space', 'fa fa-photo', '2016-07-23 09:26:45', '2016-07-26 16:53:10', 1),
+(10, '在线文件管理器', 1, 0, 'admin/tool/file_manager', 'fa fa-folder-open-o', '2016-07-28 01:30:52', '2016-07-28 09:31:11', 1),
+(11, '图片管理器', 1, 0, 'admin/tool/upload', 'fa fa-cloud-upload', '2016-07-28 07:01:38', '2016-07-28 15:01:38', 1);
 
 -- --------------------------------------------------------
 
@@ -167,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, NULL, 1467448011, 1469518219, 1, 'jiaxu', 'chen', 'company', '12345678910'),
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, NULL, 1467448011, 1469684788, 1, 'jiaxu', 'chen', 'company', '12345678910'),
 (3, '127.0.0.1', '陈 家', '$2y$08$AjLQpNec1J77JFUptcxeZe8Phhs/.UGL.UpHZ9lH32rbvMfrdpRhG', NULL, '1105858345@qq.com', NULL, 'B.Ge.h8Iz.X2pnLmzPn1zOdbd3b9d45cf6849fc4', 1467615397, NULL, 1467605164, 1467614752, 1, '陈', '家', '中国', '12345678910');
 
 -- --------------------------------------------------------

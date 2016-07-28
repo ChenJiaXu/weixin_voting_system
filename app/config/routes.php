@@ -71,10 +71,11 @@ $route['admin/voting_management/ap/(:any)'] = 'admin/vote/Voting_Management/ap/$
 $route['admin/voting_management/votes'] = 'admin/vote/Voting_Management/votes';//投票
 
 //--------------------------基础人员信息模块-----------------------//
-$route['admin/basic_personnel'] = 'admin/user/Basic_Personnel';//投票分类
-$route['admin/basic_personnel/add'] = 'admin/user/Basic_Personnel/add';//投票活动-新增
-$route['admin/basic_personnel/edit/(:any)'] = 'admin/user/Basic_Personnel/edit/$1';//投票活动-编辑
-$route['admin/basic_personnel/delete/(:any)'] = 'admin/user/Basic_Personnel/delete/$1';//投票活动-删除
+$route['admin/basic_personnel'] = 'admin/user/Basic_Personnel';//基础人员
+$route['admin/basic_personnel/add'] = 'admin/user/Basic_Personnel/add';//基础人员-新增
+$route['admin/basic_personnel/edit/(:any)'] = 'admin/user/Basic_Personnel/edit/$1';//基础人员-编辑
+$route['admin/basic_personnel/delete/(:any)'] = 'admin/user/Basic_Personnel/delete/$1';//基础人员-删除
+$route['admin/basic_personnel/upload'] = 'admin/user/Basic_Personnel/upload';//基础人员-图片上传
 
 $route['admin/image_space'] = 'admin/user/Image_Space';//图片空间
 $route['admin/image_space/add'] = 'admin/user/Image_Space/add';//图片空间-新增
@@ -90,3 +91,6 @@ $route['admin/menu/add'] = 'admin/menu/Menu/add'; //菜单配置
 $route['admin/menu/edit/(:any)'] = 'admin/menu/Menu/edit/$1';//菜单配-编辑
 $route['admin/menu/delete/(:any)'] = 'admin/menu/Menu/delete/$1';//菜单配-删除
 $route['admin/menu/auto_compare'] = "admin/menu/Menu/auto_compare";//自动比较
+
+//---------------------------------------在线文件管理器------------------------------------//
+$route['admin/init_elfinder'] = "admin/tool/File_Manager/init_elfinder";//

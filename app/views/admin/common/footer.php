@@ -233,6 +233,30 @@
 <!-- Select2 -->
 <script src="<?php echo $base_url;?>/static/plugins/select2/i18n/zh-CN.js"></script>
 <script src="<?php echo $base_url;?>/static/my_config/my_js/my_js.js"></script>
+<script src="<?php echo $base_url; ?>/static/plugins/jQueryUI/jquery-ui.min.js"></script>
+<!-- elFinder JS (REQUIRED) -->
+<script src="<?php echo $base_url; ?>/static/elFinder/js/elfinder.min.js"></script>
+<script src="<?php echo $base_url; ?>/static/elFinder/js/i18n/elfinder.zh_CN.js"></script>
+<!-- elFinder initialization (REQUIRED) -->
+<script>
+    $().ready(function() {
+        var elf = $('#file_manager').elfinder({
+            url : '<?php echo $base_url; ?>/admin/init_elfinder',  // connector URL (REQUIRED)
+            lang: 'zh_CN',               // language (OPTIONAL)
+            height: '600',
+            requestType: 'post',
+            uploadMaxChunkSize: '1048576',
+            debug : ['error', 'warning', 'event-destroy'],
+            handlers : {
+                select : function(event, elfinderInstance) {
+                    console.log(event.data);
+                    console.log(event.data.selected); // selected files hashes list
+                }
+            }
+        }).elfinder('instance');            
+    });
+    
+</script>
 
 </body>
 </html>

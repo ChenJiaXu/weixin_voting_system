@@ -102,6 +102,8 @@ class Basic_Personnel extends MY_Controller {
 
 			$data['bps'] = $this->Basic_Personnel_model->get_basic_personnel_by_bp_id($bp_id);
 
+			$data['bp_images'] = $this->Basic_Personnel_model->get_bp_image_by_bp_id($bp_id);
+
 			$data['base_url'] = $this->config->item('base_url');
 
 			//加载相关类库
@@ -188,6 +190,31 @@ class Basic_Personnel extends MY_Controller {
 			$this->session->set_flashdata('error', lang('bpl_error_global').gettype($bp_id));
 			redirect('admin/basic_personnel','refresh');
 		}
+	}
+
+	//用户图片上传
+	public function upload(){
+
+		$config['upload_path']      = './upload/basic_personnel/';
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']         = 0;
+        $config['max_width']        = 0;
+        $config['max_height']       = 0;
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('file'))
+        {
+            $error = $this->upload->display_errors();
+
+            $this->output->set_content_type('application/json','utf-8')->set_output(json_encode($error));
+        }
+        else
+        {
+            $data = $this->upload->data();
+
+            $this->output->set_content_type('application/json','utf-8')->set_output(json_encode($data));
+        }
 	}
 
 	/**

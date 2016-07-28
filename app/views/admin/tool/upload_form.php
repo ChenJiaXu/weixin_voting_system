@@ -28,6 +28,11 @@
     		max-height: 250px;
     		min-height: 250px;
     	}
+    	#image .panel-heading{
+    		height: 30px;
+    		max-height: 30px;
+    		min-height: 30px;
+    	}
     </style>
 	<body>
 		<div class="container-fliud">
@@ -40,7 +45,7 @@
 
 				<div class="col-lg-9 col-lg-offset-1" id="image">
 					<div class="panel panel-default">
-					  	<div class="panel-heading"></div>
+					  	<div class="panel-heading" id="image-heading"></div>
 					  	<div class="panel-body" id="image-body">
 					    
 					  	</div>
@@ -80,6 +85,7 @@
 	    });
 	    $("#file").on("fileuploaded", function (event, data, previewId, index) {
 	        console.log(data.response+"--"+previewId+"--"+index);
+	        $('#file').fileinput('clear');
 	    });
 		$('#file').on('fileerror', function(event, data, msg) {
 		   console.log(data.id);
@@ -90,6 +96,7 @@
 		   // get message
 		   alert(msg);
 		});
+		
     </script>
     <script type="text/javascript" src="<?php echo $base_url;?>/static/plugins/zTree/js/jquery.ztree.core.js"></script>
     <script type="text/javascript" src="<?php echo $base_url;?>/static/plugins/zTree/js/jquery.ztree.excheck.js"></script>
@@ -112,33 +119,42 @@
 			{
 				name: "父节点1",
 				children: [
-					{name: "子节点1"},
-					{name: "子节点2"}
+					{name: "子节点1-1"},
+					{name: "子节点2-1"}
 				]
 			},
 			{
-				name: "父节点1",
+				name: "父节点2",
 				children: [
-					{name: "子节点1"},
-					{name: "子节点2"}
+					{name: "子节点2-1"},
+					{name: "子节点2-2"}
 				]
 			},
 			{
-				name: "父节点1",
+				name: "父节点3",
 				children: [
-					{name: "子节点1"},
-					{name: "子节点2"}
+					{name: "子节点3-1"},
+					{name: "子节点3-2"}
 				]
 			}
 		];
 		
 		$(document).ready(function(){
-			$.fn.zTree.init($("#tree"), setting, data);
+			$.fn.zTree.init($("#tree"), setting, data);//初始化树
 		});
 
 		function zTreeOnClick(event, treeId, treeNode) {
-		    alert(treeNode.name);
-		    $('#image-body').append(treeNode.name);
+
+			//获取当前选中节点的父节点
+			var treeObj = $.fn.zTree.getZTreeObj("tree");
+			var sNodes = treeObj.getSelectedNodes();
+			if (sNodes.length > 0) {
+				var node = sNodes[0].getParentNode();
+			}
+		    $('#image-heading').empty();
+		    $('#image-body').empty();
+		    $('#image-heading').append('<p>当前位置: '+node.name+' > '+treeNode.name+'</p>');//添加head路径
+		    $('#image-body').append(treeNode.name);//添加到正文
 		};
     </script>
 	</body>

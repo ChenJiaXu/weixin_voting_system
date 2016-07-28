@@ -26,6 +26,16 @@ class Basic_Personnel_model extends CI_Model{
 		//获取最新插入的ID
 		$bp_id = $this->get_basic_personnel_new_bp_id();
 
+		$images = $this->input->post('image',TRUE);
+		
+		foreach ($images as $image) {
+			$bp_image = array(
+				'bp_id' => $bp_id,
+				'image' => $image
+			);
+			$this->db->insert('bp_image', $this->security->xss_clean($bp_image));
+		}
+
 		return $bp_id;
 	}
 
@@ -47,6 +57,12 @@ class Basic_Personnel_model extends CI_Model{
 	public function get_basic_personnel_by_bp_id($bp_id){
 		$query = $this->db->get_where('basic_personnel', array('bp_id' => $this->security->xss_clean((int)$bp_id)));
 		return $query->row_array();
+	}
+
+	//根据bp_id返回对应图片
+	public function get_bp_image_by_bp_id($bp_id){
+		$query = $this->db->get_where('bp_image', array('bp_id' => $this->security->xss_clean((int)$bp_id)));
+		return $query->result_array();
 	}
 
 	//删除分类

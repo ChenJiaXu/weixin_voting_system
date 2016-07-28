@@ -9,6 +9,7 @@ $lang['bpl_head_title'] 	  	 = '基础人员信息管理';
 $lang['bpl_bp_id'] 	  	 		 = '人员ID';
 $lang['bpl_name'] 	  	 		 = '姓名';
 $lang['bpl_description']  	 	 = '自我描述';
+$lang['bpl_image']				 = '图片';
 
 $lang['bpl_date_add'] 	  	 	 = '创建时间';
 $lang['bpl_date_update'] 	  	 = '更新时间';
@@ -27,8 +28,8 @@ $lang['bpl_chioce_all']			 = '全选';
 $lang['bpl_save']			 	 = '保存';
 $lang['bpl_return']			 	 = '返回';
 
-$lang['bpl_form_title_add']		 = '新增-活动分类';
-$lang['bpl_form_title_edit']	 = '编辑-活动分类';
+$lang['bpl_form_title_add']		 = '新增-基础人员信息';
+$lang['bpl_form_title_edit']	 = '编辑-基础人员信息';
 
 
 //提示文本
