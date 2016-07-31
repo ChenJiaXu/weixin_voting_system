@@ -103,7 +103,7 @@ class Basic_Personnel extends MY_Controller {
 			$data['bps'] = $this->Basic_Personnel_model->get_basic_personnel_by_bp_id($bp_id);
 
 			$data['bp_images'] = $this->Basic_Personnel_model->get_bp_image_by_bp_id($bp_id);
-
+			
 			$data['base_url'] = $this->config->item('base_url');
 
 			//加载相关类库
@@ -194,7 +194,9 @@ class Basic_Personnel extends MY_Controller {
 
 	//用户图片上传
 	public function upload(){
-
+		/**
+		 * 上传路径目前默认固定,后面再系统设置可以配置上传目录
+		 */
 		$config['upload_path']      = './upload/basic_personnel/';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = 0;
