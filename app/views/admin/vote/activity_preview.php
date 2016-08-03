@@ -162,7 +162,12 @@
 												<div class="ui fluid doubling card">
 													<div class="image">
 														<a class="ui red ribbon label"><?php echo $vb['name'];?></a>
-														<img src="<?php echo $base_url;?>/upload/<?php echo $vb['image'];?>">
+														<?php foreach ($bp_image as $bpi) { ?>
+															<?php if($bpi['bp_id'] == $vb['bp_id']){ ?>
+															<img src="<?php echo $base_url;?>/upload/basic_personnel/<?php echo $bpi['image'];?>">
+															<?php } ?>
+														<?php } ?>
+														
 													</div>
 													<div class="content">
 														<a class="ui bottom attached inverted blue label" data-toggle="modal" data-target="#myModal" data-whatever="<?php echo $vb['bp_id'];?>">

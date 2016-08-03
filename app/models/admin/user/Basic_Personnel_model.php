@@ -27,20 +27,36 @@ class Basic_Personnel_model extends CI_Model{
 		$bp_id = $this->get_basic_personnel_new_bp_id();
 
 		$images = $this->input->post('image',TRUE);
-		
-		foreach ($images as $image) {
-			$bp_image = array(
-				'bp_id' => $bp_id,
-				'image' => $image
-			);
-			$this->db->insert('bp_image', $this->security->xss_clean($bp_image));
+		if($images != null){
+			foreach ($images as $image) {
+				$bp_image = array(
+					'bp_id' => $bp_id,
+					'image' => $image
+				);
+				$this->db->insert('bp_image', $this->security->xss_clean($bp_image));
+			}
 		}
-
 		return $bp_id;
 	}
 
 	//更新活动分类
 	public function edit_basic_personnel($bp_id){
+		
+
+		//插入图片
+		$images = $this->input->post('image',TRUE);
+		if($images != null){
+			foreach ($images as $image) {
+				$bp_image = array(
+					'bp_id' => $bp_id,
+					'image' => $image
+				);
+				$this->db->insert('bp_image', $this->security->xss_clean($bp_image));
+			}
+
+		}
+		
+
 		$data = array(
 			'name' => $this->input->post('name',TRUE),
 			'description' => $this->input->post('description',TRUE),
@@ -68,12 +84,18 @@ class Basic_Personnel_model extends CI_Model{
 	//删除分类
 	public function delete_basic_personnel_by_bp_id($bp_id){
 		$query = $this->db->delete('basic_personnel', array('bp_id' => $this->security->xss_clean($bp_id)));
+		$this->db->delete('bp_image', array('bp_id' => $this->security->xss_clean($bp_id)));
 		return $query;
 	}
 
 	//返回最新一条数据的ID
 	public function get_basic_personnel_new_bp_id(){
 		return $this->db->insert_id();
+	}
+
+	public function delete_bp_image_by_bp_image_id($bp_image_id){
+		$query = $this->db->delete('bp_image', array('bp_image_id' => $this->security->xss_clean((int)$bp_image_id)));
+		return $query;
 	}
 
 }

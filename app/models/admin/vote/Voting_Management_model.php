@@ -82,6 +82,13 @@ class Voting_Management_model extends CI_Model{
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+
+	//获取对应人员的照片
+	public function get_bp_image_by_bp_id($bp_id){
+		$query = $this->db->get_where('bp_image', array('bp_id' => $this->security->xss_clean((int)$bp_id)));
+
+		return $query->row_array();
+	}
 	
 	//活动访问流量+1
 	public function get_vm_traffic_by_vm_id($vm_id){

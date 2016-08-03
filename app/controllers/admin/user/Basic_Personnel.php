@@ -173,6 +173,12 @@ class Basic_Personnel extends MY_Controller {
 		
 		if(is_int($bp_id) || is_integer($bp_id)){
 
+			//删除本地文件
+			$bp_images = $this->Basic_Personnel_model->get_bp_image_by_bp_id($bp_id);
+			foreach ($bp_images as $bpi) {
+				unlink('./upload/basic_personnel/'.$bpi['image']);
+			}
+
 			$result = $this->Basic_Personnel_model->delete_basic_personnel_by_bp_id($bp_id);
 
 			if($result){
@@ -217,6 +223,28 @@ class Basic_Personnel extends MY_Controller {
 
             $this->output->set_content_type('application/json','utf-8')->set_output(json_encode($data));
         }
+	}
+
+	//用户图片删除
+	public function del_image(){
+		$bp_image_id = $_POST['bp_image_id'];
+		$image = $_POST['image'];
+
+		$ok = false;
+
+		$this->load->helper('file');
+		$filename = get_file_info('./upload/basic_personnel/'.$image);
+		if($filename == true){
+			//第一步删除数据库表
+			$this->Basic_Personnel_model->delete_bp_image_by_bp_image_id($bp_image_id);
+			//第二步删除upload/basic_personnel/下对应的图片
+			$status = unlink('./upload/basic_personnel/'.$image);
+			$ok = true;
+		}else{
+			$ok = false;
+		}
+
+		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($ok));
 	}
 
 	/**
