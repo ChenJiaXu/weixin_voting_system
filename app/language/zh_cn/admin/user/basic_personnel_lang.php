@@ -10,6 +10,8 @@ $lang['bpl_bp_id'] 	  	 		 = '人员ID';
 $lang['bpl_name'] 	  	 		 = '姓名';
 $lang['bpl_description']  	 	 = '自我描述';
 $lang['bpl_image']				 = '图片';
+$lang['bpl_main_image']			 = '设置为主图';
+$lang['bp_cancel_main_image']	 = '取消主图';
 
 $lang['bpl_date_add'] 	  	 	 = '创建时间';
 $lang['bpl_date_update'] 	  	 = '更新时间';

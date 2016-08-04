@@ -247,6 +247,28 @@ class Basic_Personnel extends MY_Controller {
 		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($ok));
 	}
 
+	//设置为主图
+	public function add_main_image(){
+		$bp_id = $_POST['bp_id'];
+		$bp_image_id = $_POST['bp_image_id'];
+		$image = $_POST['image'];
+
+		$this->Basic_Personnel_model->add_main_image($bp_id,$bp_image_id,$image);
+
+		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($ok));
+	}
+
+	//取消主图
+	public function cancel_main_image(){
+		$bp_id = $_POST['bp_id'];
+		$bp_image_id = $_POST['bp_image_id'];
+		$image = $_POST['image'];
+
+		$this->Basic_Personnel_model->cancel_main_image($bp_id,$bp_image_id,$image);
+
+		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($ok));
+	}
+
 	/**
 	 * 加载视图
 	 *	路径 =>	$path

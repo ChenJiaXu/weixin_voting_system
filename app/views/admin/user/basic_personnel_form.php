@@ -66,9 +66,18 @@
                                         <div class="thumbnail">
                                             <img src="<?php echo $base_url.'/upload/basic_personnel/'.$bpi['image'];?>" style="width:100px;height:100px;">
                                             <div class="text-center caption">
-                                                <p>
-                                                    <a onclick="del('<?php echo $bpi['bp_image_id'];?>','<?php echo $bpi['image'];?>');" class="btn btn-primary" role="button">删除</a>
-                                                </p>
+                                                <?php if($bpi['main_image'] == 0){ ?> 
+                                                
+                                                    <a onclick="add_main_image('<?php echo $bps['bp_id'];?>','<?php echo $bpi['bp_image_id'];?>','<?php echo $bpi['image'];?>');" class="btn btn-primary" role="button"><?php echo lang('bpl_main_image');?></a>
+                                                
+                                                <?php }else if($bpi['main_image'] == 1){ ?>
+                                                
+                                                    <a onclick="cancel_main_image('<?php echo $bps['bp_id'];?>','<?php echo $bpi['bp_image_id'];?>','<?php echo $bpi['image'];?>');" class="btn btn-primary" role="button"><?php echo lang('bpl_cancel_main_image');?></a>
+                                                
+                                                <?php } ?>
+                                                
+                                                    <a onclick="del_image('<?php echo $bpi['bp_image_id'];?>','<?php echo $bpi['image'];?>');" class="btn btn-primary" role="button">删除</a>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +212,7 @@
         
 
         //删除已存在图片
-        function del(bp_image_id,image){
+        function del_image(bp_image_id,image){
             $.ajax({
                 url: "<?php echo $base_url;?>/admin/user/basic_personnel/del_image",  
                 type: "POST",
@@ -218,5 +227,40 @@
                 }
             });
         }
+
+        //设置为主图
+        function add_main_image(bp_id,bp_image_id,image){
+            $.ajax({
+                url: "<?php echo $base_url;?>/admin/user/basic_personnel/add_main_image",  
+                type: "POST",
+                data:{bp_id:bp_id,bp_image_id:bp_image_id,image:image},
+                //dataType: "json",
+                error: function(){  
+                    alert('异常');
+                },  
+                success: function(data,status){//如果调用php成功    
+                    //解码，显示汉字
+                    window.location.reload();
+                }
+            });
+        }
+
+        //取消主图
+        function cancel_main_image(bp_id,bp_image_id,image){
+            $.ajax({
+                url: "<?php echo $base_url;?>/admin/user/basic_personnel/cancel_main_image",  
+                type: "POST",
+                data:{bp_id:bp_id,bp_image_id:bp_image_id,image:image},
+                //dataType: "json",
+                error: function(){  
+                    alert('异常');
+                },  
+                success: function(data,status){//如果调用php成功    
+                    //解码，显示汉字
+                    window.location.reload();
+                }
+            });
+        }
+
     </script>
 
