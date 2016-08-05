@@ -98,4 +98,27 @@ class Basic_Personnel_model extends CI_Model{
 		return $query;
 	}
 
+
+	//根据当前ID值,查找对应主图数据
+	public function get_main_image($bp_id){
+
+		$query = $this->db->get_where('bp_image', array('bp_id' => $bp_id));
+		
+		return $query->result_array();
+	}
+
+	//设置为主图+取消主图
+	public function change_main_image($bp_image_id, $main_image){
+
+		$data = array(
+			'main_image' => $this->security->xss_clean((int)$main_image)
+		);
+		$this->db->where('bp_image_id', $this->security->xss_clean((int)$bp_image_id));
+		
+		return $this->db->update('bp_image', $data);
+		
+		
+	}
+
+
 }

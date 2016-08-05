@@ -210,21 +210,9 @@
 
 									<div class="fluid ui fluid tab" data-tab="third">
 										<div class="ui message">
-											<div class="header">
-												本次活动规则
-											</div>
-											<div class="ui divided ordered list">
-											  <div class="item">规则1</div>
-											  <div class="item">规则2</div>
-											  <div class="item">规则3
-												<div class="list">
-												  <div class="item">规则3.1</div>
-												  <div class="item">规则3.2</div>
-												  <div class="item">规则3.3</div>
-												</div>
-											  </div>
-											  <div class="item">规则4</div>
-											</div>
+											<?php if($ap){?>
+												<?php echo $ap['rules_config']; ?>
+											<?php } ?>
 										</div>
 									</div>
 

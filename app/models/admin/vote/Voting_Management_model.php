@@ -27,6 +27,7 @@ class Voting_Management_model extends CI_Model{
 		    'date_end' => $this->input->post('date_end',TRUE),
 		    'status' => $this->input->post('status',TRUE),
 		    'statusing' => $this->input->post('statusing',TRUE),
+		    'rules_config' => $this->input->post('rules_config',TRUE)
 		);
 		$this->db->insert('voting_management', $this->security->xss_clean($data));
 
@@ -84,8 +85,8 @@ class Voting_Management_model extends CI_Model{
 	}
 
 	//获取对应人员的照片
-	public function get_bp_image_by_bp_id($bp_id){
-		$query = $this->db->get_where('bp_image', array('bp_id' => $this->security->xss_clean((int)$bp_id)));
+	public function get_bp_image_by_bp_id($bp_id,$main_image){
+		$query = $this->db->get_where('bp_image', array('bp_id' => $this->security->xss_clean((int)$bp_id), 'main_image' => $this->security->xss_clean((int)$main_image)));
 
 		return $query->row_array();
 	}
@@ -140,7 +141,8 @@ class Voting_Management_model extends CI_Model{
 		    'date_start' => $this->input->post('date_start',TRUE),
 		    'date_end' => $this->input->post('date_end',TRUE),
 		    'status' => $this->input->post('status',TRUE),
-		    'statusing' => $this->input->post('statusing',TRUE)
+		    'statusing' => $this->input->post('statusing',TRUE),
+		    'rules_config' => $this->input->post('rules_config',TRUE)
 		);
 
 		$this->db->where('vm_id', $this->security->xss_clean((int)$vm_id));

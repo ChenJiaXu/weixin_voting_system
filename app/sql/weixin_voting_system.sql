@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?07 �?28 �?17:30
+-- 生成日期: 2016 �?08 �?05 �?17:21
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -35,22 +35,17 @@ CREATE TABLE IF NOT EXISTS `basic_personnel` (
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用1:启用',
   `image` varchar(255) NOT NULL COMMENT '照片',
   PRIMARY KEY (`bp_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=22 ;
 
 --
 -- 转存表中的数据 `basic_personnel`
 --
 
 INSERT INTO `basic_personnel` (`bp_id`, `name`, `description`, `date_add`, `date_update`, `status`, `image`) VALUES
-(5, '张三', '这是张三的个人描述！', '2016-07-09 03:03:28', '2016-07-09 11:04:17', 1, 'bp/1.png'),
-(6, '李四', '这是李四的个人描述', '2016-07-09 03:03:40', '2016-07-09 11:04:23', 1, 'bp/2.png'),
-(7, '王五', '这是王五的个人描述内容', '2016-07-09 03:03:52', '2016-07-09 11:04:27', 1, 'bp/3.png'),
-(8, '赵六', '这是赵六的个人信息', '2016-07-09 03:04:04', '2016-07-09 11:04:30', 1, 'bp/4.png'),
-(9, 'a', '我是小a', '2016-07-11 14:28:55', '2016-07-11 22:28:55', 1, 'bp/5.png'),
-(10, 'b', '我是小B', '2016-07-11 14:29:13', '2016-07-11 22:29:13', 1, 'bp/6.png'),
-(11, 'c', '我是小c', '2016-07-11 14:29:28', '2016-07-11 22:29:28', 1, 'bp/7.png'),
-(12, 'd', '我是小D', '2016-07-11 14:29:43', '2016-07-11 22:29:43', 1, 'bp/8.png'),
-(17, '123', '123', '2016-07-28 09:09:46', '2016-07-28 17:09:46', 1, '');
+(18, '张三', '12131231', '2016-08-04 08:54:02', '2016-08-05 14:31:34', 1, ''),
+(19, '李四', '1231', '2016-08-04 08:54:35', '2016-08-04 16:54:35', 1, ''),
+(20, '王五', '123', '2016-08-04 08:54:51', '2016-08-04 16:54:57', 1, ''),
+(21, '赵六', '123', '2016-08-04 08:58:13', '2016-08-04 16:58:13', 1, '');
 
 -- --------------------------------------------------------
 
@@ -63,17 +58,20 @@ CREATE TABLE IF NOT EXISTS `bp_image` (
   `bp_id` int(11) NOT NULL COMMENT '基础人员ID',
   `image` varchar(255) NOT NULL COMMENT '图片名',
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `main_image` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:不是 1:是主图',
   PRIMARY KEY (`bp_image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=9 ;
 
 --
 -- 转存表中的数据 `bp_image`
 --
 
-INSERT INTO `bp_image` (`bp_image_id`, `bp_id`, `image`, `date_add`) VALUES
-(1, 17, '112.png', '2016-07-28 09:09:46'),
-(2, 17, '35.png', '2016-07-28 09:09:46'),
-(3, 17, '212.png', '2016-07-28 09:09:46');
+INSERT INTO `bp_image` (`bp_image_id`, `bp_id`, `image`, `date_add`, `main_image`) VALUES
+(4, 18, 'tom.jpg', '2016-08-04 08:54:02', 0),
+(5, 19, 'nan.jpg', '2016-08-04 08:54:35', 1),
+(6, 20, 'logo.png', '2016-08-04 08:54:51', 1),
+(7, 21, 'banner1.jpg', '2016-08-04 08:58:13', 1),
+(8, 18, 'banner3.jpg', '2016-08-05 06:31:34', 1);
 
 -- --------------------------------------------------------
 
@@ -193,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, NULL, 1467448011, 1469684788, 1, 'jiaxu', 'chen', 'company', '12345678910'),
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1470376658, 1, 'jiaxu', 'chen', 'company', '12345678910'),
 (3, '127.0.0.1', '陈 家', '$2y$08$AjLQpNec1J77JFUptcxeZe8Phhs/.UGL.UpHZ9lH32rbvMfrdpRhG', NULL, '1105858345@qq.com', NULL, 'B.Ge.h8Iz.X2pnLmzPn1zOdbd3b9d45cf6849fc4', 1467615397, NULL, 1467605164, 1467614752, 1, '陈', '家', '中国', '12345678910');
 
 -- --------------------------------------------------------
@@ -234,21 +232,21 @@ CREATE TABLE IF NOT EXISTS `vm_bp` (
   `bp_id` int(11) NOT NULL COMMENT '基础人员ID',
   `votes` int(11) NOT NULL DEFAULT '0' COMMENT '票数',
   PRIMARY KEY (`vm_bp_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='活动信息与基础人员关联表' AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='活动信息与基础人员关联表' AUTO_INCREMENT=41 ;
 
 --
 -- 转存表中的数据 `vm_bp`
 --
 
 INSERT INTO `vm_bp` (`vm_bp_id`, `vm_id`, `bp_id`, `votes`) VALUES
-(25, 35, 5, 4),
-(26, 35, 6, 2),
-(27, 35, 7, 0),
-(28, 35, 8, 1),
-(29, 35, 9, 1),
-(30, 35, 10, 0),
-(31, 35, 11, 1),
-(32, 35, 12, 2);
+(33, 36, 18, 4),
+(34, 36, 19, 1),
+(35, 36, 20, 3),
+(36, 36, 21, 1),
+(37, 37, 18, 0),
+(38, 37, 19, 0),
+(39, 37, 20, 0),
+(40, 37, 21, 0);
 
 -- --------------------------------------------------------
 
@@ -261,14 +259,15 @@ CREATE TABLE IF NOT EXISTS `vm_traffic` (
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   `traffic` int(11) NOT NULL DEFAULT '0' COMMENT '流量ID',
   PRIMARY KEY (`vt_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动访问总流量' AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动访问总流量' AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `vm_traffic`
 --
 
 INSERT INTO `vm_traffic` (`vt_id`, `vm_id`, `traffic`) VALUES
-(1, 35, 92);
+(2, 36, 33),
+(3, 37, 2);
 
 -- --------------------------------------------------------
 
@@ -281,14 +280,15 @@ CREATE TABLE IF NOT EXISTS `vm_vc` (
   `vm_id` int(11) NOT NULL COMMENT '活动信息ID',
   `vc_id` int(11) NOT NULL COMMENT '活动分类ID',
   PRIMARY KEY (`vm_vc_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与活动分类关联表' AUTO_INCREMENT=27 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与活动分类关联表' AUTO_INCREMENT=29 ;
 
 --
 -- 转存表中的数据 `vm_vc`
 --
 
 INSERT INTO `vm_vc` (`vm_vc_id`, `vm_id`, `vc_id`) VALUES
-(26, 35, 51);
+(27, 36, 52),
+(28, 37, 52);
 
 -- --------------------------------------------------------
 
@@ -303,14 +303,14 @@ CREATE TABLE IF NOT EXISTS `voting_classification` (
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '1:启用0:未启用',
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`vc_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=gbk COMMENT='投票活动分类表' AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=gbk COMMENT='投票活动分类表' AUTO_INCREMENT=53 ;
 
 --
 -- 转存表中的数据 `voting_classification`
 --
 
 INSERT INTO `voting_classification` (`vc_id`, `name`, `code`, `status`, `date_add`) VALUES
-(51, '健身交流活动', '105f87d5d62fd654d196992ed3b545d6', 1, '2016-07-11 14:30:04');
+(52, '2016活动', '0e878859e21ad03e07fe35b1a113eea0', 1, '2016-08-04 08:58:49');
 
 -- --------------------------------------------------------
 
@@ -328,15 +328,17 @@ CREATE TABLE IF NOT EXISTS `voting_management` (
   `date_end` datetime NOT NULL COMMENT '结束时间',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用1:启用',
   `statusing` int(1) NOT NULL DEFAULT '1' COMMENT '0:未进行1:进行中2:已结束',
+  `rules_config` text COMMENT '规则配置',
   PRIMARY KEY (`vm_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='投票活动信息管理' AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='投票活动信息管理' AUTO_INCREMENT=38 ;
 
 --
 -- 转存表中的数据 `voting_management`
 --
 
-INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_add`, `date_start`, `date_end`, `status`, `statusing`) VALUES
-(35, '测试投票活动', '这只是一个简单的测试投票活动的例子', '7acd3b38a93c54afc0e3e0817c1ad26c', '2016-07-14 14:22:31', '2016-07-14 22:22:09', '2016-07-15 22:20:44', 1, 3);
+INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_add`, `date_start`, `date_end`, `status`, `statusing`, `rules_config`) VALUES
+(36, '8月活动', '8月份的第一个小活动', 'd73bed5f59df7e9c1101e6bbff3753b9', '2016-08-04 09:00:17', '2016-08-04 17:00:02', '2016-08-05 17:00:04', 1, 3, ''),
+(37, '123', 'ABC', '7d1c778dad5ab5e656ee5c05603cdca6', '2016-08-05 09:19:05', '2016-08-05 17:17:54', '2016-08-06 12:00:41', 1, 2, '活动规则：\r\n         1.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.\r\n         2.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.\r\n         3.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC');
 
 --
 -- 限制导出的表

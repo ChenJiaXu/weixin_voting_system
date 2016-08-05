@@ -68,11 +68,11 @@
                                             <div class="text-center caption">
                                                 <?php if($bpi['main_image'] == 0){ ?> 
                                                 
-                                                    <a onclick="add_main_image('<?php echo $bps['bp_id'];?>','<?php echo $bpi['bp_image_id'];?>','<?php echo $bpi['image'];?>');" class="btn btn-primary" role="button"><?php echo lang('bpl_main_image');?></a>
+                                                    <a onclick="add_main_image('<?php echo $bps['bp_id'];?>','<?php echo $bpi['bp_image_id'];?>');" class="btn btn-primary" role="button"><?php echo lang('bpl_main_image');?></a>
                                                 
                                                 <?php }else if($bpi['main_image'] == 1){ ?>
                                                 
-                                                    <a onclick="cancel_main_image('<?php echo $bps['bp_id'];?>','<?php echo $bpi['bp_image_id'];?>','<?php echo $bpi['image'];?>');" class="btn btn-primary" role="button"><?php echo lang('bpl_cancel_main_image');?></a>
+                                                    <a onclick="cancel_main_image('<?php echo $bps['bp_id'];?>','<?php echo $bpi['bp_image_id'];?>');" class="btn btn-primary" role="button"><?php echo lang('bpl_cancel_main_image');?></a>
                                                 
                                                 <?php } ?>
                                                 
@@ -229,16 +229,16 @@
         }
 
         //设置为主图
-        function add_main_image(bp_id,bp_image_id,image){
+        function add_main_image(bp_id,bp_image_id){
             $.ajax({
                 url: "<?php echo $base_url;?>/admin/user/basic_personnel/add_main_image",  
                 type: "POST",
-                data:{bp_id:bp_id,bp_image_id:bp_image_id,image:image},
+                data:{bp_id:bp_id,bp_image_id:bp_image_id},
                 //dataType: "json",
                 error: function(){  
                     alert('异常');
                 },  
-                success: function(data,status){//如果调用php成功    
+                success: function(data,status){//如果调用php成功
                     //解码，显示汉字
                     window.location.reload();
                 }
@@ -246,11 +246,11 @@
         }
 
         //取消主图
-        function cancel_main_image(bp_id,bp_image_id,image){
+        function cancel_main_image(bp_id,bp_image_id){
             $.ajax({
                 url: "<?php echo $base_url;?>/admin/user/basic_personnel/cancel_main_image",  
                 type: "POST",
-                data:{bp_id:bp_id,bp_image_id:bp_image_id,image:image},
+                data:{bp_id:bp_id,bp_image_id:bp_image_id},
                 //dataType: "json",
                 error: function(){  
                     alert('异常');

@@ -27,6 +27,8 @@ $lang['vml_statusing_notstarted']= '未开始';//1
 $lang['vml_statusing_ongoing']	 = '进行中';//2
 $lang['vml_statusing_complete']	 = '已结束';//3
 
+$lang['vml_rules_config']		 = '规则配置';
+
 //关联basic_personnel
 $lang['vml_basic_personnel']	 = '选择人员';
 

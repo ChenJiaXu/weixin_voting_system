@@ -327,11 +327,12 @@ class Voting_Management extends MY_Controller {
 		$data['vm_bp'] = $this->Voting_Management_model->get_ap_by_vm_id($vm_id);//根据投票活动ID获取本次活动参与者
 		$data['bp_image'] = array();
 		foreach ($data['vm_bp'] as $vm_bp) {
-			$bp_image = $this->Voting_Management_model->get_bp_image_by_bp_id($vm_bp['bp_id']);
+			$bp_image = $this->Voting_Management_model->get_bp_image_by_bp_id($vm_bp['bp_id'],$main_image = 1);
+
 			$data['bp_image'][] = array(
 				'bp_id' => $vm_bp['bp_id'],
 				'image' => $bp_image['image']
-			);
+			);	
 		}
 		
 		

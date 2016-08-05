@@ -251,22 +251,30 @@ class Basic_Personnel extends MY_Controller {
 	public function add_main_image(){
 		$bp_id = $_POST['bp_id'];
 		$bp_image_id = $_POST['bp_image_id'];
-		$image = $_POST['image'];
 
-		$this->Basic_Personnel_model->add_main_image($bp_id,$bp_image_id,$image);
+		$main_iamge_all = $this->Basic_Personnel_model->get_main_image($bp_id);
 
-		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($ok));
+		foreach ($main_iamge_all as $key) {
+			if($key['main_image'] == 1){
+				$main_image = 0;
+				$this->Basic_Personnel_model->change_main_image($key['bp_image_id'],$main_image);
+			}
+		}
+		$main_image = 1;
+		$status = $this->Basic_Personnel_model->change_main_image($bp_image_id,$main_image);
+
+		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($status));
 	}
 
 	//取消主图
 	public function cancel_main_image(){
 		$bp_id = $_POST['bp_id'];
 		$bp_image_id = $_POST['bp_image_id'];
-		$image = $_POST['image'];
+		
+		$main_image = 0;
+		$status = $this->Basic_Personnel_model->change_main_image($bp_image_id,$main_image);
 
-		$this->Basic_Personnel_model->cancel_main_image($bp_id,$bp_image_id,$image);
-
-		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($ok));
+		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($status));
 	}
 
 	/**

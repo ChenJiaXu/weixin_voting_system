@@ -217,7 +217,21 @@
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_3">
-                
+                <div class="box-body">
+
+                  <!-- 规则配置 -->
+                  <div class="form-group">
+                    <div class="col-xs-2 text-right">
+                      <label class="control-label" for="title"><?php echo lang('vml_rules_config'); ?></label>
+                    </div>
+                    <div class="col-xs-10 <?php if(form_error('rules_config')){echo 'has-error';}?>">
+                      <textarea class="form-control" id="rules_config" name="rules_config" placeholder="<?php echo lang('vml_help_rules_config'); ?>" value="<?php echo $vm_action == 'add'?set_value(html_escape('rules_config')):$vms['rules_config']; ?>">
+                      </textarea>
+                      <span class="help-block"><?php if(form_error('rules_config')){echo "<i class='fa fa-times-circle-o'></i>".form_error('rules_config');} ?></span>
+                    </div>
+                  </div>
+
+                </div>
               </div>
               <!-- /.tab-pane -->
               <?php echo form_close();?>      
