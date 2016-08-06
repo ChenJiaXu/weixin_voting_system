@@ -29,8 +29,18 @@ $lang['vml_statusing_complete']	 = '已结束';//3
 
 $lang['vml_rules_config']		 = '规则配置';
 
+$lang['vml_banner']				 = '海报';
+$lang['vml_banner_sort']		 = '海报排序';
+
 //关联basic_personnel
 $lang['vml_basic_personnel']	 = '选择人员';
+
+//标签页tab
+$lang['vml_tab_basic']			 = '基础信息';
+$lang['vml_tab_bp'] 			 = '人员配置';
+$lang['vml_tab_vm']				 = '活动配置';
+$lang['vml_tab_banner']			 = '海报配置';
+$lang['vml_tab_layout']			 = '布局配置';
 
 //按钮
 $lang['vml_chioce']				 = '选择';
@@ -56,6 +66,7 @@ $lang['vml_help_date_add']		 = '该项内容不填，由系统自动生成！';
 $lang['vml_help_date_start']	 = '活动开始日期必须填写！';
 $lang['vml_help_date_end']		 = '活动结束日期必须填写！';
 $lang['vml_help_vm_bp']			 = '必须选择相关人员参与本次活动！';
+$lang['vml_help_banner_sort']    = '请输入数字0-99,按从大到小排序';
 
 //成功信息提示
 $lang['vml_success']			 = '成功信息提示';

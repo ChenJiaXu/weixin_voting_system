@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?08 �?05 �?17:21
+-- 生成日期: 2016 �?08 �?06 �?17:25
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -140,23 +140,30 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `date_update` datetime NOT NULL COMMENT '更新时间',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用 1:启用',
   PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=19 ;
 
 --
 -- 转存表中的数据 `menu`
 --
 
 INSERT INTO `menu` (`menu_id`, `name`, `level`, `belong_to`, `routing`, `icon`, `date_add`, `date_update`, `status`) VALUES
-(1, '控制面板', 1, 0, 'admin/dashboard', 'fa fa-dashboard', '2016-07-23 06:08:55', '2016-07-23 14:08:55', 1),
+(1, '控制面板', 1, 0, 'admin/dashboard', 'fa fa-home', '2016-07-23 06:08:55', '2016-08-06 11:38:34', 1),
 (2, '投票活动', 1, 0, '#', 'fa fa-share', '2016-07-23 06:18:44', '2016-07-23 14:18:44', 1),
 (3, '基础人员信息管理', 1, 0, '#', 'fa fa-user', '2016-07-23 06:19:21', '2016-07-23 14:19:21', 1),
-(4, '菜单配置', 1, 0, 'admin/menu', 'fa fa-dashboard', '2016-07-23 06:20:04', '2016-07-23 14:20:04', 1),
+(4, '菜单配置', 2, 13, 'admin/menu', 'fa fa-bars', '2016-07-23 06:20:04', '2016-08-06 11:44:15', 1),
 (5, '投票活动分类', 2, 2, 'admin/voting_classification', 'fa fa-circle-o', '2016-07-23 06:21:24', '2016-07-23 14:21:24', 1),
 (6, '投票活动管理', 2, 2, 'admin/voting_management', 'fa fa-circle-o', '2016-07-23 06:24:39', '2016-07-23 14:24:39', 1),
 (7, '人员信息', 2, 3, 'admin/basic_personnel', 'fa fa-user', '2016-07-23 06:25:34', '2016-07-23 14:25:34', 1),
 (8, '图片空间', 2, 3, 'admin/image_space', 'fa fa-photo', '2016-07-23 09:26:45', '2016-07-26 16:53:10', 1),
-(10, '在线文件管理器', 1, 0, 'admin/tool/file_manager', 'fa fa-folder-open-o', '2016-07-28 01:30:52', '2016-07-28 09:31:11', 1),
-(11, '图片管理器', 1, 0, 'admin/tool/upload', 'fa fa-cloud-upload', '2016-07-28 07:01:38', '2016-07-28 15:01:38', 1);
+(10, '在线文件管理器', 2, 12, 'admin/tool/file_manager', 'fa fa-folder-open-o', '2016-07-28 01:30:52', '2016-08-06 11:32:18', 1),
+(11, '图片管理器', 2, 12, 'admin/tool/upload', 'fa fa-cloud-upload', '2016-07-28 07:01:38', '2016-08-06 11:32:07', 1),
+(12, '管理工具', 1, 0, '#', 'fa fa-cogs', '2016-08-06 03:29:06', '2016-08-06 11:31:54', 1),
+(13, '系统设置', 1, 0, '#', 'fa fa-tachometer', '2016-08-06 03:38:20', '2016-08-06 11:38:20', 1),
+(14, '基础设置', 2, 13, '#', 'fa fa-tasks', '2016-08-06 03:46:20', '2016-08-06 11:46:20', 1),
+(15, '全局配置', 2, 13, '#', 'fa fa-th', '2016-08-06 03:48:07', '2016-08-06 11:48:07', 1),
+(16, '微信WeChat', 1, 0, '#', 'fa fa-weixin', '2016-08-06 03:56:35', '2016-08-06 11:56:35', 1),
+(17, '数据库', 2, 12, '#', 'fa fa-database', '2016-08-06 03:58:32', '2016-08-06 11:58:32', 1),
+(18, '文件管理', 2, 12, '#', 'fa fa-folder', '2016-08-06 04:03:06', '2016-08-06 12:03:06', 1);
 
 -- --------------------------------------------------------
 
@@ -191,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1470376658, 1, 'jiaxu', 'chen', 'company', '12345678910'),
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1470464586, 1, 'jiaxu', 'chen', 'company', '12345678910'),
 (3, '127.0.0.1', '陈 家', '$2y$08$AjLQpNec1J77JFUptcxeZe8Phhs/.UGL.UpHZ9lH32rbvMfrdpRhG', NULL, '1105858345@qq.com', NULL, 'B.Ge.h8Iz.X2pnLmzPn1zOdbd3b9d45cf6849fc4', 1467615397, NULL, 1467605164, 1467614752, 1, '陈', '家', '中国', '12345678910');
 
 -- --------------------------------------------------------
@@ -219,6 +226,21 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (13, 2, 1),
 (14, 2, 2),
 (16, 3, 2);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `vm_banner`
+--
+
+CREATE TABLE IF NOT EXISTS `vm_banner` (
+  `vm_banner` int(11) NOT NULL AUTO_INCREMENT COMMENT '广告图ID',
+  `vm_id` int(11) NOT NULL COMMENT '活动ID',
+  `banner` varchar(255) NOT NULL COMMENT '广告图名称',
+  `sort` varchar(255) NOT NULL COMMENT '排序',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  PRIMARY KEY (`vm_banner`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='活动-广告图关联表' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -267,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `vm_traffic` (
 
 INSERT INTO `vm_traffic` (`vt_id`, `vm_id`, `traffic`) VALUES
 (2, 36, 33),
-(3, 37, 2);
+(3, 37, 3);
 
 -- --------------------------------------------------------
 
@@ -338,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `voting_management` (
 
 INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_add`, `date_start`, `date_end`, `status`, `statusing`, `rules_config`) VALUES
 (36, '8月活动', '8月份的第一个小活动', 'd73bed5f59df7e9c1101e6bbff3753b9', '2016-08-04 09:00:17', '2016-08-04 17:00:02', '2016-08-05 17:00:04', 1, 3, ''),
-(37, '123', 'ABC', '7d1c778dad5ab5e656ee5c05603cdca6', '2016-08-05 09:19:05', '2016-08-05 17:17:54', '2016-08-06 12:00:41', 1, 2, '活动规则：\r\n         1.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.\r\n         2.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.\r\n         3.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC');
+(37, '123', 'ABC', '7d1c778dad5ab5e656ee5c05603cdca6', '2016-08-05 09:19:05', '2016-08-05 17:17:54', '2016-08-06 12:00:41', 1, 3, '活动规则：\r\n         1.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.\r\n         2.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.\r\n         3.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC');
 
 --
 -- 限制导出的表

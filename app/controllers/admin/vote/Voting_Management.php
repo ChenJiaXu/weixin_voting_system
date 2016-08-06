@@ -350,6 +350,56 @@ class Voting_Management extends MY_Controller {
 		echo '投票成功';
 	}
 
+	//广告图上传
+	public function upload(){
+		/**
+		 * 上传路径目前默认固定,后面再系统设置可以配置上传目录
+		 */
+		$config['upload_path']      = './upload/voting_management/';
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']         = 0;
+        $config['max_width']        = 0;
+        $config['max_height']       = 0;
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('file'))
+        {
+            $error = $this->upload->display_errors();
+
+            $this->output->set_content_type('application/json','utf-8')->set_output(json_encode($error));
+        }
+        else
+        {
+            $data = $this->upload->data();
+
+            $this->output->set_content_type('application/json','utf-8')->set_output(json_encode($data));
+        }
+	}
+
+	//广告图上传
+	public function del_image(){
+		$bp_image_id = $_POST['bp_image_id'];
+		$image = $_POST['image'];
+
+		$ok = false;
+
+		$this->load->helper('file');
+		$filename = get_file_info('./upload/basic_personnel/'.$image);
+		if($filename == true){
+			//第一步删除数据库表
+			$this->Basic_Personnel_model->delete_bp_image_by_bp_image_id($bp_image_id);
+			//第二步删除upload/basic_personnel/下对应的图片
+			$status = unlink('./upload/basic_personnel/'.$image);
+			$ok = true;
+		}else{
+			$ok = false;
+		}
+
+		$this->output->set_content_type('application/json','utf-8')->set_output(json_encode($ok));
+	}
+
+
 	/**
 	 * 加载视图
 	 *	路径 =>	$path
