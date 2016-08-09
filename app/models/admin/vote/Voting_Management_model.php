@@ -17,7 +17,7 @@ class Voting_Management_model extends CI_Model{
 
 	//添加活动分类
 	public function add_voting_management(){
-
+		
 		//voting_management表
         $data = array(
 		    'title' => $this->input->post('title',TRUE),
@@ -52,6 +52,26 @@ class Voting_Management_model extends CI_Model{
 			$this->db->insert('vm_bp', $this->security->xss_clean($data_vm_bp));
 			
 		}
+
+		//vm_banner表
+       	$banner = $this->input->post('banner',TRUE);
+       	$layout = $this->input->post('layout',TRUE);
+      	$banner_sort = $this->input->post('banner_sort',TRUE);
+       
+       	$total = null;
+       	if(count($banner) == count($layout) && count($banner) == count($banner_sort)){
+       		$total = count($banner);
+       		for ($i=0; $i < $total; $i++) { 
+       			$data_vm_banner = array(
+       				'vm_id' => $this->security->xss_clean($vm_id),
+       				'banner' => $this->security->xss_clean($banner[$i]),
+       				'layout' => $this->security->xss_clean($layout[$i]),
+       				'banner_sort' => $this->security->xss_clean($banner_sort[$i])
+       			);
+       			$this->db->insert('vm_banner', $this->security->xss_clean($data_vm_banner));
+       		}
+       	}
+
 		//vm_traffic表
 		$data_vm_traffic = array(
 			'vm_id' => $this->security->xss_clean($vm_id)
@@ -89,6 +109,14 @@ class Voting_Management_model extends CI_Model{
 		$query = $this->db->get_where('bp_image', array('bp_id' => $this->security->xss_clean((int)$bp_id), 'main_image' => $this->security->xss_clean((int)$main_image)));
 
 		return $query->row_array();
+	}
+
+	//获取对应广告图
+	public function get_vm_banner_by_vm_id($vm_id){
+
+		$query = $this->db->order_by('banner_sort', 'ASC')->get_where('vm_banner', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
+
+		return $query->result_array();
 	}
 	
 	//活动访问流量+1

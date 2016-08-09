@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?08 �?06 �?17:25
+-- 生成日期: 2016 �?08 �?09 �?17:27
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1470464586, 1, 'jiaxu', 'chen', 'company', '12345678910'),
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1470724378, 1, 'jiaxu', 'chen', 'company', '12345678910'),
 (3, '127.0.0.1', '陈 家', '$2y$08$AjLQpNec1J77JFUptcxeZe8Phhs/.UGL.UpHZ9lH32rbvMfrdpRhG', NULL, '1105858345@qq.com', NULL, 'B.Ge.h8Iz.X2pnLmzPn1zOdbd3b9d45cf6849fc4', 1467615397, NULL, 1467605164, 1467614752, 1, '陈', '家', '中国', '12345678910');
 
 -- --------------------------------------------------------
@@ -237,10 +237,34 @@ CREATE TABLE IF NOT EXISTS `vm_banner` (
   `vm_banner` int(11) NOT NULL AUTO_INCREMENT COMMENT '广告图ID',
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   `banner` varchar(255) NOT NULL COMMENT '广告图名称',
-  `sort` varchar(255) NOT NULL COMMENT '排序',
+  `banner_sort` varchar(255) NOT NULL COMMENT '排序',
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `layout` tinyint(1) NOT NULL COMMENT '布局1:顶部2:中间3:底部',
   PRIMARY KEY (`vm_banner`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='活动-广告图关联表' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动-广告图关联表' AUTO_INCREMENT=18 ;
+
+--
+-- 转存表中的数据 `vm_banner`
+--
+
+INSERT INTO `vm_banner` (`vm_banner`, `vm_id`, `banner`, `banner_sort`, `date_add`, `layout`) VALUES
+(1, 39, 'blog1.jpg', '1', '2016-08-09 07:57:09', 1),
+(2, 39, 'blog2.jpg', '2', '2016-08-09 07:57:09', 2),
+(3, 39, 'file_icon_xls.png', '3', '2016-08-09 07:57:09', 3),
+(4, 39, 'blog3.jpg', '4', '2016-08-09 07:57:09', 1),
+(5, 40, '11.png', '1', '2016-08-09 08:46:29', 2),
+(6, 40, '7.png', '2', '2016-08-09 08:46:29', 2),
+(7, 40, '8.png', '2', '2016-08-09 08:46:29', 1),
+(8, 40, '9.png', '1', '2016-08-09 08:46:29', 1),
+(9, 40, '31.png', '1', '2016-08-09 08:46:29', 3),
+(10, 40, '21.png', '2', '2016-08-09 08:46:29', 3),
+(11, 40, '5.png', '3', '2016-08-09 08:46:29', 3),
+(12, 40, '4.png', '4', '2016-08-09 08:46:29', 3),
+(13, 40, '6.png', '5', '2016-08-09 08:46:29', 3),
+(14, 41, '12.png', '1', '2016-08-09 08:48:51', 3),
+(15, 41, '81.png', '1', '2016-08-09 08:48:51', 1),
+(16, 41, '91.png', '1', '2016-08-09 08:48:51', 2),
+(17, 41, '22.png', '2', '2016-08-09 08:48:51', 3);
 
 -- --------------------------------------------------------
 
@@ -254,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `vm_bp` (
   `bp_id` int(11) NOT NULL COMMENT '基础人员ID',
   `votes` int(11) NOT NULL DEFAULT '0' COMMENT '票数',
   PRIMARY KEY (`vm_bp_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='活动信息与基础人员关联表' AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='活动信息与基础人员关联表' AUTO_INCREMENT=57 ;
 
 --
 -- 转存表中的数据 `vm_bp`
@@ -268,7 +292,23 @@ INSERT INTO `vm_bp` (`vm_bp_id`, `vm_id`, `bp_id`, `votes`) VALUES
 (37, 37, 18, 0),
 (38, 37, 19, 0),
 (39, 37, 20, 0),
-(40, 37, 21, 0);
+(40, 37, 21, 0),
+(41, 38, 18, 0),
+(42, 38, 19, 0),
+(43, 38, 20, 0),
+(44, 38, 21, 0),
+(45, 39, 18, 0),
+(46, 39, 19, 0),
+(47, 39, 20, 0),
+(48, 39, 21, 0),
+(49, 40, 18, 0),
+(50, 40, 19, 0),
+(51, 40, 20, 0),
+(52, 40, 21, 0),
+(53, 41, 18, 0),
+(54, 41, 19, 0),
+(55, 41, 20, 0),
+(56, 41, 21, 0);
 
 -- --------------------------------------------------------
 
@@ -281,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `vm_traffic` (
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   `traffic` int(11) NOT NULL DEFAULT '0' COMMENT '流量ID',
   PRIMARY KEY (`vt_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动访问总流量' AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动访问总流量' AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `vm_traffic`
@@ -289,7 +329,10 @@ CREATE TABLE IF NOT EXISTS `vm_traffic` (
 
 INSERT INTO `vm_traffic` (`vt_id`, `vm_id`, `traffic`) VALUES
 (2, 36, 33),
-(3, 37, 3);
+(3, 37, 5),
+(4, 39, 11),
+(5, 40, 1),
+(6, 41, 1);
 
 -- --------------------------------------------------------
 
@@ -302,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `vm_vc` (
   `vm_id` int(11) NOT NULL COMMENT '活动信息ID',
   `vc_id` int(11) NOT NULL COMMENT '活动分类ID',
   PRIMARY KEY (`vm_vc_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与活动分类关联表' AUTO_INCREMENT=29 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与活动分类关联表' AUTO_INCREMENT=33 ;
 
 --
 -- 转存表中的数据 `vm_vc`
@@ -310,7 +353,11 @@ CREATE TABLE IF NOT EXISTS `vm_vc` (
 
 INSERT INTO `vm_vc` (`vm_vc_id`, `vm_id`, `vc_id`) VALUES
 (27, 36, 52),
-(28, 37, 52);
+(28, 37, 52),
+(29, 38, 52),
+(30, 39, 52),
+(31, 40, 52),
+(32, 41, 52);
 
 -- --------------------------------------------------------
 
@@ -352,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `voting_management` (
   `statusing` int(1) NOT NULL DEFAULT '1' COMMENT '0:未进行1:进行中2:已结束',
   `rules_config` text COMMENT '规则配置',
   PRIMARY KEY (`vm_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='投票活动信息管理' AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='投票活动信息管理' AUTO_INCREMENT=42 ;
 
 --
 -- 转存表中的数据 `voting_management`
@@ -360,7 +407,11 @@ CREATE TABLE IF NOT EXISTS `voting_management` (
 
 INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_add`, `date_start`, `date_end`, `status`, `statusing`, `rules_config`) VALUES
 (36, '8月活动', '8月份的第一个小活动', 'd73bed5f59df7e9c1101e6bbff3753b9', '2016-08-04 09:00:17', '2016-08-04 17:00:02', '2016-08-05 17:00:04', 1, 3, ''),
-(37, '123', 'ABC', '7d1c778dad5ab5e656ee5c05603cdca6', '2016-08-05 09:19:05', '2016-08-05 17:17:54', '2016-08-06 12:00:41', 1, 3, '活动规则：\r\n         1.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.\r\n         2.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.\r\n         3.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC');
+(37, '123', 'ABC', '7d1c778dad5ab5e656ee5c05603cdca6', '2016-08-05 09:19:05', '2016-08-05 17:17:54', '2016-08-06 12:00:41', 1, 3, '活动规则：\r\n         1.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.\r\n         2.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.\r\n         3.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC'),
+(38, '测试', '测试活动广告图存储是否正常', '2a6ac3084a054879ab8fdeaf0b1841b3', '2016-08-09 07:55:53', '2016-08-09 15:54:03', '2016-08-11 00:00:30', 1, 2, '12313223131'),
+(39, '测试', '测试活动广告图存储是否正常', '584f4866a89db89341bd3400cd7be633', '2016-08-09 07:57:09', '2016-08-09 15:54:03', '2016-08-11 00:00:30', 1, 2, '12313223131'),
+(40, 'NBA投票', '12312313131', '9dc70f5c7f4a3d4b04772f33822a2ccd', '2016-08-09 08:46:29', '2016-08-09 16:44:59', '2016-08-09 16:45:00', 1, 3, '堂悦坊新中式原创设计大赛第一期人气之星投票，现在开始了，“设计狮”们赶紧带动你们的亲友团一起嗨起来吧！！\r\n\r\n获评“人气之星”，即可获得新中式原创设计大赛人气奖证书，和价值588元的堂悦坊 “南风徐来”精美茶具一套，更有权威艺术设计专家点评、指点迷津哦！！\r\n\r\n\r\n投票时间：10月10日-10月17日\r\n投票方法：请先关注“堂悦坊家居”微信公众号，进入“人气之星投票专栏”，进行投票。\r\n特别提示：“人气之星”投票评选，与其他奖项评选无直接关系！'),
+(41, '123123', '12312312313', 'b85bcb875b93819cc5f4f41fd2c489a6', '2016-08-09 08:48:51', '2016-08-10 00:00:03', '2016-08-31 00:00:51', 0, 1, '123213123132131231321313131313');
 
 --
 -- 限制导出的表

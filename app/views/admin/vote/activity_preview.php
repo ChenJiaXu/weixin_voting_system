@@ -72,11 +72,17 @@
 							
 							<div class="row">
 								
-								<!-- banner -->
+								<!-- banner-top -->
 								<div class="col-xs-12">
-									<a class="fluid ui image">
-										<img class="ui fluid image" src="<?php echo $base_url;?>/upload/banner/top.png" />
-									</a>
+									<?php if($vm_banner){ ?>
+										<?php foreach ($vm_banner as $vmb) { ?>
+											<?php if($vmb['layout'] == 1){ ?> 
+											<a class="fluid ui image">
+												<img class="ui fluid image" src="<?php echo $base_url;?>/upload/voting_management/<?php echo $vmb['banner'];?>" />
+											</a>
+											<?php } ?>
+										<?php } ?>
+									<?php } ?>
 								</div>
 
 								<div class="col-xs-12">
@@ -134,6 +140,19 @@
 											</tr>
 										</tbody>
 									</table>
+								</div>
+
+								<!-- banner-content -->
+								<div class="col-xs-12">
+									<?php if($vm_banner){ ?>
+										<?php foreach ($vm_banner as $vmb) { ?>
+											<?php if($vmb['layout'] == 2){ ?> 
+											<a class="fluid ui image">
+												<img class="ui fluid image" src="<?php echo $base_url;?>/upload/voting_management/<?php echo $vmb['banner'];?>" />
+											</a>
+											<?php } ?>
+										<?php } ?>
+									<?php } ?>
 								</div>
 
 								<div class="col-xs-12">
@@ -222,10 +241,17 @@
 									<div class="ui piled segment"></div>
 								</div>
 
+								<!-- banner-down -->
 								<div class="col-xs-12">
-									<a class="fluid ui image">
-										<img src="<?php echo $base_url;?>/upload/banner/footer.png" />
-									</a>
+									<?php if($vm_banner){ ?>
+										<?php foreach ($vm_banner as $vmb) { ?>
+											<?php if($vmb['layout'] == 3){ ?> 
+											<a class="fluid ui image">
+												<img class="ui fluid image" src="<?php echo $base_url;?>/upload/voting_management/<?php echo $vmb['banner'];?>" />
+											</a>
+											<?php } ?>
+										<?php } ?>
+									<?php } ?>
 								</div>
 
 							</div>

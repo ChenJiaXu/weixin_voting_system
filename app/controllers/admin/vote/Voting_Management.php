@@ -185,6 +185,9 @@ class Voting_Management extends MY_Controller {
 				$count++;
 			}
 			$data['vm_bps'] = $string;
+
+			//根据活动信息获取关联广告图数据
+			$data['vm_banners'] = $this->Voting_Management_model->get_vm_banner_by_vm_id((int)$vm_id);
 			
 		
 			$data['base_url'] = $this->config->item('base_url');
@@ -334,8 +337,8 @@ class Voting_Management extends MY_Controller {
 				'image' => $bp_image['image']
 			);	
 		}
-		
-		
+		$data['vm_banner'] = $this->Voting_Management_model->get_vm_banner_by_vm_id($vm_id);//根据投票活动ID获取对应广告图数据
+
 		$data['base_url'] = $this->config->item('base_url');
 
 		$this->load_view('vote/activity_preview',$data);
