@@ -53,9 +53,18 @@ $route['default_controller'] = 'dashboard';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['login'] = 'auth/login';
-$route['admin/dashboard'] = 'dashboard';
-$route['auth/create'] = 'auth/create_user';
+$route['admin/dashboard'] = 'Dashboard';
+$route['admin/auth/login'] = 'admin/auth/Auth/login';
+$route['admin/auth'] = 'admin/auth/Auth/index';
+$route['admin/auth/index'] = 'admin/auth/Auth/index';
+$route['admin/auth/create_user'] = 'admin/auth/Auth/create_user';
+$route['admin/auth/create_group'] = 'admin/auth/Auth/create_group';
+$route['admin/auth/edit_group/(:any)'] = 'admin/auth/Auth/edit_group/$1';
+$route['admin/auth/activate/(:any)'] = 'admin/auth/Auth/activate/$1';
+$route['admin/auth/deactivate/(:any)'] = 'admin/auth/Auth/deactivate/$1';
+$route['admin/auth/edit_user/(:any)'] = 'admin/auth/Auth/edit_user/$1';
+$route['admin/auth/forgot_password'] = 'admin/auth/Auth/forgot_password';
+$route['admin/auth/reset_password/(:any)'] = 'admin/auth/Auth/reset_password/$1';
 
 //--------------------------投票活动模块---------------------------//
 $route['admin/voting_classification'] = 'admin/vote/Voting_Classification';//投票分类

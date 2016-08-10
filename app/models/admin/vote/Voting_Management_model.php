@@ -201,6 +201,28 @@ class Voting_Management_model extends CI_Model{
 			);
 			$this->db->insert('vm_bp', $this->security->xss_clean($data_vm_bp));
 		}
+
+		//vm_banner---先清空旧数据后插入
+		$this->db->delete('vm_banner', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
+
+		//vm_banner表
+       	$banner = $this->input->post('banner',TRUE);
+       	$layout = $this->input->post('layout',TRUE);
+      	$banner_sort = $this->input->post('banner_sort',TRUE);
+       
+       	$total = null;
+       	if(count($banner) == count($layout) && count($banner) == count($banner_sort)){
+       		$total = count($banner);
+       		for ($i=0; $i < $total; $i++) { 
+       			$data_vm_banner = array(
+       				'vm_id' => $this->security->xss_clean($vm_id),
+       				'banner' => $this->security->xss_clean($banner[$i]),
+       				'layout' => $this->security->xss_clean($layout[$i]),
+       				'banner_sort' => $this->security->xss_clean($banner_sort[$i])
+       			);
+       			$this->db->insert('vm_banner', $this->security->xss_clean($data_vm_banner));
+       		}
+       	}
 	}
 
 
@@ -279,4 +301,10 @@ class Voting_Management_model extends CI_Model{
 		
 	}
 	
+
+	//删除活动广告图
+	public function delete_vm_banner_by_vm_banner_id($vm_banner_id){
+		$query = $this->db->delete('vm_banner', array('vm_banner_id' => $this->security->xss_clean((int)$vm_banner_id)));
+		return $query;
+	}
 }

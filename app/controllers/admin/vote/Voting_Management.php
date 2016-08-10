@@ -380,20 +380,20 @@ class Voting_Management extends MY_Controller {
         }
 	}
 
-	//广告图上传
-	public function del_image(){
-		$bp_image_id = $_POST['bp_image_id'];
-		$image = $_POST['image'];
+	//广告图删除
+	public function del_banner(){
+		$vm_banner_id = $_POST['vm_banner_id'];
+		$banner = $_POST['banner'];
 
 		$ok = false;
 
 		$this->load->helper('file');
-		$filename = get_file_info('./upload/basic_personnel/'.$image);
+		$filename = get_file_info('./upload/voting_management/'.$banner);
 		if($filename == true){
 			//第一步删除数据库表
-			$this->Basic_Personnel_model->delete_bp_image_by_bp_image_id($bp_image_id);
+			$this->Voting_Management_model->delete_vm_banner_by_vm_banner_id($vm_banner_id);
 			//第二步删除upload/basic_personnel/下对应的图片
-			$status = unlink('./upload/basic_personnel/'.$image);
+			$status = unlink('./upload/voting_management/'.$banner);
 			$ok = true;
 		}else{
 			$ok = false;

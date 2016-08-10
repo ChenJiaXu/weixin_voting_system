@@ -15,9 +15,10 @@ class MY_Controller extends CI_Controller {
 
 	//验证是否登录
 	private function logged_in(){
+
 		if (!$this->ion_auth->logged_in()) {
 			//redirect them to the login page
-			redirect('auth/login', 'refresh');
+			redirect('admin/auth/login', 'refresh');
 		}
 	}
 

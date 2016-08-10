@@ -93,6 +93,7 @@ class Basic_Personnel_model extends CI_Model{
 		return $this->db->insert_id();
 	}
 
+	//删除人员图片
 	public function delete_bp_image_by_bp_image_id($bp_image_id){
 		$query = $this->db->delete('bp_image', array('bp_image_id' => $this->security->xss_clean((int)$bp_image_id)));
 		return $query;

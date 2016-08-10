@@ -9,7 +9,7 @@
 
     <div id="infoMessage"><?php echo $message;?></div>
 
-   <?php echo form_open("auth/login");?>
+   <?php echo form_open("admin/auth/login");?>
       <div class="form-group has-feedback">
         <?php echo form_input($identity);?>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

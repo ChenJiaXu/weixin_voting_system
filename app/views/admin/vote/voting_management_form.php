@@ -5,6 +5,9 @@
             max-height: 200px;
             overflow-y: auto;
         }
+        .thumbnail>img{
+            height: 200px;
+        }
     </style>
 
     <!-- Content Wrapper. Contains page content -->
@@ -268,12 +271,11 @@
                                             <div class="row" id="banner">
                                                 <!-- 编辑状态下数据 -->
                                                 <?php if($vm_action == 'edit' && isset($vm_banners)){ ?>
-                                                    <hr />
                                                     <?php $i = 0; ?>
                                                     <?php foreach($vm_banners as $vmb){ ?>
                                                     <div class="col-xs-4">
                                                         <div class="thumbnail">
-                                                            <img src="<?php echo $base_url;?>/upload/voting_management/<?php echo $vmb['banner'];?>" width="100%;" height="100%;">
+                                                            <img src="<?php echo $base_url;?>/upload/voting_management/<?php echo $vmb['banner'];?>" />
                                                             <input type="text" name="banner[<?php echo $i;?>]" value="<?php echo $vmb['banner'];?>" hidden>
                                                             <div class="text-center caption">
                                                                 <select class="form-control" name="layout[<?php echo $i;?>]">
@@ -293,14 +295,16 @@
                                                                 </select>
                                                                 <hr />
                                                                 <div class="row">
-                                                                    <div class="col-xs-4 text-right">
+                                                                    <div class="col-xs-4">
                                                                         <label class="control-label" for="banner_sort">
                                                                             <?php echo lang('vml_banner_sort'); ?>
                                                                         </label>
                                                                     </div>
-                                                                    <div class="col-xs-8">
+                                                                    <div class="col-xs-4">
                                                                         <input type="text" class="form-control" id="banner_sort" name="banner_sort[<?php echo $i;?>]" value="<?php echo $vmb['banner_sort'];?>" placeholder="<?php echo lang('vml_help_banner_sort'); ?>" value="">
-                                                                        <span class="help-block"></span>
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        <a onclick="del_banner('<?php echo $vmb['vm_banner_id'];?>','<?php echo $vmb['banner'];?>');" class="btn btn-primary" role="button">删除</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -308,6 +312,7 @@
                                                     </div>
                                                     <?php $i++; ?>
                                                     <?php } ?>
+                                                    <hr />
                                                 <?php } ?>
                                                 <!-- ./编辑状态下数据 -->
                                             </div>
@@ -412,13 +417,17 @@
            alert(msg);
         });
         //上传后返回的数据赋值给文本框以便保存可以存储数据
-        var i = 0;
+        <?php if($vm_action == 'edit' && isset($vm_banners)){ ?>
+            var i = <?php echo count($vm_banners);?>;
+        <?php }else{ ?>
+            var i = 0;
+        <?php } ?>
         $("#file").on("fileuploaded", function (event, data, previewId, index) {
             var form = data.form, files = data.files, extra = data.extra,
             response = data.response, reader = data.reader;
             //console.log(response.file_name);
            
-            $('#banner').append('<div class="col-xs-6"><div class="thumbnail">'+'<img src="<?php echo $base_url.'/upload/voting_management/'?>'+response.file_name+'" width="100%;" height="50%;">'+'<input type="text" name="banner['+i+']" value="'+ response.file_name +'" hidden>'+'<div class="text-center caption"><select class="form-control" name="layout['+ i +']">'+'<option value="">请选择插入广告的位置</option><option value="1">顶部</option><option value="2">中间</option><option value="3">底部</option></select>'+'<hr /><div class="row"><div class="col-xs-4 text-right"><label class="control-label" for="banner_sort"><?php echo lang('vml_banner_sort'); ?></label>'+'</div><div class="col-xs-8"><input type="text" class="form-control" id="banner_sort" name="banner_sort['+ i +']" value="" placeholder="<?php echo lang('vml_help_banner_sort'); ?>" value=""><span class="help-block"></span></div></div></div></div></div>');
+            $('#banner').append('<div class="col-xs-4"><div class="thumbnail">'+'<img src="<?php echo $base_url.'/upload/voting_management/'?>'+response.file_name+'" />'+'<input type="text" name="banner['+i+']" value="'+ response.file_name +'" hidden>'+'<div class="text-center caption"><select class="form-control" name="layout['+ i +']">'+'<option value="">请选择插入广告的位置</option><option value="1">顶部</option><option value="2">中间</option><option value="3">底部</option></select>'+'<hr /><div class="row"><div class="col-xs-4 text-right"><label class="control-label" for="banner_sort"><?php echo lang('vml_banner_sort'); ?></label>'+'</div><div class="col-xs-4"><input type="text" class="form-control" id="banner_sort" name="banner_sort['+ i +']" value="" placeholder="<?php echo lang('vml_help_banner_sort'); ?>" value=""></div></div></div></div></div>');
             i++;
         });
         
