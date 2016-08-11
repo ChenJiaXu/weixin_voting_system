@@ -9,7 +9,7 @@
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i> 控制面板</a></li>
 				<li><a href="#"><?php echo lang('index_heading');?></a></li>
-				<li class="active"><?php echo lang('index_subheading');?></li>
+				
 			</ol>
 		</section>
 
@@ -55,8 +55,7 @@
 							<table id="voting_classification" class="table table-hover">
 								<thead>
 									<tr>
-										<th><?php echo lang('index_fname_th');?></th>
-										<th><?php echo lang('index_lname_th');?></th>
+										<th><?php echo lang('index_username_th');?></th>
 										<th><?php echo lang('index_email_th');?></th>
 										<th><?php echo lang('index_groups_th');?></th>
 										<th><?php echo lang('index_status_th');?></th>
@@ -68,8 +67,7 @@
 									<?php if($users){ ?>
 									<?php foreach ($users as $user) { ?>
 									<tr>
-										<td><?php echo $user->first_name;?></td>
-										<td><?php echo $user->last_name;?></td>
+										<td><?php echo $user->username;?></td>
 										<td><?php echo $user->email;?></td>
 										<td>
 											<?php foreach ($user->groups as $group):?>

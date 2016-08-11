@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?08 �?10 �?17:34
+-- 生成日期: 2016 �?08 �?11 �?17:19
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -167,8 +167,7 @@ INSERT INTO `menu` (`menu_id`, `name`, `level`, `belong_to`, `routing`, `icon`, 
 (17, '数据库', 2, 12, '#', 'fa fa-database', '2016-08-06 03:58:32', '2016-08-06 11:58:32', 1),
 (18, '文件管理', 2, 12, '#', 'fa fa-folder', '2016-08-06 04:03:06', '2016-08-06 12:03:06', 1),
 (19, '管理员入口', 1, 0, '#', 'fa fa-sliders', '2016-08-10 03:52:13', '2016-08-10 11:52:13', 1),
-(20, '用户管理', 2, 19, 'admin/auth/index', 'fa fa-user', '2016-08-10 04:03:24', '2016-08-10 16:29:34', 1),
-(21, '用户组', 2, 19, '#', 'fa fa-users', '2016-08-10 04:05:02', '2016-08-10 12:05:33', 1);
+(20, '用户管理', 2, 19, 'admin/auth/index', 'fa fa-user', '2016-08-10 04:03:24', '2016-08-10 16:29:34', 1);
 
 -- --------------------------------------------------------
 
@@ -190,22 +189,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_on` int(11) unsigned NOT NULL,
   `last_login` int(11) unsigned DEFAULT NULL,
   `active` tinyint(1) unsigned DEFAULT NULL,
-  `first_name` varchar(50) DEFAULT NULL,
-  `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `users`
 --
 
-INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1470816637, 1, 'jiaxu', 'chen', 'company', '12345678910'),
-(3, '127.0.0.1', '陈 家', '$2y$08$AjLQpNec1J77JFUptcxeZe8Phhs/.UGL.UpHZ9lH32rbvMfrdpRhG', NULL, '1105858345@qq.com', NULL, 'B.Ge.h8Iz.X2pnLmzPn1zOdbd3b9d45cf6849fc4', 1467615397, NULL, 1467605164, 1467614752, 1, '陈', '家', '中国', '12345678910'),
-(6, '127.0.0.1', '123 123', '$2y$08$GbB.rHSwOEmgjmbAJxZXqe0ytCEhF4P3hZ5qhUF8BmpOCNB0rzXm6', NULL, '123@qq.com', NULL, NULL, NULL, NULL, 1470819710, 1470819710, 1, '123', '123', '123', '123');
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'ADMIN', '0'),
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1470896477, 1, 'company', '12345678910');
 
 -- --------------------------------------------------------
 
@@ -221,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   UNIQUE KEY `uc_users_groups` (`user_id`,`group_id`),
   KEY `fk_users_groups_users1_idx` (`user_id`),
   KEY `fk_users_groups_groups1_idx` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- 转存表中的数据 `users_groups`
@@ -230,11 +225,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (15, 1, 2),
 (13, 2, 1),
-(14, 2, 2),
-(16, 3, 2),
-(39, 6, 1),
-(40, 6, 2),
-(41, 6, 3);
+(14, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -374,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `voting_management` (
 --
 
 INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_add`, `date_start`, `date_end`, `status`, `statusing`, `rules_config`) VALUES
-(1, 'NBA全明星投票', 'NBA全明星投票NBA全明星投票NBA全明星投票NBA全明星投票NBA全明星投票', '04bbbf28e36ddb41c8b98ee30fd98b29', '2016-08-10 02:57:32', '2016-08-11 00:00:35', '2016-08-31 00:00:19', 1, 1, '11111111111111111111111111111111111111111111111111111111111111111111111                                                                                                                                                                                                                            ');
+(1, 'NBA全明星投票', 'NBA全明星投票NBA全明星投票NBA全明星投票NBA全明星投票NBA全明星投票', '04bbbf28e36ddb41c8b98ee30fd98b29', '2016-08-10 02:57:32', '2016-08-11 00:00:35', '2016-08-31 00:00:19', 1, 2, '11111111111111111111111111111111111111111111111111111111111111111111111                                                                                                                                                                                                                            ');
 
 --
 -- 限制导出的表
