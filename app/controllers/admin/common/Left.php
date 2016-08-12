@@ -25,7 +25,7 @@ class Left extends CI_Controller {
 		$menu_belong_to = $this->Menu_model->getMenu();
 
 		$menus = $this->Menu_model->getMenu();
-
+		
 		$data['lefts'] = array();
 
 		foreach ($lefts as $l) {

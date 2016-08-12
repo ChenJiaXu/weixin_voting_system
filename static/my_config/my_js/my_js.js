@@ -10,13 +10,28 @@ $(function(){
             }
         }
     });
+    $('.lv2 li').children('a').each(function(){
+        if($(this).attr('href').indexOf(window.location.href) != '-1'){
+            if($(this).hasClass("active") == false){
+                $(this).parent().addClass("active");
+            }
+        }
+    });
+
     //二级节点,自动展开,定位到所点击的菜单
-    var level_two = $('.treeview-menu').children('li');
+    var level_two = $('.lv2').children('li');
     level_two.each(function(){
-       var active =  $(this).hasClass("active");
-       if(active == true){
+        var active =  $(this).hasClass("active");
+        if(active == true){
             $(this).parents("li").addClass("active");
-       }
+        }
+    });
+    var level_two = $('.lv3').children('li');
+    level_two.each(function(){
+        var active =  $(this).hasClass("active");
+        if(active == true){
+            $(this).parents("li").addClass("active");
+        }
     });
 /*----------------------------------------./left.php---------------------------------------------*/
 

@@ -24,17 +24,35 @@
 
                             <?php echo form_open(current_url());?>
 
-								<p>
-								    <?php echo lang('edit_group_name_label', 'group_name');?> <br />
-								    <?php echo form_input($group_name);?>
-								</p>
+                                <div class="box-body">
 
-								<p>
-								    <?php echo lang('edit_group_desc_label', 'description');?> <br />
-								    <?php echo form_input($group_description);?>
-								</p>
+    								<div class="form-group">
+                                        <div class="col-xs-2 text-right">
+    								        <?php echo lang('edit_group_name_label', 'group_name');?>
+                                        </div>
+                                        <div class="col-xs-10">
+    								        <?php echo form_input($group_name);?>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
 
-								<p><?php echo form_submit('submit', lang('edit_group_submit_btn'));?></p>
+    								<div class="form-group">
+                                        <div class="col-xs-2 text-right">
+    								        <?php echo lang('edit_group_desc_label', 'description');?>
+                                        </div>
+                                        <div class="col-xs-10">
+    								        <?php echo form_input($group_description);?>
+                                        <span class="help-block"></span>
+                                        </div>
+                                    </div>
+    								
+                                    <div class="form-group">
+                                        <div class="col-xs-10 text-left col-xs-offset-2">
+    								        <?php echo form_submit('submit', lang('edit_group_submit_btn'));?>
+                                        </div>
+                                    </div>
+
+                                </div>
 
 							<?php echo form_close();?>
                               

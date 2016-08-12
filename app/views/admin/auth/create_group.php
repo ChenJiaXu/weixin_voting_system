@@ -23,19 +23,35 @@
                         <div class="box-body">
 
                             <?php echo form_open("admin/auth/create_group");?>
+                                <div class="box-body">
 
-								<p>
-								    <?php echo lang('create_group_name_label', 'group_name');?> <br />
-								    <?php echo form_input($group_name);?>
-								</p>
+    								<div class="form-group">
+                                        <div class="col-xs-2 text-right">
+    								        <?php echo lang('create_group_name_label', 'group_name');?>
+                                        </div>
+                                        <div class="col-xs-10">   
+    								        <?php echo form_input($group_name);?>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+    								
+    								<div class="form-group">
+                                        <div class="col-xs-2 text-right">
+    								        <?php echo lang('create_group_desc_label', 'description');?>
+                                        </div>
+                                        <div class="col-xs-10">
+    								        <?php echo form_input($description);?>
+                                         <span class="help-block"></span>
+                                        </div>
+                                    </div>
+    								
+                                    <div class="form-group">
+                                        <div class="col-xs-10 text-left col-xs-offset-2">
+    								        <?php echo form_submit('submit', lang('create_group_submit_btn'));?>
+                                        </div>
+                                    </div>
 
-								<p>
-								    <?php echo lang('create_group_desc_label', 'description');?> <br />
-								    <?php echo form_input($description);?>
-								</p>
-
-								<p><?php echo form_submit('submit', lang('create_group_submit_btn'));?></p>
-
+                                </div>
 							<?php echo form_close();?>
                               
                         </div>

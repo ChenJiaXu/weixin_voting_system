@@ -28,30 +28,48 @@
         <?php if(isset($lefts) && $lefts){ ?> 
         <ul class="sidebar-menu">
             <li class="header">功能菜单列表</li>
+
             <?php foreach ($lefts as $left) { ?>
+                <!-- lv.1 -->
                 <?php if($left['level'] == 1){ ?>
-                    <li class="treeview">
-                        <?php if($left['routing'] == '#'){ ?>
-                            <?php echo anchor($left['routing'],'<i class="'.$left['icon'].'"></i> <span>'.$left['name'].'</span><i class="fa fa-angle-left pull-right"></i>');?>
-                        <?php }else{ ?> 
-                            <?php echo anchor($left['routing'],'<i class="'.$left['icon'].'"></i> <span>'.$left['name'].'</span>');?>
-                        <?php } ?>
-                        <?php if($left['routing'] == '#'){ ?>
-                        <ul class="treeview-menu">
-                        <?php } ?>
-                        <?php foreach($lefts as $child){ ?>
-                            <?php if($left['menu_id'] == $child['belong_to']){ ?>
-                                <li class="<?php if(uri_string()==$child['routing']){echo 'active';}?>"><?php echo anchor($child['routing'],'<i class="'.$child['icon'].'"></i> <span>'.$child['name'].'</span>'); ?></li>
+                <li class="treeview">
+                    <?php if($left['routing'] != '#'){ ?>
+                        <?php echo anchor($left['routing'],'<i class="'.$left['icon'].'"></i> <span>'.$left['name'].'</span>');?>
+                    <?php }else if($left['routing'] == '#'){ ?> 
+                        <?php echo anchor($left['routing'],'<i class="'.$left['icon'].'"></i> <span>'.$left['name'].'</span><i class="fa fa-angle-left pull-right"></i>');?>
+                        <!-- lv.2 -->
+                        <ul class="treeview-menu lv2">
+                            <?php foreach ($lefts as $lv2) { ?>
+                                <?php if($lv2['belong_to'] == $left['menu_id']){ ?>
+                                    <?php if($lv2['routing'] != '#'){ ?> 
+                                        <li><?php echo anchor($lv2['routing'],'<i class="'.$lv2['icon'].'"></i> <span>'.$lv2['name'].'</span>');?></li>
+                                    <?php }else if($lv2['routing'] == '#'){ ?>
+                                        <li class="<?php if(uri_string()==$lv2['routing']){echo 'active';}?>"><?php echo anchor($lv2['routing'],'<i class="'.$lv2['icon'].'"></i> <span>'.$lv2['name'].'</span><i class="fa fa-angle-left pull-right"></i>');?>
+                                            <!-- lv.3 -->
+                                            <ul class="treeview-menu lv3">
+                                                <?php foreach ($lefts as $lv3) { ?>
+                                                    <?php if($lv3['belong_to'] == $lv2['menu_id']){ ?>
+                                                        <li><?php echo anchor($lv3['routing'],'<i class="'.$lv3['icon'].'"></i> <span>'.$lv3['name'].'</span>');?></li>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            </ul>
+                                            <!-- ./lv.3 -->
+                                        </li>
+                                    <?php } ?>
+                                <?php } ?>
                             <?php } ?>
-                        <?php } ?>
-                        <?php if($left['routing'] == '#'){ ?>
                         </ul>
-                        <?php } ?>
-                    </li>
-                <?php } ?> 
+                        <!-- ./lv.2 -->
+                    <?php } ?>   
+                </li>
+                <?php } ?>
+                <!-- ./lv.1 -->
             <?php } ?>
+
         </ul>
         <?php } ?>
+
+
     </section>
     <!-- /.sidebar -->
 </aside>
