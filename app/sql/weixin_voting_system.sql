@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?08 �?11 �?17:19
+-- 生成日期: 2016 �?08 �?15 �?17:13
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `basic_personnel` (
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用1:启用',
   `image` varchar(255) NOT NULL COMMENT '照片',
   PRIMARY KEY (`bp_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `basic_personnel`
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `bp_image` (
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `main_image` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:不是 1:是主图',
   PRIMARY KEY (`bp_image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `bp_image`
@@ -73,6 +73,30 @@ INSERT INTO `bp_image` (`bp_image_id`, `bp_id`, `image`, `date_add`, `main_image
 (3, 3, '1.png', '2016-08-10 02:50:14', 1),
 (4, 4, '7.png', '2016-08-10 02:50:39', 1),
 (5, 5, '8.png', '2016-08-10 02:51:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `config`
+--
+
+CREATE TABLE IF NOT EXISTS `config` (
+  `bc_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '基础设置ID',
+  `key` varchar(255) NOT NULL COMMENT '键',
+  `value` varchar(255) NOT NULL COMMENT '值',
+  PRIMARY KEY (`bc_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='基础设置表' AUTO_INCREMENT=6 ;
+
+--
+-- 转存表中的数据 `config`
+--
+
+INSERT INTO `config` (`bc_id`, `key`, `value`) VALUES
+(1, 'bp_upload_path', './upload/basic_personnel/'),
+(2, 'vm_upload_path', './upload/voting_management/'),
+(3, 'vm_music_upload_path', './upload/music/'),
+(4, 'root_upload', './upload/'),
+(5, 'allow_image_type', 'gif|jpg|png|jpeg');
 
 -- --------------------------------------------------------
 
@@ -142,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `date_update` datetime NOT NULL COMMENT '更新时间',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用 1:启用',
   PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=22 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=32 ;
 
 --
 -- 转存表中的数据 `menu`
@@ -150,24 +174,32 @@ CREATE TABLE IF NOT EXISTS `menu` (
 
 INSERT INTO `menu` (`menu_id`, `name`, `level`, `belong_to`, `routing`, `icon`, `date_add`, `date_update`, `status`) VALUES
 (1, '控制面板', 1, 0, 'admin/dashboard', 'fa fa-home', '2016-07-23 06:08:55', '2016-08-06 11:38:34', 1),
-(2, '投票活动', 1, 0, '#', 'fa fa-share', '2016-07-23 06:18:44', '2016-07-23 14:18:44', 1),
+(2, '投票活动', 2, 30, '#', 'fa fa-share', '2016-07-23 06:18:44', '2016-08-12 11:59:00', 1),
 (3, '基础人员信息管理', 1, 0, '#', 'fa fa-user', '2016-07-23 06:19:21', '2016-07-23 14:19:21', 1),
 (4, '菜单配置', 2, 13, 'admin/menu', 'fa fa-bars', '2016-07-23 06:20:04', '2016-08-06 11:44:15', 1),
-(5, '投票活动分类', 2, 2, 'admin/voting_classification', 'fa fa-circle-o', '2016-07-23 06:21:24', '2016-07-23 14:21:24', 1),
-(6, '投票活动管理', 2, 2, 'admin/voting_management', 'fa fa-circle-o', '2016-07-23 06:24:39', '2016-07-23 14:24:39', 1),
+(5, '投票活动分类', 3, 2, 'admin/voting_classification', 'fa fa-circle-o', '2016-07-23 06:21:24', '2016-08-12 11:59:16', 1),
+(6, '投票活动管理', 3, 2, 'admin/voting_management', 'fa fa-circle-o', '2016-07-23 06:24:39', '2016-08-12 11:59:32', 1),
 (7, '人员信息', 2, 3, 'admin/basic_personnel', 'fa fa-user', '2016-07-23 06:25:34', '2016-07-23 14:25:34', 1),
 (8, '图片空间', 2, 3, 'admin/image_space', 'fa fa-photo', '2016-07-23 09:26:45', '2016-07-26 16:53:10', 1),
 (10, '在线文件管理器', 2, 12, 'admin/tool/file_manager', 'fa fa-folder-open-o', '2016-07-28 01:30:52', '2016-08-06 11:32:18', 1),
 (11, '图片管理器', 2, 12, 'admin/tool/upload', 'fa fa-cloud-upload', '2016-07-28 07:01:38', '2016-08-06 11:32:07', 1),
 (12, '管理工具', 1, 0, '#', 'fa fa-cogs', '2016-08-06 03:29:06', '2016-08-06 11:31:54', 1),
 (13, '系统设置', 1, 0, '#', 'fa fa-tachometer', '2016-08-06 03:38:20', '2016-08-06 11:38:20', 1),
-(14, '基础设置', 2, 13, '#', 'fa fa-tasks', '2016-08-06 03:46:20', '2016-08-06 11:46:20', 1),
-(15, '全局配置', 2, 13, '#', 'fa fa-th', '2016-08-06 03:48:07', '2016-08-06 11:48:07', 1),
+(31, '系统配置', 2, 13, 'admin/config/config', 'fa fa-cog', '2016-08-15 06:48:25', '2016-08-15 14:49:09', 1),
 (16, '微信WeChat', 1, 0, '#', 'fa fa-weixin', '2016-08-06 03:56:35', '2016-08-06 11:56:35', 1),
-(17, '数据库', 2, 12, '#', 'fa fa-database', '2016-08-06 03:58:32', '2016-08-06 11:58:32', 1),
+(17, '数据库', 2, 12, '#', 'fa fa-database', '2016-08-06 03:58:32', '2016-08-15 09:28:16', 1),
 (18, '文件管理', 2, 12, '#', 'fa fa-folder', '2016-08-06 04:03:06', '2016-08-06 12:03:06', 1),
 (19, '管理员入口', 1, 0, '#', 'fa fa-sliders', '2016-08-10 03:52:13', '2016-08-10 11:52:13', 1),
-(20, '用户管理', 2, 19, 'admin/auth/index', 'fa fa-user', '2016-08-10 04:03:24', '2016-08-10 16:29:34', 1);
+(20, '用户管理', 2, 19, 'admin/auth/index', 'fa fa-user', '2016-08-10 04:03:24', '2016-08-10 16:29:34', 1),
+(22, '公众号分类', 2, 16, '#', 'fa fa-wechat', '2016-08-12 03:26:35', '2016-08-12 11:29:03', 1),
+(23, '公众号绑定', 2, 16, '#', 'fa fa-wechat', '2016-08-12 03:28:04', '2016-08-12 11:28:49', 1),
+(24, '开发者绑定', 2, 16, '#', 'fa fa-wechat', '2016-08-12 03:29:41', '2016-08-12 11:29:41', 1),
+(25, '模板管理', 1, 0, '#', 'fa fa-puzzle-piece', '2016-08-12 03:39:32', '2016-08-12 11:39:32', 1),
+(26, '云市场', 1, 0, '#', 'fa fa-cart-plus', '2016-08-12 03:41:07', '2016-08-12 11:41:07', 1),
+(27, '大数据', 1, 0, '#', 'fa fa-bar-chart', '2016-08-12 03:43:08', '2016-08-12 11:43:08', 1),
+(28, '问卷调查', 2, 30, '#', 'fa fa-pencil-square-o', '2016-08-12 03:51:32', '2016-08-12 11:58:28', 1),
+(29, '相册幻灯片', 2, 30, '#', 'fa fa-file-image-o', '2016-08-12 03:55:09', '2016-08-12 11:58:10', 1),
+(30, '模块管理', 1, 0, '#', 'fa fa-cubes', '2016-08-12 03:57:05', '2016-08-12 11:57:05', 1);
 
 -- --------------------------------------------------------
 
@@ -192,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `users`
@@ -200,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1470896477, 1, 'company', '12345678910');
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471240669, 1, 'company', '12345678910');
 
 -- --------------------------------------------------------
 
@@ -216,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   UNIQUE KEY `uc_users_groups` (`user_id`,`group_id`),
   KEY `fk_users_groups_users1_idx` (`user_id`),
   KEY `fk_users_groups_groups1_idx` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `users_groups`
@@ -296,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `vm_traffic` (
 --
 
 INSERT INTO `vm_traffic` (`vt_id`, `vm_id`, `traffic`) VALUES
-(1, 1, 5);
+(1, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -366,6 +398,50 @@ CREATE TABLE IF NOT EXISTS `voting_management` (
 
 INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_add`, `date_start`, `date_end`, `status`, `statusing`, `rules_config`) VALUES
 (1, 'NBA全明星投票', 'NBA全明星投票NBA全明星投票NBA全明星投票NBA全明星投票NBA全明星投票', '04bbbf28e36ddb41c8b98ee30fd98b29', '2016-08-10 02:57:32', '2016-08-11 00:00:35', '2016-08-31 00:00:19', 1, 2, '11111111111111111111111111111111111111111111111111111111111111111111111                                                                                                                                                                                                                            ');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wx_at`
+--
+
+CREATE TABLE IF NOT EXISTS `wx_at` (
+  `wxp_id` int(11) NOT NULL COMMENT '公众号ID',
+  `access_token` varchar(255) NOT NULL COMMENT 'ACCESS_TOKEN',
+  `expires_in` varchar(255) NOT NULL COMMENT '有效期',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='access_token表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wx_public`
+--
+
+CREATE TABLE IF NOT EXISTS `wx_public` (
+  `wxp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公众号ID',
+  `appid` varchar(255) NOT NULL COMMENT 'AppID',
+  `secret` varchar(255) NOT NULL COMMENT 'AppSecret',
+  `wxt_id` int(11) NOT NULL COMMENT '公众号类型',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态:0未启用1启用',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `date_edit` datetime NOT NULL COMMENT '修改日期',
+  PRIMARY KEY (`wxp_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信公众号表' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wx_type`
+--
+
+CREATE TABLE IF NOT EXISTS `wx_type` (
+  `wxt_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公众号类型ID',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `sort` tinyint(2) NOT NULL COMMENT '排序',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  PRIMARY KEY (`wxt_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='公众号类型' AUTO_INCREMENT=1 ;
 
 --
 -- 限制导出的表

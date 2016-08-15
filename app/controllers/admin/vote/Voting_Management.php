@@ -10,6 +10,7 @@ class Voting_Management extends MY_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('admin/menu/Menu_model');
+		$this->load->model('admin/config/Config_model');
 		//投票分类
 		$this->load->model('admin/vote/Voting_Classification_model');
 		$this->lang->load('admin/vote/voting_classification');
@@ -358,8 +359,8 @@ class Voting_Management extends MY_Controller {
 		/**
 		 * 上传路径目前默认固定,后面再系统设置可以配置上传目录
 		 */
-		$config['upload_path']      = './upload/voting_management/';
-        $config['allowed_types']    = 'gif|jpg|png';
+		$config['upload_path']      = $this->Config_model->getConfig('vm_upload_path');
+        $config['allowed_types']    = $this->Config_model->getConfig('allow_image_type');
         $config['max_size']         = 0;
         $config['max_width']        = 0;
         $config['max_height']       = 0;
@@ -388,12 +389,12 @@ class Voting_Management extends MY_Controller {
 		$ok = false;
 
 		$this->load->helper('file');
-		$filename = get_file_info('./upload/voting_management/'.$banner);
+		$filename = get_file_info($this->Config_model->getConfig('vm_upload_path').$banner);
 		if($filename == true){
 			//第一步删除数据库表
 			$this->Voting_Management_model->delete_vm_banner_by_vm_banner_id($vm_banner_id);
 			//第二步删除upload/basic_personnel/下对应的图片
-			$status = unlink('./upload/voting_management/'.$banner);
+			$status = unlink($this->Config_model->getConfig('vm_upload_path').$banner);
 			$ok = true;
 		}else{
 			$ok = false;

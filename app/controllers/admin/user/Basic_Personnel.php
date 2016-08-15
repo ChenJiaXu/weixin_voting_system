@@ -13,6 +13,7 @@ class Basic_Personnel extends MY_Controller {
 		$this->load->model('admin/menu/Menu_model');
 		$this->lang->load('admin/user/basic_personnel');
 		$this->load->model('admin/user/Basic_Personnel_model');
+		$this->load->model('admin/config/Config_model');
 	}
 	
 	//基础人员信息-默认方法
@@ -176,7 +177,7 @@ class Basic_Personnel extends MY_Controller {
 			//删除本地文件
 			$bp_images = $this->Basic_Personnel_model->get_bp_image_by_bp_id($bp_id);
 			foreach ($bp_images as $bpi) {
-				unlink('./upload/basic_personnel/'.$bpi['image']);
+				unlink($this->Config_model->getConfig('bp_upload_path').$bpi['image']);
 			}
 
 			$result = $this->Basic_Personnel_model->delete_basic_personnel_by_bp_id($bp_id);
@@ -203,7 +204,7 @@ class Basic_Personnel extends MY_Controller {
 		/**
 		 * 上传路径目前默认固定,后面再系统设置可以配置上传目录
 		 */
-		$config['upload_path']      = './upload/basic_personnel/';
+		$config['upload_path']      = $this->Config_model->getConfig('bp_upload_path');
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = 0;
         $config['max_width']        = 0;
@@ -233,12 +234,12 @@ class Basic_Personnel extends MY_Controller {
 		$ok = false;
 
 		$this->load->helper('file');
-		$filename = get_file_info('./upload/basic_personnel/'.$image);
+		$filename = get_file_info($this->Config_model->getConfig('bp_upload_path').$image);
 		if($filename == true){
 			//第一步删除数据库表
 			$this->Basic_Personnel_model->delete_bp_image_by_bp_image_id($bp_image_id);
 			//第二步删除upload/basic_personnel/下对应的图片
-			$status = unlink('./upload/basic_personnel/'.$image);
+			$status = unlink($this->Config_model->getConfig('bp_upload_path').$image);
 			$ok = true;
 		}else{
 			$ok = false;
