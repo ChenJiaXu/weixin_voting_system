@@ -20,11 +20,11 @@ class Config_model extends CI_Model{
 	//更新活动分类
 	public function save_config(){	
 
-		$this->update('root_upload',$this->input->post('root_upload'),'config');
-		$this->update('allow_image_type',$this->input->post('allow_image_type'),'config');
-		$this->update('vm_music_upload_path',$this->input->post('vm_music_upload_path'),'config');
-		$this->update('bp_upload_path',$this->input->post('bp_upload_path'),'config');
-		$this->update('vm_upload_path',$this->input->post('vm_upload_path'),'config');
+		$this->update('root_upload',$this->input->post('root_upload',TRUE),'config');
+		$this->update('allow_image_type',$this->input->post('allow_image_type',TRUE),'config');
+		$this->update('vm_music_upload_path',$this->input->post('vm_music_upload_path',TRUE),'config');
+		$this->update('bp_upload_path',$this->input->post('bp_upload_path',TRUE),'config');
+		$this->update('vm_upload_path',$this->input->post('vm_upload_path',TRUE),'config');
 	}
 
 	private function update($key,$value,$table){

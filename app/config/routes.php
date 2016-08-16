@@ -103,3 +103,21 @@ $route['admin/menu/auto_compare'] = "admin/menu/Menu/auto_compare";//自动比�
 
 //---------------------------------------在线文件管理器------------------------------------//
 $route['admin/init_elfinder'] = "admin/tool/File_Manager/init_elfinder";//
+
+//---------------------------------------微信------------------------------------//
+
+/**
+ * 微信公众号类型
+ */
+$route['admin/weixin_type'] = 'admin/weixin/Weixin_Type';//公众号类型
+$route['admin/weixin_type/add'] = 'admin/weixin/Weixin_Type/add';//公众号类型-新增
+$route['admin/weixin_type/edit/(:any)'] = 'admin/weixin/Weixin_Type/edit/$1';//公众号类型-编辑
+$route['admin/weixin_type/delete/(:any)'] = 'admin/weixin/Weixin_Type/delete/$1';//公众号类型-删除
+
+/**
+ * 微信公众号
+ */
+$route['admin/weixin_public'] = 'admin/weixin/Weixin_Public';//公众号
+$route['admin/weixin_public/add'] = 'admin/weixin/Weixin_Public/add';//公众号-新增
+$route['admin/weixin_public/edit/(:any)'] = 'admin/weixin/Weixin_Public/edit/$1';//公众号-编辑
+$route['admin/weixin_public/delete/(:any)'] = 'admin/weixin/Weixin_Public/delete/$1';//公众号-删除

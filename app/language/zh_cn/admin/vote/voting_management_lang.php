@@ -27,10 +27,15 @@ $lang['vml_statusing_notstarted']= '未开始';//1
 $lang['vml_statusing_ongoing']	 = '进行中';//2
 $lang['vml_statusing_complete']	 = '已结束';//3
 
-$lang['vml_rules_config']		 = '规则配置';
+$lang['vml_rules_config']		 = '活动说明';
 
 $lang['vml_banner']				 = '海报';
 $lang['vml_banner_sort']		 = '海报排序';
+
+$lang['vml_focus']			 	 = '是否开启关注后投票';
+$lang['vml_focus_on']			 = '开启';//1
+$lang['vml_focus_off']			 = '关闭';//0
+
 
 //关联basic_personnel
 $lang['vml_basic_personnel']	 = '选择人员';
@@ -40,7 +45,7 @@ $lang['vml_tab_basic']			 = '基础信息';
 $lang['vml_tab_bp'] 			 = '人员配置';
 $lang['vml_tab_vm']				 = '活动配置';
 $lang['vml_tab_banner']			 = '海报配置';
-$lang['vml_tab_layout']			 = '布局配置';
+$lang['vml_tab_rules']			 = '规则配置';
 
 //按钮
 $lang['vml_chioce']				 = '选择';

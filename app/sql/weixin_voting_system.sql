@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?08 �?15 �?17:13
+-- 生成日期: 2016 �?08 �?16 �?17:13
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `basic_personnel` (
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用1:启用',
   `image` varchar(255) NOT NULL COMMENT '照片',
   PRIMARY KEY (`bp_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `basic_personnel`
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `bp_image` (
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `main_image` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:不是 1:是主图',
   PRIMARY KEY (`bp_image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `bp_image`
@@ -191,15 +191,44 @@ INSERT INTO `menu` (`menu_id`, `name`, `level`, `belong_to`, `routing`, `icon`, 
 (18, '文件管理', 2, 12, '#', 'fa fa-folder', '2016-08-06 04:03:06', '2016-08-06 12:03:06', 1),
 (19, '管理员入口', 1, 0, '#', 'fa fa-sliders', '2016-08-10 03:52:13', '2016-08-10 11:52:13', 1),
 (20, '用户管理', 2, 19, 'admin/auth/index', 'fa fa-user', '2016-08-10 04:03:24', '2016-08-10 16:29:34', 1),
-(22, '公众号分类', 2, 16, '#', 'fa fa-wechat', '2016-08-12 03:26:35', '2016-08-12 11:29:03', 1),
-(23, '公众号绑定', 2, 16, '#', 'fa fa-wechat', '2016-08-12 03:28:04', '2016-08-12 11:28:49', 1),
-(24, '开发者绑定', 2, 16, '#', 'fa fa-wechat', '2016-08-12 03:29:41', '2016-08-12 11:29:41', 1),
+(22, '公众号类型', 2, 16, 'admin/weixin_type', 'fa fa-wechat', '2016-08-12 03:26:35', '2016-08-16 15:36:32', 1),
+(23, '公众号', 2, 16, 'admin/weixin_public', 'fa fa-wechat', '2016-08-12 03:28:04', '2016-08-16 15:36:53', 1),
 (25, '模板管理', 1, 0, '#', 'fa fa-puzzle-piece', '2016-08-12 03:39:32', '2016-08-12 11:39:32', 1),
 (26, '云市场', 1, 0, '#', 'fa fa-cart-plus', '2016-08-12 03:41:07', '2016-08-12 11:41:07', 1),
 (27, '大数据', 1, 0, '#', 'fa fa-bar-chart', '2016-08-12 03:43:08', '2016-08-12 11:43:08', 1),
 (28, '问卷调查', 2, 30, '#', 'fa fa-pencil-square-o', '2016-08-12 03:51:32', '2016-08-12 11:58:28', 1),
 (29, '相册幻灯片', 2, 30, '#', 'fa fa-file-image-o', '2016-08-12 03:55:09', '2016-08-12 11:58:10', 1),
 (30, '模块管理', 1, 0, '#', 'fa fa-cubes', '2016-08-12 03:57:05', '2016-08-12 11:57:05', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `option`
+--
+
+CREATE TABLE IF NOT EXISTS `option` (
+  `option_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
+  `name` varchar(255) NOT NULL COMMENT '选项名',
+  `type` varchar(255) NOT NULL COMMENT '类型',
+  `sort` tinyint(2) NOT NULL COMMENT '排序',
+  `status` tinyint(1) NOT NULL COMMENT '状态0未启用1启用',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `date_edit` datetime NOT NULL COMMENT '修改时间',
+  PRIMARY KEY (`option_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='常规选项表' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `option_value`
+--
+
+CREATE TABLE IF NOT EXISTS `option_value` (
+  `ov_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项值ID',
+  `key` varchar(255) NOT NULL COMMENT '键名',
+  `value` varchar(255) NOT NULL COMMENT '键值',
+  PRIMARY KEY (`ov_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='常规选项值表' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -232,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471240669, 1, 'company', '12345678910');
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471327661, 1, 'company', '12345678910');
 
 -- --------------------------------------------------------
 
@@ -328,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `vm_traffic` (
 --
 
 INSERT INTO `vm_traffic` (`vt_id`, `vm_id`, `traffic`) VALUES
-(1, 1, 7);
+(1, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -402,6 +431,59 @@ INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `weixin_public`
+--
+
+CREATE TABLE IF NOT EXISTS `weixin_public` (
+  `wxp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公众号ID',
+  `appid` varchar(255) NOT NULL COMMENT 'AppID',
+  `secret` varchar(255) NOT NULL COMMENT 'AppSecret',
+  `wxt_id` int(11) NOT NULL COMMENT '公众号类型',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态:0未启用1启用',
+  `sort` varchar(255) NOT NULL COMMENT '排序',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `date_edit` datetime NOT NULL COMMENT '修改日期',
+  PRIMARY KEY (`wxp_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='微信公众号表' AUTO_INCREMENT=6 ;
+
+--
+-- 转存表中的数据 `weixin_public`
+--
+
+INSERT INTO `weixin_public` (`wxp_id`, `appid`, `secret`, `wxt_id`, `status`, `sort`, `date_add`, `date_edit`) VALUES
+(1, '123456', 'qwertyuiop', 1, 1, '1', '2016-08-16 08:14:18', '2016-08-16 16:14:18'),
+(2, 'aaaaaaaaaaaaaaaa', 'bbbbbbbbbbbbbbbbbbbbbbbbbb', 2, 1, '2', '2016-08-16 08:14:37', '2016-08-16 16:14:37'),
+(3, '333333333333333333', 'asdfghjklasdfghjklasdfghjkl', 3, 1, '3', '2016-08-16 08:14:58', '2016-08-16 16:14:58'),
+(4, '44444', 'zxcvbnmzxcvbnmzxcvbnmzxcvbnm', 4, 1, '4', '2016-08-16 08:15:18', '2016-08-16 16:15:18');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `weixin_type`
+--
+
+CREATE TABLE IF NOT EXISTS `weixin_type` (
+  `wxt_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公众号类型ID',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `sort` tinyint(2) NOT NULL COMMENT '排序',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态0未启用1启用',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  PRIMARY KEY (`wxt_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='公众号类型' AUTO_INCREMENT=6 ;
+
+--
+-- 转存表中的数据 `weixin_type`
+--
+
+INSERT INTO `weixin_type` (`wxt_id`, `name`, `sort`, `status`, `date_add`) VALUES
+(1, '订阅号', 1, 1, '2016-08-16 03:20:28'),
+(2, '订阅号--未认证', 2, 1, '2016-08-16 03:24:31'),
+(3, '服务号', 3, 1, '2016-08-16 03:24:42'),
+(4, '服务号--未认证', 4, 1, '2016-08-16 03:24:54');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `wx_at`
 --
 
@@ -411,37 +493,6 @@ CREATE TABLE IF NOT EXISTS `wx_at` (
   `expires_in` varchar(255) NOT NULL COMMENT '有效期',
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='access_token表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `wx_public`
---
-
-CREATE TABLE IF NOT EXISTS `wx_public` (
-  `wxp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公众号ID',
-  `appid` varchar(255) NOT NULL COMMENT 'AppID',
-  `secret` varchar(255) NOT NULL COMMENT 'AppSecret',
-  `wxt_id` int(11) NOT NULL COMMENT '公众号类型',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态:0未启用1启用',
-  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
-  `date_edit` datetime NOT NULL COMMENT '修改日期',
-  PRIMARY KEY (`wxp_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信公众号表' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `wx_type`
---
-
-CREATE TABLE IF NOT EXISTS `wx_type` (
-  `wxt_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公众号类型ID',
-  `name` varchar(255) NOT NULL COMMENT '名称',
-  `sort` tinyint(2) NOT NULL COMMENT '排序',
-  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
-  PRIMARY KEY (`wxt_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='公众号类型' AUTO_INCREMENT=1 ;
 
 --
 -- 限制导出的表

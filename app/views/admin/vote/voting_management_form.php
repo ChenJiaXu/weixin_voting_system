@@ -38,7 +38,7 @@
                             <li><a href="#vml_tab_bp" data-toggle="tab"><?php echo lang('vml_tab_bp');?></a></li>
                             <li><a href="#vml_tab_vm" data-toggle="tab"><?php echo lang('vml_tab_vm');?></a></li>
                             <li><a href="#vml_tab_banner" data-toggle="tab"><?php echo lang('vml_tab_banner');?></a></li>
-                            <li><a href="#vml_tab_layout" data-toggle="tab"><?php echo lang('vml_tab_layout');?></a></li>
+                            <li><a href="#vml_tab_rules" data-toggle="tab"><?php echo lang('vml_tab_rules');?></a></li>
                         </ul>
                         <?php if($vm_action == 'add'){ $action='add'; }else if($vm_action == 'edit'){ $action = 'edit/'.$vms['vm_id']; }?>  
                         <?php echo form_open('admin/voting_management/'.$action); ?>
@@ -327,13 +327,26 @@
                             </div>
                             <!-- ./vml_tab_banner -->
 
-                            <!-- vml_tab_layout -->
-                            <div class="tab-pane" id="vml_tab_layout">
+                            <!-- vml_tab_rules -->
+                            <div class="tab-pane" id="vml_tab_rules">
                                 <div class="box-body">
+
+                                    <!-- 是否关注后投票 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="title"><?php echo lang('vml_title'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10 <?php if(form_error('title')){echo 'has-error';}?>">
+                                            <input type="text" class="form-control" id="title" name="title" placeholder="<?php echo lang('vml_help_title'); ?>" value="<?php echo $vm_action == 'add'?set_value(html_escape('title')):$vms['title']; ?>">
+                                            <span class="help-block">
+                                                <?php if(form_error('title')){echo "<i class='fa fa-times-circle-o'></i>".form_error('title');} ?>
+                                            </span>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
-                            <!-- ./vml_tab_layout -->
+                            <!-- ./vml_tab_rules -->
 
                         </div>
                         <!-- /.tab-content -->
