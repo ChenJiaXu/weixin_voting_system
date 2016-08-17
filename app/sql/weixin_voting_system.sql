@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?08 �?16 �?17:13
+-- 生成日期: 2016 �?08 �?17 �?17:21
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `date_update` datetime NOT NULL COMMENT '更新时间',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用 1:启用',
   PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=32 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=35 ;
 
 --
 -- 转存表中的数据 `menu`
@@ -198,24 +198,34 @@ INSERT INTO `menu` (`menu_id`, `name`, `level`, `belong_to`, `routing`, `icon`, 
 (27, '大数据', 1, 0, '#', 'fa fa-bar-chart', '2016-08-12 03:43:08', '2016-08-12 11:43:08', 1),
 (28, '问卷调查', 2, 30, '#', 'fa fa-pencil-square-o', '2016-08-12 03:51:32', '2016-08-12 11:58:28', 1),
 (29, '相册幻灯片', 2, 30, '#', 'fa fa-file-image-o', '2016-08-12 03:55:09', '2016-08-12 11:58:10', 1),
-(30, '模块管理', 1, 0, '#', 'fa fa-cubes', '2016-08-12 03:57:05', '2016-08-12 11:57:05', 1);
+(30, '功能模块', 1, 0, '#', 'fa fa-cubes', '2016-08-12 03:57:05', '2016-08-17 09:11:58', 1),
+(32, '选项配置', 1, 0, '#', 'fa fa-cog', '2016-08-17 01:20:16', '2016-08-17 09:20:16', 1),
+(33, '选项类型', 2, 32, 'admin/option_type', 'fa fa-tags', '2016-08-17 01:22:53', '2016-08-17 09:22:53', 1),
+(34, '选项值', 2, 32, 'admin/option_value', 'fa fa-tag', '2016-08-17 01:23:36', '2016-08-17 09:23:36', 1);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `option`
+-- 表的结构 `option_type`
 --
 
-CREATE TABLE IF NOT EXISTS `option` (
-  `option_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
+CREATE TABLE IF NOT EXISTS `option_type` (
+  `ot_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项ID',
   `name` varchar(255) NOT NULL COMMENT '选项名',
   `type` varchar(255) NOT NULL COMMENT '类型',
-  `sort` tinyint(2) NOT NULL COMMENT '排序',
-  `status` tinyint(1) NOT NULL COMMENT '状态0未启用1启用',
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `date_edit` datetime NOT NULL COMMENT '修改时间',
-  PRIMARY KEY (`option_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='常规选项表' AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`ot_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='常规选项表' AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `option_type`
+--
+
+INSERT INTO `option_type` (`ot_id`, `name`, `type`, `date_add`, `date_edit`) VALUES
+(1, '单选框', 'radio', '2016-08-17 06:54:50', '2016-08-17 15:12:31'),
+(2, '复选框', 'checkbox', '2016-08-17 06:57:16', '2016-08-17 15:12:37'),
+(3, '下拉框', 'select', '2016-08-17 06:57:33', '2016-08-17 15:12:29');
 
 -- --------------------------------------------------------
 
@@ -225,10 +235,26 @@ CREATE TABLE IF NOT EXISTS `option` (
 
 CREATE TABLE IF NOT EXISTS `option_value` (
   `ov_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项值ID',
+  `ot_id` int(11) NOT NULL COMMENT '选项类型',
   `key` varchar(255) NOT NULL COMMENT '键名',
   `value` varchar(255) NOT NULL COMMENT '键值',
   PRIMARY KEY (`ov_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='常规选项值表' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='常规选项值表' AUTO_INCREMENT=11 ;
+
+--
+-- 转存表中的数据 `option_value`
+--
+
+INSERT INTO `option_value` (`ov_id`, `ot_id`, `key`, `value`) VALUES
+(1, 1, 'sex', '男'),
+(2, 1, 'sex', '女'),
+(3, 2, 'like', '猫'),
+(4, 2, 'like', '狗'),
+(5, 2, 'like', '老鼠'),
+(6, 3, 'country', '中国'),
+(7, 3, 'country', '日本'),
+(8, 3, 'country', '美国'),
+(9, 3, 'country', '韩国');
 
 -- --------------------------------------------------------
 
@@ -261,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471327661, 1, 'company', '12345678910');
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471414251, 1, 'company', '12345678910');
 
 -- --------------------------------------------------------
 

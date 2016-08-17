@@ -121,3 +121,20 @@ $route['admin/weixin_public'] = 'admin/weixin/Weixin_Public';//公众号
 $route['admin/weixin_public/add'] = 'admin/weixin/Weixin_Public/add';//公众号-新增
 $route['admin/weixin_public/edit/(:any)'] = 'admin/weixin/Weixin_Public/edit/$1';//公众号-编辑
 $route['admin/weixin_public/delete/(:any)'] = 'admin/weixin/Weixin_Public/delete/$1';//公众号-删除
+
+//--------------------------------------- 选项 ------------------------------------//
+/**
+ * 选项类型
+ */
+$route['admin/option_type'] = 'admin/option/Option_Type';//选项类型
+$route['admin/option_type/add'] = 'admin/option/Option_Type/add';//选项类型-新增
+$route['admin/option_type/edit/(:any)'] = 'admin/option/Option_Type/edit/$1';//选项类型-编辑
+$route['admin/option_type/delete/(:any)'] = 'admin/option/Option_Type/delete/$1';//选项类型-删除
+
+/**
+ * 选项值
+ */
+$route['admin/option_value'] = 'admin/option/Option_Value';//选项值
+$route['admin/option_value/add'] = 'admin/option/Option_Value/add';//选项值-新增
+$route['admin/option_value/edit/(:any)'] = 'admin/option/Option_Value/edit/$1';//选项值-编辑
+$route['admin/option_value/delete/(:any)'] = 'admin/option/Option_Value/delete/$1';//选项值-删除
