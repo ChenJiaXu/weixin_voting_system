@@ -72,6 +72,16 @@ class Voting_Management_model extends CI_Model{
        		}
        	}
 
+       	//vm_rules表
+       	$data_vm_rules = array(
+       		'vm_id' => $this->security->xss_clean($vm_id),
+       		'focus' => $this->input->post('focus',TRUE),
+       		'vote_limit' => $this->input->post('vote_limit',TRUE),
+       		'select_vote_limit' => $this->input->post('select_vote_limit',TRUE),
+       		'interval_time' => $this->input->post('interval_time',TRUE)
+       	);
+       	$this->db->insert('vm_rules', $this->security->xss_clean($data_vm_rules,TRUE));
+
 		//vm_traffic表
 		$data_vm_traffic = array(
 			'vm_id' => $this->security->xss_clean($vm_id)
@@ -160,6 +170,12 @@ class Voting_Management_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	//根据vm_id获取活动规则配置-选项数据
+	public function get_vm_rules_by_vm_id($vm_id){
+		$query = $this->db->get_where('vm_rules', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
+		return $query->row_array();
+	}
+
 	//更新活动分类
 	public function edit_voting_management($vm_id){
 
@@ -223,6 +239,19 @@ class Voting_Management_model extends CI_Model{
        			$this->db->insert('vm_banner', $this->security->xss_clean($data_vm_banner));
        		}
        	}
+
+       	//vm_banner---先清空旧数据后插入
+		$this->db->delete('vm_rules', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
+       
+       	//vm_rules表
+       	$data_vm_rules = array(
+       		'vm_id' => $this->security->xss_clean($vm_id),
+       		'focus' => $this->input->post('focus',TRUE),
+       		'vote_limit' => $this->input->post('vote_limit',TRUE),
+       		'select_vote_limit' => $this->input->post('select_vote_limit',TRUE),
+       		'interval_time' => $this->input->post('interval_time',TRUE)
+       	);
+       	$this->db->insert('vm_rules', $this->security->xss_clean($data_vm_rules,TRUE));
 	}
 
 
@@ -306,5 +335,11 @@ class Voting_Management_model extends CI_Model{
 	public function delete_vm_banner_by_vm_banner_id($vm_banner_id){
 		$query = $this->db->delete('vm_banner', array('vm_banner_id' => $this->security->xss_clean((int)$vm_banner_id)));
 		return $query;
+	}
+
+	//根据key获取option_value的对应值
+	public function getOptionValue($data){
+		$query = $this->db->order_by('value', 'ASC')->get_where('option_value', array('key' => $this->security->xss_clean($data)));
+		return $query->result_array();
 	}
 }

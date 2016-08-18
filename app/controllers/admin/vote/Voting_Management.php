@@ -45,11 +45,9 @@ class Voting_Management extends MY_Controller {
 	public function add(){
 		
 		//------------------------vc----------------------------------------
-		//$data['vcl_name'] = lang('vcl_name');
 		$data['vcs'] = $this->Voting_Classification_model->getVC();
 
 		//-----------------------basic_personnel----------------------------
-		//$data['vml_basic_personnel'] = lang('vml_basic_personnel');
 		$data['bps'] = array();
 		$result = $this->Basic_Personnel_model->getBP();
 		foreach ($result as $r) {
@@ -60,6 +58,11 @@ class Voting_Management extends MY_Controller {
 		}
 
 		//------------------------vm-----------------------------------------
+
+		//------------------------vm_rules-----------------------------------------
+		$data['option_values_select_vote_limit'] = $this->Voting_Management_model->getOptionValue('select_vote_limit');
+		$data['option_values_interval_time'] = $this->Voting_Management_model->getOptionValue('interval_time');
+
 		//*操作*
 		$data['vm_action'] = 'add';
 
@@ -115,12 +118,19 @@ class Voting_Management extends MY_Controller {
 	    	)
 	    );
 
+	    //规则配置--选项
+	    $this->form_validation->set_rules('focus', lang('vml_help_focus'),array('trim','required'));//是否开启关注后投票
+	    $this->form_validation->set_rules('vote_limit', lang('vml_help_vote_limit'),array('trim','required'));//是否开启投票次数限制
+	    $this->form_validation->set_rules('select_vote_limit', lang('vml_help_select_vote_limit'),array('trim','required'));//可投票次数
+	    $this->form_validation->set_rules('interval_time', lang('vml_help_interval_time'),array('trim','required'));//每次投票间隔时间
+
 	    if($this->form_validation->run() === FALSE){
 	    	
 			$this->load_view('vote/voting_management_form',$data);
 
 	    }else{
 
+	    	
 	       $vm_id = $this->Voting_Management_model->add_voting_management();//添加活动分类,返回新插入数据ID
 
 	       $new_title = $this->Voting_Management_model->get_voting_management_by_vm_id($vm_id);//根据ID获取新插入数据的名称
@@ -190,7 +200,14 @@ class Voting_Management extends MY_Controller {
 			//根据活动信息获取关联广告图数据
 			$data['vm_banners'] = $this->Voting_Management_model->get_vm_banner_by_vm_id((int)$vm_id);
 			
-		
+			//vm_rules
+			$data['vmr'] = $this->Voting_Management_model->get_vm_rules_by_vm_id((int)$vm_id);
+
+			//------------------------vm_rules-----------------------------------------
+			$data['option_values_select_vote_limit'] = $this->Voting_Management_model->getOptionValue('select_vote_limit');
+			$data['option_values_interval_time'] = $this->Voting_Management_model->getOptionValue('interval_time');
+
+
 			$data['base_url'] = $this->config->item('base_url');
 
 			//加载相关类库
@@ -240,6 +257,12 @@ class Voting_Management extends MY_Controller {
 		    		'required'
 		    	)
 		    );
+
+		    //规则配置--选项
+		    $this->form_validation->set_rules('focus', lang('vml_help_focus'),array('trim','required'));//是否开启关注后投票
+		    $this->form_validation->set_rules('vote_limit', lang('vml_help_vote_limit'),array('trim','required'));//是否开启投票次数限制
+		    $this->form_validation->set_rules('select_vote_limit', lang('vml_help_select_vote_limit'),array('trim','required'));//可投票次数
+		    $this->form_validation->set_rules('interval_time', lang('vml_help_interval_time'),array('trim','required'));//每次投票间隔时间
 
 		    if($this->form_validation->run() === FALSE){
 		    	

@@ -36,6 +36,11 @@ $lang['vml_focus']			 	 = '是否开启关注后投票';
 $lang['vml_focus_on']			 = '开启';//1
 $lang['vml_focus_off']			 = '关闭';//0
 
+$lang['vml_vote_limit']			 = '是否开启投票次数限制';
+$lang['vml_vote_limit_on']		 = '开启';//1
+$lang['vml_vote_limit_off']		 = '关闭';//0
+$lang['vml_select_vote_limit']	 = '可投票次数';//0不限制
+$lang['vml_interval_time']		 = '每次投票间隔时间';//0不限制
 
 //关联basic_personnel
 $lang['vml_basic_personnel']	 = '选择人员';
@@ -72,6 +77,12 @@ $lang['vml_help_date_start']	 = '活动开始日期必须填写！';
 $lang['vml_help_date_end']		 = '活动结束日期必须填写！';
 $lang['vml_help_vm_bp']			 = '必须选择相关人员参与本次活动！';
 $lang['vml_help_banner_sort']    = '请输入数字0-99,按从大到小排序';
+
+$lang['vml_help_focus']    		 	= '请选择是否开启关注后投票！';
+$lang['vml_help_vote_limit']     	= '请选择是否开启投票次数限制！';
+$lang['vml_help_select_vote_limit'] = '请选择可投票次数！';
+$lang['vml_help_interval_time']  	= '请选择每次投票间隔时间！';
+
 
 //成功信息提示
 $lang['vml_success']			 = '成功信息提示';

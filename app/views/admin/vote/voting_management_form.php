@@ -334,12 +334,89 @@
                                     <!-- 是否关注后投票 -->
                                     <div class="form-group">
                                         <div class="col-xs-2 text-right">
-                                            <label class="control-label" for="title"><?php echo lang('vml_title'); ?></label>
+                                            <label class="control-label" for="focus"><?php echo lang('vml_focus'); ?></label>
                                         </div>
-                                        <div class="col-xs-10 <?php if(form_error('title')){echo 'has-error';}?>">
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="<?php echo lang('vml_help_title'); ?>" value="<?php echo $vm_action == 'add'?set_value(html_escape('title')):$vms['title']; ?>">
+                                        <div class="col-xs-10 <?php if(form_error('focus')){echo 'has-error';}?>">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="focus" value="0" <?php if($vm_action == 'add'){ echo "checked"; }else if($vm_action == 'edit'){ if($vmr['focus'] == '0'){ echo "checked"; } } ?>>
+                                                    <?php echo lang('vml_focus_off'); ?>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="focus" value="1" <?php if($vm_action == 'edit'){ if($vmr['focus'] == '1'){ echo "checked"; } } ?>>
+                                                    <?php echo lang('vml_focus_on'); ?>
+                                                </label>
+                                            </div>
                                             <span class="help-block">
-                                                <?php if(form_error('title')){echo "<i class='fa fa-times-circle-o'></i>".form_error('title');} ?>
+                                                <?php if(form_error('focus')){echo "<i class='fa fa-times-circle-o'></i>".form_error('focus');} ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 是否开启投票次数限制 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="vote_limit"><?php echo lang('vml_vote_limit'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10 <?php if(form_error('vote_limit')){echo 'has-error';}?>">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="vote_limit" value="0" <?php if($vm_action == 'add'){ echo "checked"; }else if($vm_action == 'edit'){ if($vmr['vote_limit'] == '0'){ echo "checked"; } } ?>>
+                                                    <?php echo lang('vml_vote_limit_off'); ?>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="vote_limit" value="1" <?php if($vm_action == 'edit'){ if($vmr['vote_limit'] == '1'){ echo "checked"; } } ?>>
+                                                    <?php echo lang('vml_vote_limit_on'); ?>
+                                                </label>
+                                            </div>
+                                            <span class="help-block">
+                                                <?php if(form_error('vote_limit')){echo "<i class='fa fa-times-circle-o'></i>".form_error('vote_limit');} ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 可投票次数 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="select_vote_limit"><?php echo lang('vml_select_vote_limit'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10 <?php if(form_error('select_vote_limit')){echo 'has-error';}?>">
+                                            <div class="radio">
+                                                
+                                                <!-- option => select_vote_limit -->
+                                                <?php foreach ($option_values_select_vote_limit as $ovsvl) { ?>
+                                                    <label>
+                                                        <input type="radio" name="select_vote_limit" value="<?php echo $ovsvl['value']; ?>" <?php if($vm_action == 'add'){ if($ovsvl['value'] == '0'){ echo "checked"; } }else if($vm_action == 'edit'){ if($vmr['select_vote_limit'] == $ovsvl['value']){ echo "checked"; } } ?>/>
+                                                        <?php echo $ovsvl['value']; ?>
+                                                    </label>
+                                                <?php } ?>
+
+                                            </div>
+                                            <span class="help-block">
+                                                <?php if(form_error('select_vote_limit')){echo "<i class='fa fa-times-circle-o'></i>".form_error('select_vote_limit');} ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 投票间隔时间 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="interval_time"><?php echo lang('vml_interval_time'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10 <?php if(form_error('interval_time')){echo 'has-error';}?>">
+                                            <div class="radio">
+                                                
+                                                <!-- option => interval_time -->
+                                                <?php foreach ($option_values_interval_time as $ovit) { ?>
+                                                    <label>
+                                                        <input type="radio" name="interval_time" value="<?php echo $ovit['value']; ?>" <?php if($vm_action == 'add'){ if($ovit['value'] == '0'){ echo "checked"; } }else if($vm_action == 'edit'){ if($vmr['interval_time'] == $ovit['value']){ echo "checked"; } } ?>/>
+                                                        <?php echo $ovit['value']; ?>
+                                                    </label>
+                                                <?php } ?>
+
+                                            </div>
+                                            <span class="help-block">
+                                                <?php if(form_error('interval_time')){echo "<i class='fa fa-times-circle-o'></i>".form_error('interval_time');} ?>
                                             </span>
                                         </div>
                                     </div>
