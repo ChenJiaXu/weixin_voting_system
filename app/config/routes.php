@@ -122,6 +122,12 @@ $route['admin/weixin_public/add'] = 'admin/weixin/Weixin_Public/add';//公众号
 $route['admin/weixin_public/edit/(:any)'] = 'admin/weixin/Weixin_Public/edit/$1';//公众号-编辑
 $route['admin/weixin_public/delete/(:any)'] = 'admin/weixin/Weixin_Public/delete/$1';//公众号-删除
 
+/**
+ * 粉丝关注
+ */
+$route['admin/weixin_fans'] = 'admin/weixin/Weixin_Fans';//粉丝关注
+$route['admin/weixin_fans/read/(:any)'] = 'admin/weixin/Weixin_Fans/read';//粉丝关注-查看
+
 //--------------------------------------- 选项 ------------------------------------//
 /**
  * 选项类型

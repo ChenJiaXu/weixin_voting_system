@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?08 �?18 �?16:54
+-- 生成日期: 2016 �?08 �?19 �?17:36
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `date_update` datetime NOT NULL COMMENT '更新时间',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用 1:启用',
   PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=35 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单配置' AUTO_INCREMENT=36 ;
 
 --
 -- 转存表中的数据 `menu`
@@ -201,7 +201,8 @@ INSERT INTO `menu` (`menu_id`, `name`, `level`, `belong_to`, `routing`, `icon`, 
 (30, '功能模块', 1, 0, '#', 'fa fa-cubes', '2016-08-12 03:57:05', '2016-08-17 09:11:58', 1),
 (32, '选项配置', 1, 0, '#', 'fa fa-cog', '2016-08-17 01:20:16', '2016-08-17 09:20:16', 1),
 (33, '选项类型', 2, 32, 'admin/option_type', 'fa fa-tags', '2016-08-17 01:22:53', '2016-08-17 09:22:53', 1),
-(34, '选项值', 2, 32, 'admin/option_value', 'fa fa-tag', '2016-08-17 01:23:36', '2016-08-17 09:23:36', 1);
+(34, '选项值', 2, 32, 'admin/option_value', 'fa fa-tag', '2016-08-17 01:23:36', '2016-08-17 09:23:36', 1),
+(35, '粉丝关注', 2, 16, 'admin/weixin_fans', 'fa fa-smile-o', '2016-08-19 02:01:04', '2016-08-19 10:01:04', 1);
 
 -- --------------------------------------------------------
 
@@ -298,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471500928, 1, 'company', '12345678910');
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471586209, 1, 'company', '12345678910');
 
 -- --------------------------------------------------------
 
@@ -564,9 +565,49 @@ INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_
 CREATE TABLE IF NOT EXISTS `weixin_attention` (
   `wxa_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '关注微信公众号ID',
   `wxp_id` int(11) NOT NULL COMMENT '微信公众号ID',
-  `user_openid` varchar(255) NOT NULL COMMENT '关注公众号用户ID',
+  `wxf_id` int(11) NOT NULL COMMENT '粉丝ID',
   PRIMARY KEY (`wxa_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户关注公众号表' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户关注公众号表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `weixin_attention`
+--
+
+INSERT INTO `weixin_attention` (`wxa_id`, `wxp_id`, `wxf_id`) VALUES
+(1, 1, 1),
+(2, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `weixin_fans`
+--
+
+CREATE TABLE IF NOT EXISTS `weixin_fans` (
+  `wxf_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '微信粉丝ID',
+  `subscribe` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1粉丝关注',
+  `openid` varchar(255) NOT NULL COMMENT '用户的标识，对当前公众号唯一',
+  `nickname` varchar(255) NOT NULL COMMENT '昵称',
+  `sex` tinyint(1) NOT NULL COMMENT '性别男1女2未知0',
+  `language` varchar(255) NOT NULL COMMENT '城市',
+  `city` varchar(255) NOT NULL COMMENT '国家',
+  `province` varchar(255) NOT NULL COMMENT '省份',
+  `country` varchar(255) NOT NULL COMMENT '语言',
+  `headimgurl` varchar(255) DEFAULT NULL COMMENT '头像',
+  `subscribe_time` varchar(255) NOT NULL COMMENT '最后关注时间时间戳',
+  `unionid` varchar(255) NOT NULL COMMENT '用户将公众号绑定',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `groupid` int(11) NOT NULL COMMENT '用户所在的分组ID',
+  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`wxf_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='关注微信公众号粉丝信息表' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `weixin_fans`
+--
+
+INSERT INTO `weixin_fans` (`wxf_id`, `subscribe`, `openid`, `nickname`, `sex`, `language`, `city`, `province`, `country`, `headimgurl`, `subscribe_time`, `unionid`, `remark`, `groupid`, `date_add`) VALUES
+(1, 1, 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M', '该装就_装', 1, 'zh_CN', '潮州', '广东', '中国', 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0', '1382694957', 'o6_bmasdasdsad6_2sgVt7hMZOPfL', NULL, 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -583,6 +624,7 @@ CREATE TABLE IF NOT EXISTS `weixin_public` (
   `sort` varchar(255) NOT NULL COMMENT '排序',
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
   `date_edit` datetime NOT NULL COMMENT '修改日期',
+  `name` varchar(255) NOT NULL COMMENT '公众号名称',
   PRIMARY KEY (`wxp_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='微信公众号表' AUTO_INCREMENT=6 ;
 
@@ -590,11 +632,11 @@ CREATE TABLE IF NOT EXISTS `weixin_public` (
 -- 转存表中的数据 `weixin_public`
 --
 
-INSERT INTO `weixin_public` (`wxp_id`, `appid`, `secret`, `wxt_id`, `status`, `sort`, `date_add`, `date_edit`) VALUES
-(1, '123456', 'qwertyuiop', 1, 1, '1', '2016-08-16 08:14:18', '2016-08-16 16:14:18'),
-(2, 'aaaaaaaaaaaaaaaa', 'bbbbbbbbbbbbbbbbbbbbbbbbbb', 2, 1, '2', '2016-08-16 08:14:37', '2016-08-16 16:14:37'),
-(3, '333333333333333333', 'asdfghjklasdfghjklasdfghjkl', 3, 1, '3', '2016-08-16 08:14:58', '2016-08-16 16:14:58'),
-(4, '44444', 'zxcvbnmzxcvbnmzxcvbnmzxcvbnm', 4, 1, '4', '2016-08-16 08:15:18', '2016-08-16 16:15:18');
+INSERT INTO `weixin_public` (`wxp_id`, `appid`, `secret`, `wxt_id`, `status`, `sort`, `date_add`, `date_edit`, `name`) VALUES
+(1, '123456', 'qwertyuiop', 1, 1, '1', '2016-08-16 08:14:18', '2016-08-16 16:14:18', '潮州一哥'),
+(2, 'aaaaaaaaaaaaaaaa', 'bbbbbbbbbbbbbbbbbbbbbbbbbb', 2, 1, '2', '2016-08-16 08:14:37', '2016-08-16 16:14:37', '潮州二姐'),
+(3, '333333333333333333', 'asdfghjklasdfghjklasdfghjkl', 3, 1, '3', '2016-08-16 08:14:58', '2016-08-16 16:14:58', '潮州三妹'),
+(4, '44444', 'zxcvbnmzxcvbnmzxcvbnmzxcvbnm', 4, 1, '4', '2016-08-16 08:15:18', '2016-08-16 16:15:18', '潮州四弟');
 
 -- --------------------------------------------------------
 
