@@ -30,7 +30,7 @@ class Weixin_Fans_model extends CI_Model{
 		return $data['wxp_row'];
 	}
 
-	public function get_weixin_fans_by_wxf_id(){
+	public function get_weixin_fans_by_wxf_id($wxf_id){
 		$query = $this->db->get_where('weixin_fans', array('wxf_id' => $wxf_id));
 		return $query->result_array();
 	}

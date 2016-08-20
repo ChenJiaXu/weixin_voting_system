@@ -126,7 +126,7 @@ $route['admin/weixin_public/delete/(:any)'] = 'admin/weixin/Weixin_Public/delete
  * 粉丝关注
  */
 $route['admin/weixin_fans'] = 'admin/weixin/Weixin_Fans';//粉丝关注
-$route['admin/weixin_fans/read/(:any)'] = 'admin/weixin/Weixin_Fans/read';//粉丝关注-查看
+$route['admin/weixin_fans/read/(:any)'] = 'admin/weixin/Weixin_Fans/read/$1';//粉丝关注-查看
 
 //--------------------------------------- 选项 ------------------------------------//
 /**

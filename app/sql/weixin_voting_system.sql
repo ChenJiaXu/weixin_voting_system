@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?08 �?19 �?17:36
+-- 生成日期: 2016 �?08 �?20 �?16:20
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -299,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471586209, 1, 'company', '12345678910');
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1471673091, 1, 'company', '12345678910');
 
 -- --------------------------------------------------------
 
@@ -416,7 +416,7 @@ INSERT INTO `vm_bp` (`vm_bp_id`, `vm_id`, `bp_id`, `votes`) VALUES
 (52, 6, 4, 0),
 (53, 6, 5, 0),
 (65, 7, 1, 0),
-(66, 7, 2, 0),
+(66, 7, 2, 1),
 (67, 7, 3, 0),
 (68, 7, 4, 0),
 (69, 7, 5, 0);
@@ -472,8 +472,8 @@ INSERT INTO `vm_traffic` (`vt_id`, `vm_id`, `traffic`) VALUES
 (3, 3, 0),
 (4, 4, 0),
 (5, 5, 0),
-(6, 6, 0),
-(7, 7, 1);
+(6, 6, 1),
+(7, 7, 4);
 
 -- --------------------------------------------------------
 
@@ -554,7 +554,7 @@ INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_
 (4, '123', '123', '1cf08e3c1a6a4f7e893906c22a5c182b', '2016-08-18 08:12:29', '2016-08-18 16:12:10', '2016-08-18 16:12:11', 0, 1, '123213131'),
 (5, '123', '123', '1d88543121b0d9974f7079aa9904679d', '2016-08-18 08:13:56', '2016-08-18 16:12:10', '2016-08-18 16:12:11', 0, 1, '123213131'),
 (6, 'abcdefghijklmnopqrstuvwxyz', 'abcdefghijklmnopqrstuvwxyz', 'da461aefc422a3488bf93dbdd56efb42', '2016-08-18 08:18:20', '2016-08-18 16:17:08', '2016-08-19 16:15:09', 0, 1, '123333333333333333333333333333333333333333333333333333333332222222222222222222221111111111111111111'),
-(7, '123', '12312', '9991379271c8aa98d6531706e35f8e57', '2016-08-18 08:25:28', '2016-08-18 16:25:17', '2016-08-19 00:25:14', 1, 2, '123123213213                                                                                                                                    ');
+(7, '123', '12312', '9991379271c8aa98d6531706e35f8e57', '2016-08-18 08:25:28', '2016-08-18 16:25:17', '2016-08-19 00:25:14', 1, 3, '123123213213                                                                                                                                    ');
 
 -- --------------------------------------------------------
 
@@ -567,7 +567,7 @@ CREATE TABLE IF NOT EXISTS `weixin_attention` (
   `wxp_id` int(11) NOT NULL COMMENT '微信公众号ID',
   `wxf_id` int(11) NOT NULL COMMENT '粉丝ID',
   PRIMARY KEY (`wxa_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户关注公众号表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户关注公众号表' AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `weixin_attention`
@@ -575,7 +575,9 @@ CREATE TABLE IF NOT EXISTS `weixin_attention` (
 
 INSERT INTO `weixin_attention` (`wxa_id`, `wxp_id`, `wxf_id`) VALUES
 (1, 1, 1),
-(2, 2, 1);
+(2, 2, 1),
+(3, 3, 2),
+(4, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -600,14 +602,15 @@ CREATE TABLE IF NOT EXISTS `weixin_fans` (
   `groupid` int(11) NOT NULL COMMENT '用户所在的分组ID',
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`wxf_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='关注微信公众号粉丝信息表' AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='关注微信公众号粉丝信息表' AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `weixin_fans`
 --
 
 INSERT INTO `weixin_fans` (`wxf_id`, `subscribe`, `openid`, `nickname`, `sex`, `language`, `city`, `province`, `country`, `headimgurl`, `subscribe_time`, `unionid`, `remark`, `groupid`, `date_add`) VALUES
-(1, 1, 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M', '该装就_装', 1, 'zh_CN', '潮州', '广东', '中国', 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0', '1382694957', 'o6_bmasdasdsad6_2sgVt7hMZOPfL', NULL, 0, '0000-00-00 00:00:00');
+(1, 1, 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M', '该装就_装', 1, 'zh_CN', '潮州', '广东', '中国', 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0', '1382694957', 'o6_bmasdasdsad6_2sgVt7hMZOPfL', NULL, 0, '0000-00-00 00:00:00'),
+(2, 1, '12321232131313131223123', '123', 2, 'zh_CN', '汕头', '广东', '中国', 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0', '1382694957', 'o6_bmasdasdsad6_2sgVt7hMZOPfL', NULL, 0, '2016-08-20 02:13:00');
 
 -- --------------------------------------------------------
 
@@ -662,6 +665,19 @@ INSERT INTO `weixin_type` (`wxt_id`, `name`, `sort`, `status`, `date_add`) VALUE
 (2, '订阅号--未认证', 2, 1, '2016-08-16 03:24:31'),
 (3, '服务号', 3, 1, '2016-08-16 03:24:42'),
 (4, '服务号--未认证', 4, 1, '2016-08-16 03:24:54');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wxp_users`
+--
+
+CREATE TABLE IF NOT EXISTS `wxp_users` (
+  `wxpu_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '微信公众号绑定账号ID',
+  `wxp_id` int(11) NOT NULL COMMENT '公众号ID',
+  `user_id` int(11) NOT NULL COMMENT '管理员账号ID',
+  PRIMARY KEY (`wxpu_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信公众号绑定管理员账号关联表' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

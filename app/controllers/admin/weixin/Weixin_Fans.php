@@ -50,7 +50,7 @@ class Weixin_Fans extends MY_Controller {
 
 	//粉丝关注-查阅方法
 	public function read($wxf_id){
-		var_dump($wxf_id);
+		
 		$wxf_id = (int)$wxf_id;//类型转换处理不严格，后面修改
 
 		if(is_int($wxf_id) || is_integer($wxf_id)){
@@ -72,6 +72,7 @@ class Weixin_Fans extends MY_Controller {
 					'remark' => $wxfs['remark'],
 					'groupid' => $wxfs['groupid'],
 					'date_add' => $wxfs['date_add'],
+					'language' => $wxfs['language'],
 					'wxp_name' => $this->Weixin_Fans_model->get_weixin_attention($wxfs['wxf_id'])
 				);
 			}
@@ -85,7 +86,6 @@ class Weixin_Fans extends MY_Controller {
 			$this->session->set_flashdata('error', lang('wxpl_error_global').gettype($wxp_id));
 			redirect('admin/weixin_fans','refresh');
 		}
-
 	}
 
 	//性别匹配中文
