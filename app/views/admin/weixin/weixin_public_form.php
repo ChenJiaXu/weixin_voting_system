@@ -26,6 +26,19 @@
                             <?php echo form_open('admin/weixin_public/'.$action); ?>
                             <div class="box-body">
 
+                            <!-- name -->
+                            <div class="form-group">
+                                <div class="col-xs-2 text-right">
+                                    <label class="control-label" for="name"><?php echo lang('wxpl_name'); ?></label>
+                                </div>
+                                <div class="col-xs-10 <?php if(form_error('name')){echo 'has-error';}?>">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="<?php echo lang('wxpl_help_name'); ?>" value="<?php echo $wxp_action == 'add'?set_value(html_escape('name')):$wxps['name']; ?>">
+                                    <span class="help-block">
+                                        <?php if(form_error('name')){echo "<i class='fa fa-times-circle-o'></i>".form_error('name');} ?>
+                                    </span>
+                                </div>
+                            </div>
+
                             <!-- appid -->
                             <div class="form-group">
                                 <div class="col-xs-2 text-right">

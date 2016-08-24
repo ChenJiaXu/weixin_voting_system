@@ -9,8 +9,22 @@ class Menu_model extends CI_Model{
     
     //获取全部菜单集合
 	public function getMenu(){
+		
 		$query = $this->db->get('menu');
 		return $query->result_array();
+	}
+
+	/**
+	 *  动态菜单
+	 *	根据user_id=>groups_id=>menu_id=>all menus	
+	 */
+	public function access_the_menu(){
+
+		$user_id = $this->session->userdata('user_id');
+		
+		$query = $this->db->query("select DISTINCT * FROM (select * FROM menu m WHERE m.menu_id in (select gm.menu_id FROM groups_menu gm WHERE gm.groups_id in (select ug.group_id FROM users_groups ug WHERE ug.user_id = ".$user_id."))) AS menu")->result_array();
+		
+		return $query;
 	}
 
 	//添加菜单

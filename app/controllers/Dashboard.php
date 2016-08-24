@@ -20,7 +20,7 @@ class Dashboard extends MY_Controller {
 	}
 
 	private function load_view($data){
-		$data['lefts'] = $this->Menu_model->getMenu();
+		$data['lefts'] = $this->Menu_model->access_the_menu();
 		$this->load->view('admin/common/header',$data);
 		$this->load->view('admin/common/left',$data);
 		$this->load->view('admin/common/dashboard',$data);

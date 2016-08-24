@@ -125,6 +125,16 @@ $(function(){
 /*----------------------------------------./menu_form.php---------------------------------------------*/
 
 
+/*
+ *  菜单-权限-用户组
+ *
+ *  icheck
+ */
+    $('#groups_menu input[type="checkbox"].minimal').iCheck({
+        checkboxClass: 'icheckbox_flat-blue'
+    });
+
+
 
 
 

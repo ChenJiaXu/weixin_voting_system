@@ -54,6 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['admin/dashboard'] = 'Dashboard';
+
+//--------------------------auth---------------------------//
 $route['admin/auth/login'] = 'admin/auth/Auth/login';
 $route['admin/auth'] = 'admin/auth/Auth/index';
 $route['admin/auth/index'] = 'admin/auth/Auth/index';
@@ -65,6 +67,10 @@ $route['admin/auth/deactivate/(:any)'] = 'admin/auth/Auth/deactivate/$1';
 $route['admin/auth/edit_user/(:any)'] = 'admin/auth/Auth/edit_user/$1';
 $route['admin/auth/forgot_password'] = 'admin/auth/Auth/forgot_password';
 $route['admin/auth/reset_password/(:any)'] = 'admin/auth/Auth/reset_password/$1';
+
+//--------------------------权限组---------------------------//
+$route['admin/groups_menu'] = 'admin/auth/Groups_Menu';
+$route['admin/groups_menu/edit/(:any)'] = 'admin/auth/Groups_Menu/edit/$1';
 
 //--------------------------投票活动模块---------------------------//
 $route['admin/voting_classification'] = 'admin/vote/Voting_Classification';//投票分类

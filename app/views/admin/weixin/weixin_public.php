@@ -59,6 +59,7 @@
 								<thead>
 									<tr>
 										<th><?php echo lang('wxpl_chioce'); ?></th>
+										<th><?php echo lang('wxpl_name'); ?></th>
 										<th><?php echo lang('wxpl_appid'); ?></th>
 										<th><?php echo lang('wxpl_secret'); ?></th>
 										<th><?php echo lang('wxpl_type'); ?></th>
@@ -72,6 +73,7 @@
 									<?php foreach ($weixin_publics as $wxp) { ?>
 									<tr>
 										<td><input type="checkbox" class="minimal" value="<?php echo $wxp['wxp_id']; ?>"></td>
+										<td><?php echo $wxp['name']; ?></td>
 										<td><?php echo $wxp['appid']; ?></td>
 										<td><?php echo $wxp['secret']; ?></td>
 										<td><?php echo $wxp['wxt_type']; ?></td>

@@ -17,12 +17,13 @@ class Weixin_Public_model extends CI_Model{
 
         $data = array(
 		    'appid' => $this->input->post('appid',TRUE),
-		    'secret' => $this->input->post('secret',TRUE),
+		    'secret' => $this->input->post('secret',TRUE),		    
 		    'wxt_id' => $this->input->post('wxt_id',TRUE),
 		    'status' => $this->input->post('status',TRUE),
 		    'sort' => $this->input->post('sort',TRUE),
 		    'status' => $this->input->post('status',TRUE),
-		    'date_edit' => date('Y-m-d H:i:s')
+		    'date_edit' => date('Y-m-d H:i:s'),
+		    'name' => $this->input->post('name',TRUE)
 		);
 		return $this->db->insert('weixin_public', $this->security->xss_clean($data));
 	}
@@ -36,7 +37,8 @@ class Weixin_Public_model extends CI_Model{
 		    'status' => $this->input->post('status',TRUE),
 		    'sort' => $this->input->post('sort',TRUE),
 		    'status' => $this->input->post('status',TRUE),
-		    'date_edit' => date('Y-m-d H:i:s')
+		    'date_edit' => date('Y-m-d H:i:s'),
+		    'name' => $this->input->post('name',TRUE)
 		);
 		$this->db->where('wxp_id', $this->security->xss_clean((int)$wxp_id));
 		return $this->db->update('weixin_public', $data);

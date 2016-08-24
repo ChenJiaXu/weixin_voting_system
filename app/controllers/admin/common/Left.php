@@ -22,6 +22,8 @@ class Left extends CI_Controller {
 			redirect('auth/login', 'refresh');
 		}
 
+
+		//左侧动态菜单
 		$menu_belong_to = $this->Menu_model->getMenu();
 
 		$menus = $this->Menu_model->getMenu();

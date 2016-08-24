@@ -38,6 +38,7 @@ class Weixin_Public extends MY_Controller {
 				'sort'	=> $wxps['sort'],
 				'status' => $wxps['status'],
 				'date_add' => $wxps['date_add'],
+				'name' => $wxps['name'],
 				'edit' => 'weixin_public/edit/'.$wxps['wxp_id'],
 				'delete' => 'weixin_public/delete/'.$wxps['wxp_id']
 			);
@@ -94,6 +95,14 @@ class Weixin_Public extends MY_Controller {
 	    		'min_length[1]'
 	    	)
 	    );
+	    $this->form_validation->set_rules('name', lang('wxpl_help_name'), 
+	    	array(
+	    		//配置常规校验
+	    		'trim',
+	    		'required',
+	    		'min_length[1]'
+	    	)
+	    );
 
 	    if($this->form_validation->run() === FALSE){
 	    	
@@ -104,9 +113,9 @@ class Weixin_Public extends MY_Controller {
 
 	       $new_wxp_id = $this->Weixin_Public_model->get_weixin_public_new_wxp_id();
 
-	       $new_appid = $this->Weixin_Public_model->get_weixin_public_by_wxp_id($new_wxp_id);//根据ID获取新插入数据的名称
+	       $new_name = $this->Weixin_Public_model->get_weixin_public_by_wxp_id($new_wxp_id);//根据ID获取新插入数据的名称
 
-	       $this->session->set_flashdata('success', '【'.$new_appid['appid'].'】'.lang('wxpl_success_add'));
+	       $this->session->set_flashdata('success', '【'.$new_name['name'].'】'.lang('wxpl_success_add'));
 
 	       redirect('admin/weixin_public','refresh');
 	    }
@@ -175,6 +184,14 @@ class Weixin_Public extends MY_Controller {
 		    		'min_length[1]'
 		    	)
 		    );
+		    $this->form_validation->set_rules('name', lang('wxpl_help_name'), 
+		    	array(
+		    		//配置常规校验
+		    		'trim',
+		    		'required',
+		    		'min_length[1]'
+		    	)
+		    );
 
 		    if($this->form_validation->run() === FALSE){
 		    	
@@ -183,8 +200,8 @@ class Weixin_Public extends MY_Controller {
 		    }else{
 
 		    	$this->Weixin_Public_model->edit_weixin_public($wxp_id);//编辑公众号
-		    	$new_appid = $this->Weixin_Public_model->get_weixin_public_by_wxp_id($wxp_id);//获取更新后的分类名
-		       	$this->session->set_flashdata('success', '【'.$new_appid['appid'].'】'.lang('wxpl_success_edit'));
+		    	$new_name = $this->Weixin_Public_model->get_weixin_public_by_wxp_id($wxp_id);//获取更新后的分类名
+		       	$this->session->set_flashdata('success', '【'.$new_name['name'].'】'.lang('wxpl_success_edit'));
 		       	redirect('admin/weixin_public','refresh');
 
 		    }
@@ -240,7 +257,7 @@ class Weixin_Public extends MY_Controller {
 	 *	数据 => $data
 	 */
 	private function load_view($path,$data){
-		$data['lefts'] = $this->Menu_model->getMenu();
+		$data['lefts'] = $this->Menu_model->access_the_menu();
 		$this->load->view('admin/common/header',$data);
 		$this->load->view('admin/common/left',$data);
 		$this->load->view('admin/'.$path,$data);

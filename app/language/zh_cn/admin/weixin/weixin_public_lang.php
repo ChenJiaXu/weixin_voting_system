@@ -7,6 +7,7 @@
 $lang['wxpl_head_title'] 	  	 = '微信公众号';
 
 $lang['wxpl_wxp_id'] 	  	 	 = '公众号ID';
+$lang['wxpl_name'] 	  	 	 	 = '公众号名称';
 $lang['wxpl_appid'] 	  	 	 = 'APPID';
 $lang['wxpl_secret'] 	  	 	 = 'SECRET';
 $lang['wxpl_type']				 = '公众号类型';
@@ -32,6 +33,7 @@ $lang['wxpl_form_title_add']	 = '新增-公众号';
 $lang['wxpl_form_title_edit']	 = '编辑-公众号';
 
 //提示文本
+$lang['wxpl_help_name']		 	 = '请填写此公众号名称！';
 $lang['wxpl_help_appid']		 = '请填写此公众号的APPID！';
 $lang['wxpl_help_secret']		 = '请填写此公众号的SECRET！';
 $lang['wxpl_help_type']		 	 = '请选择公众号类型！';
