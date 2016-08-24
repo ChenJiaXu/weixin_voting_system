@@ -84,6 +84,10 @@ $(function(){
 
     });
 
+    $('#vml_tab_rules input[type="radio"].minimal').iCheck({
+      radioClass: 'iradio_minimal-blue'
+    });
+
     //配置基础人员信息
     //vm_bp();
 /*-------------------------------------voting_management_form.php-----------------------------------*/

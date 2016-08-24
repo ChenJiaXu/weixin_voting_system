@@ -339,11 +339,11 @@
                                         <div class="col-xs-10 <?php if(form_error('focus')){echo 'has-error';}?>">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="focus" value="0" <?php if($vm_action == 'add'){ echo "checked"; }else if($vm_action == 'edit'){ if($vmr['focus'] == '0'){ echo "checked"; } } ?>>
+                                                    <input type="radio" class="minimal" name="focus" value="0" <?php if($vm_action == 'add'){ echo "checked"; }else if($vm_action == 'edit'){ if($vmr['focus'] == '0'){ echo "checked"; } } ?>>
                                                     <?php echo lang('vml_focus_off'); ?>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" name="focus" value="1" <?php if($vm_action == 'edit'){ if($vmr['focus'] == '1'){ echo "checked"; } } ?>>
+                                                    <input type="radio" class="minimal" name="focus" value="1" <?php if($vm_action == 'edit'){ if($vmr['focus'] == '1'){ echo "checked"; } } ?>>
                                                     <?php echo lang('vml_focus_on'); ?>
                                                 </label>
                                             </div>
@@ -361,11 +361,11 @@
                                         <div class="col-xs-10 <?php if(form_error('vote_limit')){echo 'has-error';}?>">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="vote_limit" value="0" <?php if($vm_action == 'add'){ echo "checked"; }else if($vm_action == 'edit'){ if($vmr['vote_limit'] == '0'){ echo "checked"; } } ?>>
+                                                    <input type="radio" class="minimal" name="vote_limit" value="0" <?php if($vm_action == 'add'){ echo "checked"; }else if($vm_action == 'edit'){ if($vmr['vote_limit'] == '0'){ echo "checked"; } } ?>>
                                                     <?php echo lang('vml_vote_limit_off'); ?>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" name="vote_limit" value="1" <?php if($vm_action == 'edit'){ if($vmr['vote_limit'] == '1'){ echo "checked"; } } ?>>
+                                                    <input type="radio" class="minimal" name="vote_limit" value="1" <?php if($vm_action == 'edit'){ if($vmr['vote_limit'] == '1'){ echo "checked"; } } ?>>
                                                     <?php echo lang('vml_vote_limit_on'); ?>
                                                 </label>
                                             </div>
@@ -386,7 +386,7 @@
                                                 <!-- option => select_vote_limit -->
                                                 <?php foreach ($option_values_select_vote_limit as $ovsvl) { ?>
                                                     <label>
-                                                        <input type="radio" name="select_vote_limit" value="<?php echo $ovsvl['value']; ?>" <?php if($vm_action == 'add'){ if($ovsvl['value'] == '0'){ echo "checked"; } }else if($vm_action == 'edit'){ if($vmr['select_vote_limit'] == $ovsvl['value']){ echo "checked"; } } ?>/>
+                                                        <input type="radio" class="minimal" name="select_vote_limit" value="<?php echo $ovsvl['value']; ?>" <?php if($vm_action == 'add'){ if($ovsvl['value'] == '0'){ echo "checked"; } }else if($vm_action == 'edit'){ if($vmr['select_vote_limit'] == $ovsvl['value']){ echo "checked"; } } ?>/>
                                                         <?php echo $ovsvl['value']; ?>
                                                     </label>
                                                 <?php } ?>
@@ -409,7 +409,7 @@
                                                 <!-- option => interval_time -->
                                                 <?php foreach ($option_values_interval_time as $ovit) { ?>
                                                     <label>
-                                                        <input type="radio" name="interval_time" value="<?php echo $ovit['value']; ?>" <?php if($vm_action == 'add'){ if($ovit['value'] == '0'){ echo "checked"; } }else if($vm_action == 'edit'){ if($vmr['interval_time'] == $ovit['value']){ echo "checked"; } } ?>/>
+                                                        <input type="radio" class="minimal" name="interval_time" value="<?php echo $ovit['value']; ?>" <?php if($vm_action == 'add'){ if($ovit['value'] == '0'){ echo "checked"; } }else if($vm_action == 'edit'){ if($vmr['interval_time'] == $ovit['value']){ echo "checked"; } } ?>/>
                                                         <?php echo $ovit['value']; ?>
                                                     </label>
                                                 <?php } ?>
@@ -417,6 +417,28 @@
                                             </div>
                                             <span class="help-block">
                                                 <?php if(form_error('interval_time')){echo "<i class='fa fa-times-circle-o'></i>".form_error('interval_time');} ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 是否开启在线报名 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="online_reg"><?php echo lang('vml_online_reg'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10 <?php if(form_error('online_reg')){echo 'has-error';}?>">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" class="minimal" name="online_reg" value="0" <?php if($vm_action == 'add'){ echo "checked"; }else if($vm_action == 'edit'){ if($vmr['online_reg'] == '0'){ echo "checked"; } } ?>>
+                                                    <?php echo lang('vml_online_reg_off'); ?>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" class="minimal" name="online_reg" value="1" <?php if($vm_action == 'edit'){ if($vmr['online_reg'] == '1'){ echo "checked"; } } ?>>
+                                                    <?php echo lang('vml_online_reg_on'); ?>
+                                                </label>
+                                            </div>
+                                            <span class="help-block">
+                                                <?php if(form_error('online_reg')){echo "<i class='fa fa-times-circle-o'></i>".form_error('online_reg');} ?>
                                             </span>
                                         </div>
                                     </div>

@@ -51,74 +51,87 @@ class Weixin_Public extends MY_Controller {
 	//新增公众号
 	public function add(){
 	
-		//*操作*
-		$data['wxp_action'] = 'add';	
-		$data['base_url'] = $this->config->item('base_url');
+		//判断当前用户是否已经绑定了微信公众号
+		$check_weixin_public_users = $this->Weixin_Public_model->check_weixin_public_users($this->session->userdata('user_id'));
+
+		if($check_weixin_public_users == 0){
+			//*操作*
+			$data['wxp_action'] = 'add';	
+			$data['base_url'] = $this->config->item('base_url');
+			
+			//微信公众号类型
+			$data['wxp_types'] = $this->Weixin_Public_model->getWXT();
+
+			//加载相关类库
+			$this->load->helper('form');
+		    $this->load->library('form_validation');
+
+		    //设置校验规则	    
+		    $this->form_validation->set_rules('appid', lang('wxpl_help_appid'), 
+		    	array(
+		    		//配置常规校验
+		    		'trim',
+		    		'required',
+		    		'min_length[1]'
+		    	)
+		    );
+		    $this->form_validation->set_rules('secret', lang('wxpl_help_secret'), 
+		    	array(
+		    		//配置常规校验
+		    		'trim',
+		    		'required',
+		    		'min_length[1]'
+		    	)
+		    );
+		    $this->form_validation->set_rules('wxt_id', lang('wxpl_help_wxt_id'), 
+		    	array(
+		    		//配置常规校验
+		    		'trim',
+		    		'required',
+		    		'min_length[1]'
+		    	)
+		    );
+		    $this->form_validation->set_rules('sort', lang('wxpl_help_sort'), 
+		    	array(
+		    		//配置常规校验
+		    		'trim',
+		    		'required',
+		    		'min_length[1]'
+		    	)
+		    );
+		    $this->form_validation->set_rules('name', lang('wxpl_help_name'), 
+		    	array(
+		    		//配置常规校验
+		    		'trim',
+		    		'required',
+		    		'min_length[1]'
+		    	)
+		    );
+
+		    if($this->form_validation->run() === FALSE){
+		    	
+				$this->load_view('weixin/weixin_public_form',$data); 
+
+		    }else{
+		       
+		       $new_wxp_id = $this->Weixin_Public_model->add_weixin_public();//添加公众号,返回新插入数据ID
+
+		       $new_name = $this->Weixin_Public_model->get_weixin_public_by_wxp_id($new_wxp_id);//根据ID获取新插入数据的名称
+		       
+		       $this->session->set_flashdata('success', '【'.$new_name['name'].'】'.lang('wxpl_success_add'));
+
+		       redirect('admin/weixin_public','refresh');
+		    }
+		    
+		}else{
+
+			$this->session->set_flashdata('error', '【'.lang('wxpl_help_weixin_public_users').'】');
+
+		    redirect('admin/weixin_public','refresh');
+
+		}
+
 		
-		//微信公众号类型
-		$data['wxp_types'] = $this->Weixin_Public_model->getWXT();
-
-		//加载相关类库
-		$this->load->helper('form');
-	    $this->load->library('form_validation');
-
-	    //设置校验规则	    
-	    $this->form_validation->set_rules('appid', lang('wxpl_help_appid'), 
-	    	array(
-	    		//配置常规校验
-	    		'trim',
-	    		'required',
-	    		'min_length[1]'
-	    	)
-	    );
-	    $this->form_validation->set_rules('secret', lang('wxpl_help_secret'), 
-	    	array(
-	    		//配置常规校验
-	    		'trim',
-	    		'required',
-	    		'min_length[1]'
-	    	)
-	    );
-	    $this->form_validation->set_rules('wxt_id', lang('wxpl_help_wxt_id'), 
-	    	array(
-	    		//配置常规校验
-	    		'trim',
-	    		'required',
-	    		'min_length[1]'
-	    	)
-	    );
-	    $this->form_validation->set_rules('sort', lang('wxpl_help_sort'), 
-	    	array(
-	    		//配置常规校验
-	    		'trim',
-	    		'required',
-	    		'min_length[1]'
-	    	)
-	    );
-	    $this->form_validation->set_rules('name', lang('wxpl_help_name'), 
-	    	array(
-	    		//配置常规校验
-	    		'trim',
-	    		'required',
-	    		'min_length[1]'
-	    	)
-	    );
-
-	    if($this->form_validation->run() === FALSE){
-	    	
-			$this->load_view('weixin/weixin_public_form',$data); 
-
-	    }else{
-	       $this->Weixin_Public_model->add_weixin_public();//添加公众号,返回新插入数据ID
-
-	       $new_wxp_id = $this->Weixin_Public_model->get_weixin_public_new_wxp_id();
-
-	       $new_name = $this->Weixin_Public_model->get_weixin_public_by_wxp_id($new_wxp_id);//根据ID获取新插入数据的名称
-
-	       $this->session->set_flashdata('success', '【'.$new_name['name'].'】'.lang('wxpl_success_add'));
-
-	       redirect('admin/weixin_public','refresh');
-	    }
 
 	}
 

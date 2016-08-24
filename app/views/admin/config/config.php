@@ -92,6 +92,28 @@
                                         </div>
                                     </div>
 
+                                    <!-- 人员照片张数限制 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="bp_image_limit"><?php echo lang('cl_bp_image_limit'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10 <?php if(form_error('bp_image_limit')){echo 'has-error';}?>">
+                                            <input type="text" class="form-control" id="bp_image_limit" name="bp_image_limit" placeholder="<?php echo lang('cl_help_bp_image_limit'); ?>" value="<?php echo $bp_image_limit; ?>">
+                                            <span class="help-block"><?php if(form_error('bp_image_limit')){echo "<i class='fa fa-times-circle-o'></i>".form_error('bp_image_limit');} ?></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 可创建活动数量 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="groups_vm_limit"><?php echo lang('cl_groups_vm_limit'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10">
+                                            
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+
                                     <div class="box-footer pull-right">
                                         <button type="submit" class="btn btn-default"><?php echo lang('cl_save'); ?></button>
                                     </div>

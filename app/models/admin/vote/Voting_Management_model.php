@@ -15,7 +15,7 @@ class Voting_Management_model extends CI_Model{
 
 	}
 
-	//添加活动分类
+	//添加活动
 	public function add_voting_management(){
 		
 		//voting_management表
@@ -33,6 +33,13 @@ class Voting_Management_model extends CI_Model{
 
 		//获取最新插入的ID
 		$vm_id = $this->get_voting_management_new_vm_id();
+
+		//vm_user
+		$data_vm_user = array(
+			'vm_id' => $this->security->xss_clean($vm_id),
+			'user_id' => $this->security->xss_clean($this->session->userdata('user_id'))
+		);
+		$this->db->insert('vm_user', $this->security->xss_clean($data_vm_user));
 
 		//vm_vc表
 		$data_vm_vc = array(
@@ -78,7 +85,8 @@ class Voting_Management_model extends CI_Model{
        		'focus' => $this->input->post('focus',TRUE),
        		'vote_limit' => $this->input->post('vote_limit',TRUE),
        		'select_vote_limit' => $this->input->post('select_vote_limit',TRUE),
-       		'interval_time' => $this->input->post('interval_time',TRUE)
+       		'interval_time' => $this->input->post('interval_time',TRUE),
+       		'online_reg' => $this->input->post('online_reg',TRUE)
        	);
        	$this->db->insert('vm_rules', $this->security->xss_clean($data_vm_rules,TRUE));
 
@@ -153,7 +161,7 @@ class Voting_Management_model extends CI_Model{
 		return $query->row_array();
 	}
 
-	//根据vm_id获取关联分类vm_vc数据
+	//根据vm_id获取关联vm_vc数据
 	public function get_vm_vc_by_vm_id($vm_id){
 		$query = $this->db->get_where('vm_vc', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
 		return $query->row_array();
@@ -176,7 +184,7 @@ class Voting_Management_model extends CI_Model{
 		return $query->row_array();
 	}
 
-	//更新活动分类
+	//更新活动
 	public function edit_voting_management($vm_id){
 
 		$data = array(
@@ -249,7 +257,8 @@ class Voting_Management_model extends CI_Model{
        		'focus' => $this->input->post('focus',TRUE),
        		'vote_limit' => $this->input->post('vote_limit',TRUE),
        		'select_vote_limit' => $this->input->post('select_vote_limit',TRUE),
-       		'interval_time' => $this->input->post('interval_time',TRUE)
+       		'interval_time' => $this->input->post('interval_time',TRUE),
+       		'online_reg' => $this->input->post('online_reg',TRUE)
        	);
        	$this->db->insert('vm_rules', $this->security->xss_clean($data_vm_rules,TRUE));
 	}
@@ -261,15 +270,27 @@ class Voting_Management_model extends CI_Model{
 		//删除活动信息主表
 		$query = $this->db->delete('voting_management', array('vm_id' => $this->security->xss_clean($vm_id)));
 		
-		//删除活动信息与分类关联表
+		//删除活动信息与关联表
 		$vm_vc = $this->get_vm_vc_by_vm_id($vm_id);
 		if (isset($vm_vc)){
 		    $vm_vc_id = $vm_vc['vm_vc_id'];
 		    $this->db->delete('vm_vc', array('vm_vc_id' => $this->security->xss_clean($vm_vc_id)));
 		}
 
+		//删除活动信息与管理员
+		$this->db->delete('vm_user', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
+
 		//删除活动信息与基础人员关联表
 		$this->db->delete('vm_bp', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
+
+		//删除活动信息与广告图
+		$this->db->delete('vm_banner', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
+
+		//删除活动信息与规则配置
+		$this->db->delete('vm_rules', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
+
+		//删除活动信息与访问流量
+		$this->db->delete('vm_traffic', array('vm_id' => $this->security->xss_clean((int)$vm_id)));
 
 		return $query;
 	}

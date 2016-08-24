@@ -66,7 +66,6 @@ class Voting_Management extends MY_Controller {
 		//*操作*
 		$data['vm_action'] = 'add';
 
-
 		$data['base_url'] = $this->config->item('base_url');
 		
 		//加载相关类库
@@ -123,6 +122,7 @@ class Voting_Management extends MY_Controller {
 	    $this->form_validation->set_rules('vote_limit', lang('vml_help_vote_limit'),array('trim','required'));//是否开启投票次数限制
 	    $this->form_validation->set_rules('select_vote_limit', lang('vml_help_select_vote_limit'),array('trim','required'));//可投票次数
 	    $this->form_validation->set_rules('interval_time', lang('vml_help_interval_time'),array('trim','required'));//每次投票间隔时间
+	    $this->form_validation->set_rules('online_reg', lang('vml_help_online_reg'),array('trim','required'));//开启在线报名
 
 	    if($this->form_validation->run() === FALSE){
 	    	
@@ -184,7 +184,6 @@ class Voting_Management extends MY_Controller {
 			$data['vm_vc'] = $this->Voting_Management_model->get_vm_vc_by_vm_id($vm_id);
 
 			//根据活动信息获取关联人员ID
-			//$data['vm_bps'] = $this->Voting_Management_model->get_vm_bp_by_vm_id((int)$vm_id);
 			$vm_bp_result = $this->Voting_Management_model->get_vm_bp_by_vm_id((int)$vm_id);
 			$count = 1;
 			$string = NULL;
@@ -263,6 +262,7 @@ class Voting_Management extends MY_Controller {
 		    $this->form_validation->set_rules('vote_limit', lang('vml_help_vote_limit'),array('trim','required'));//是否开启投票次数限制
 		    $this->form_validation->set_rules('select_vote_limit', lang('vml_help_select_vote_limit'),array('trim','required'));//可投票次数
 		    $this->form_validation->set_rules('interval_time', lang('vml_help_interval_time'),array('trim','required'));//每次投票间隔时间
+		    $this->form_validation->set_rules('online_reg', lang('vml_help_online_reg'),array('trim','required'));//开启在线报名
 
 		    if($this->form_validation->run() === FALSE){
 		    	
@@ -379,9 +379,7 @@ class Voting_Management extends MY_Controller {
 
 	//广告图上传
 	public function upload(){
-		/**
-		 * 上传路径目前默认固定,后面再系统设置可以配置上传目录
-		 */
+		
 		$config['upload_path']      = $this->Config_model->getConfig('vm_upload_path');
         $config['allowed_types']    = $this->Config_model->getConfig('allow_image_type');
         $config['max_size']         = 0;

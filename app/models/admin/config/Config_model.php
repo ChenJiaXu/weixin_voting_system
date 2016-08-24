@@ -25,6 +25,7 @@ class Config_model extends CI_Model{
 		$this->update('vm_music_upload_path',$this->input->post('vm_music_upload_path',TRUE),'config');
 		$this->update('bp_upload_path',$this->input->post('bp_upload_path',TRUE),'config');
 		$this->update('vm_upload_path',$this->input->post('vm_upload_path',TRUE),'config');
+		$this->update('bp_image_limit',$this->input->post('bp_image_limit',TRUE),'config');
 	}
 
 	private function update($key,$value,$table){

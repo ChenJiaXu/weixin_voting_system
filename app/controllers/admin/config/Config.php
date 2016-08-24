@@ -27,7 +27,8 @@ class Config extends MY_Controller {
 		$data['vm_upload_path'] = $this->Config_model->getConfig('vm_upload_path');
 		$data['vm_music_upload_path'] = $this->Config_model->getConfig('vm_music_upload_path');
 		$data['allow_image_type'] = $this->Config_model->getConfig('allow_image_type');
-
+		$data['bp_image_limit'] = $this->Config_model->getConfig('bp_image_limit');
+		
 		//加载相关类库
 		$this->load->helper('form');
 	    $this->load->library('form_validation');
@@ -40,6 +41,7 @@ class Config extends MY_Controller {
  		$this->form_validation->set_rules('vm_upload_path', lang('cl_help_vm_upload_path'), array('trim','required','min_length[1]'));
  		$this->form_validation->set_rules('allow_image_type', lang('cl_help_allow_image_type'), array('trim','required','min_length[1]'));
  		$this->form_validation->set_rules('vm_music_upload_path', lang('cl_help_vm_music_upload_path'), array('trim','required','min_length[1]'));
+ 		$this->form_validation->set_rules('bp_image_limit', lang('cl_help_bp_image_limit'), array('trim','required','min_length[1]'));
 
 		if($this->form_validation->run() === FALSE){
 		    	

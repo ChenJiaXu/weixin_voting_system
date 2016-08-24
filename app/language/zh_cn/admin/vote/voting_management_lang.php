@@ -32,15 +32,19 @@ $lang['vml_rules_config']		 = '活动说明';
 $lang['vml_banner']				 = '海报';
 $lang['vml_banner_sort']		 = '海报排序';
 
-$lang['vml_focus']			 	 = '是否开启关注后投票';
+$lang['vml_focus']			 	 = '关注后投票';
 $lang['vml_focus_on']			 = '开启';//1
 $lang['vml_focus_off']			 = '关闭';//0
 
-$lang['vml_vote_limit']			 = '是否开启投票次数限制';
+$lang['vml_vote_limit']			 = '投票次数限制';
 $lang['vml_vote_limit_on']		 = '开启';//1
 $lang['vml_vote_limit_off']		 = '关闭';//0
 $lang['vml_select_vote_limit']	 = '可投票次数';//0不限制
-$lang['vml_interval_time']		 = '每次投票间隔时间';//0不限制
+$lang['vml_interval_time']		 = '投票间隔时间';//0不限制
+
+$lang['vml_online_reg']			 = '在线报名';
+$lang['vml_online_reg_on']		 = '开启';//1
+$lang['vml_online_reg_off']		 = '关闭';//0
 
 //关联basic_personnel
 $lang['vml_basic_personnel']	 = '选择人员';
@@ -82,6 +86,7 @@ $lang['vml_help_focus']    		 	= '请选择是否开启关注后投票！';
 $lang['vml_help_vote_limit']     	= '请选择是否开启投票次数限制！';
 $lang['vml_help_select_vote_limit'] = '请选择可投票次数！';
 $lang['vml_help_interval_time']  	= '请选择每次投票间隔时间！';
+$lang['vml_help_online_reg']  	 = '请选择是否开启在线报名！';
 
 
 //成功信息提示

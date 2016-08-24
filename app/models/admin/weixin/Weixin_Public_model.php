@@ -25,7 +25,20 @@ class Weixin_Public_model extends CI_Model{
 		    'date_edit' => date('Y-m-d H:i:s'),
 		    'name' => $this->input->post('name',TRUE)
 		);
-		return $this->db->insert('weixin_public', $this->security->xss_clean($data));
+
+		$query = $this->db->insert('weixin_public', $this->security->xss_clean($data));
+
+		//获取最新插入的ID
+		$new_wxp_id = $this->get_weixin_public_new_wxp_id();
+
+		//weixin_public_user
+		$data_wxp_user = array(
+			'wxp_id' => $this->security->xss_clean($new_wxp_id),
+			'user_id' => $this->security->xss_clean($this->session->userdata('user_id'))
+		);
+		$this->db->insert('weixin_public_users', $this->security->xss_clean($data_wxp_user));
+
+		return $new_wxp_id;
 	}
 
 	//更新微信公众号
@@ -51,10 +64,11 @@ class Weixin_Public_model extends CI_Model{
 		return $query->row_array();
 	}
 
-	//删除分类
+	//删除公众号
 	public function delete_weixin_public_by_wxp_id($wxp_id){
-		$query = $this->db->delete('weixin_public', array('wxp_id' => $this->security->xss_clean($wxp_id)));
-		return $query;
+		$this->db->delete('weixin_public', array('wxp_id' => $this->security->xss_clean($wxp_id)));
+		$this->db->delete('weixin_public_users', array('wxp_id' => $this->security->xss_clean($wxp_id)));
+		return TRUE;
 	}
 
 	//返回最新一条数据的ID
@@ -76,6 +90,11 @@ class Weixin_Public_model extends CI_Model{
 	public function getWXT(){
 		$query = $this->db->get('weixin_type');
 		return $query->result_array();
+	}
+
+	//判断当前用户是否已经绑定了微信公众号
+	public function check_weixin_public_users($user_id){
+		return $this->db->get_where('weixin_public_users', array('user_id' => (int)$user_id))->num_rows();
 	}
 
 }

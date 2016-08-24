@@ -41,6 +41,8 @@ $lang['wxpl_help_sort']			 = '请填写此公众号的排序！';
 $lang['wxpl_help_date_add']		 = '该项内容不填，由系统自动生成！';
 $lang['wxpl_help_date_edit']	 = '该项内容不填，由系统自动生成！';
 
+$lang['wxpl_help_weixin_public_users'] = '当前账号只能绑定一个公众号！';
+
 //成功信息提示
 $lang['wxpl_success']			 = '成功信息提示';
 $lang['wxpl_success_add']		 = ' 添 加 成 功 ！';
