@@ -103,16 +103,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- 可创建活动数量 -->
-                                    <div class="form-group">
-                                        <div class="col-xs-2 text-right">
-                                            <label class="control-label" for="groups_vm_limit"><?php echo lang('cl_groups_vm_limit'); ?></label>
-                                        </div>
-                                        <div class="col-xs-10">
-                                            
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div>
 
                                     <div class="box-footer pull-right">
                                         <button type="submit" class="btn btn-default"><?php echo lang('cl_save'); ?></button>
@@ -126,7 +116,19 @@
                             <div class="tab-pane" id="cl_tab_global_config">
                                 <div class="box-body">
 
-                                    
+                                    <!-- 最高权限组 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="global_groups"><?php echo lang('cl_global_groups'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10 <?php if(form_error('global_groups')){echo 'has-error';}?>">
+                                            <?php if(isset($groups)){ foreach ($groups as $g) { ?>
+                                                <input type="radio" class="minimal" name="global_groups" value="<?php echo $g['id'];?>" <?php if($g['id'] == $global_groups){ echo "checked"; } ?>>
+                                                <label class="control-label"><?php echo $g['description']; ?></label>
+                                            <?php }} ?>
+                                            <span class="help-block"><?php if(form_error('global_groups')){echo "<i class='fa fa-times-circle-o'></i>".form_error('global_groups');} ?></span>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>

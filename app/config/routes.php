@@ -69,8 +69,9 @@ $route['admin/auth/forgot_password'] = 'admin/auth/Auth/forgot_password';
 $route['admin/auth/reset_password/(:any)'] = 'admin/auth/Auth/reset_password/$1';
 
 //--------------------------权限组---------------------------//
-$route['admin/groups_menu'] = 'admin/auth/Groups_Menu';
-$route['admin/groups_menu/edit/(:any)'] = 'admin/auth/Groups_Menu/edit/$1';
+$route['admin/groups'] = 'admin/auth/Groups';
+$route['admin/groups/edit_menu/(:any)'] = 'admin/auth/Groups/edit_menu/$1';//菜单权限
+$route['admin/groups/edit_setting/(:any)'] = 'admin/auth/Groups/edit_setting/$1';//参数设置
 
 //--------------------------投票活动模块---------------------------//
 $route['admin/voting_classification'] = 'admin/vote/Voting_Classification';//投票分类

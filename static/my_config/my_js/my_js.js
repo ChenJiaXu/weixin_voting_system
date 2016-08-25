@@ -139,6 +139,11 @@ $(function(){
     });
 
 
+/*--------------------------------------------config.php----------------------------------------------*/
+    $('#cl_tab_global_config input[type="radio"].minimal').iCheck({
+      radioClass: 'iradio_minimal-blue'
+    });
+
 
 
 

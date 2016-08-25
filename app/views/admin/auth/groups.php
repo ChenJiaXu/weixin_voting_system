@@ -4,7 +4,7 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
-				<?php echo lang('gml_head_title'); ?>
+				<?php echo lang('gl_head_title'); ?>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i> 控制面板</a></li>
@@ -26,7 +26,7 @@
 							<?php if($this->session->flashdata('success')){ ?> 
 							<div class="alert alert-success alert-dismissible">
 			               		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			                	<h4><i class="icon fa fa-check"></i> <?php echo lang('gml_success'); ?></h4>
+			                	<h4><i class="icon fa fa-check"></i> <?php echo lang('gl_success'); ?></h4>
 			               		 <?php echo $this->session->flashdata('success'); ?>
 			              	</div>
 			              	<?php } ?>
@@ -34,7 +34,7 @@
 			              	<?php if($this->session->flashdata('error')){ ?> 
 			              	<div class="alert alert-danger alert-dismissible">
 				                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				                <h4><i class="icon fa fa-ban"></i> <?php echo lang('gml_error'); ?></h4>
+				                <h4><i class="icon fa fa-ban"></i> <?php echo lang('gl_error'); ?></h4>
 				                <?php echo $this->session->flashdata('error'); ?>
 			             	</div>
 			             	<?php } ?>
@@ -43,10 +43,10 @@
 							<table id="users_groups" class="table table-hover">
 								<thead>
 									<tr>
-										<th><?php echo lang('gml_groups_id'); ?></th>
-										<th><?php echo lang('gml_groups_name'); ?></th>
-										<th><?php echo lang('gml_groups_description'); ?></th>
-										<th><?php echo lang('gml_operation'); ?></th>
+										<th><?php echo lang('gl_groups_id'); ?></th>
+										<th><?php echo lang('gl_groups_name'); ?></th>
+										<th><?php echo lang('gl_groups_description'); ?></th>
+										<th><?php echo lang('gl_operation'); ?></th>
 									</tr>
 								</thead>
 
@@ -58,9 +58,13 @@
 										<td><?php echo $g['name']; ?></td>
 										<td><?php echo $g['description']; ?></td>
 										<td>
-											<a type="button" class="btn btn-default btn-sm" href="<?php echo $g['edit']; ?>">
+											<a type="button" class="btn btn-default btn-sm" href="<?php echo $g['edit_menu']; ?>">
 												<i class="fa fa-edit"></i>
-												<?php echo lang('gml_edit'); ?>
+												<?php echo lang('gl_edit_menu'); ?>
+											</a>
+											<a type="button" class="btn btn-default btn-sm" href="<?php echo $g['edit_setting']; ?>">
+												<i class="fa fa-edit"></i>
+												<?php echo lang('gl_edit_setting'); ?>
 											</a>
 										</td>
 									</tr>

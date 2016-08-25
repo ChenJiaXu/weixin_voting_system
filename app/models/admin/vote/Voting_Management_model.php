@@ -9,10 +9,13 @@ class Voting_Management_model extends CI_Model{
     
 	public function getVM(){
 
-		$query = $this->db->get('voting_management');
-
-		return $query->result_array();
-
+		$this->db->select('*');
+		$this->db->from('voting_management');
+		$this->db->join('vm_user', 'voting_management.vm_id = vm_user.vm_id', 'left');
+		$this->db->where('vm_user.user_id', $this->session->userdata('user_id'));//根据当前用户读取对应数据
+		$query = $this->db->get()->result_array();
+		return $query;
+		
 	}
 
 	//添加活动

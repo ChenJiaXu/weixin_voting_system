@@ -72,6 +72,7 @@ class Menu_model extends CI_Model{
 
 	//删除分类
 	public function delete_menu_by_menu_id($menu_id){
+		$this->db->delete('groups_menu', array('menu_id' => $this->security->xss_clean($menu_id)));
 		$query = $this->db->delete('menu', array('menu_id' => $this->security->xss_clean($menu_id)));
 		return $query;
 	}

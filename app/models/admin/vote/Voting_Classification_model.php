@@ -8,8 +8,14 @@ class Voting_Classification_model extends CI_Model{
     }
     
 	public function getVC(){
-		$query = $this->db->get('voting_classification');
-		return $query->result_array();
+
+		$this->db->select('*');
+		$this->db->from('voting_classification');
+		$this->db->join('vc_user', 'voting_classification.vc_id = vc_user.vc_id', 'left');
+		$this->db->where('vc_user.user_id', $this->session->userdata('user_id'));//根据当前用户读取对应数据
+		$query = $this->db->get()->result_array();
+		return $query;
+
 	}
 
 	//添加活动分类
@@ -20,7 +26,19 @@ class Voting_Classification_model extends CI_Model{
 		    'code' => md5(NOW()),
 		    'status' => $this->input->post('status',TRUE)
 		);
-		return $this->db->insert('voting_classification', $this->security->xss_clean($data));
+		$this->db->insert('voting_classification', $this->security->xss_clean($data));
+
+		//获取最新插入的ID
+		$vc_id = $this->get_voting_classification_new_vc_id();
+
+		//vm_user
+		$data_vc_user = array(
+			'vc_id' => $this->security->xss_clean($vc_id),
+			'user_id' => $this->security->xss_clean($this->session->userdata('user_id'))
+		);
+		$this->db->insert('vc_user', $this->security->xss_clean($data_vc_user));
+
+		return $vc_id;
 	}
 
 	//更新活动分类
@@ -30,14 +48,10 @@ class Voting_Classification_model extends CI_Model{
 			'status' => $this->input->post('status',TRUE)
 		);
 		$this->db->where('vc_id', $this->security->xss_clean((int)$vc_id));
+
 		return $this->db->update('voting_classification', $data);
 	}
 
-	/*//检查分类名是否重复
-	public function get_voting_classification_by_name($name){
-		$query = $this->db->get_where('voting_classification', array('name' => $this->security->xss_clean($name)));
-		return $query->row_array();
-	}*/
 
 	//根据ID返回数据
 	public function get_voting_classification_by_vc_id($vc_id){
@@ -47,6 +61,9 @@ class Voting_Classification_model extends CI_Model{
 
 	//删除分类
 	public function delete_voting_classification_by_vc_id($vc_id){
+		//删除活动分类与管理员
+		$this->db->delete('vc_user', array('vc_id' => $this->security->xss_clean((int)$vc_id)));
+
 		$query = $this->db->delete('voting_classification', array('vc_id' => $this->security->xss_clean($vc_id)));
 		return $query;
 	}

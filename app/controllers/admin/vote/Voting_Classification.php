@@ -58,9 +58,8 @@ class Voting_Classification extends MY_Controller {
 			$this->load_view('vote/voting_classification_form',$data); 
 
 	    }else{
-	       $this->Voting_Classification_model->add_voting_classification();//添加活动分类,返回新插入数据ID
-
-	       $new_vc_id = $this->Voting_Classification_model->get_voting_classification_new_vc_id();
+	    	
+	       $new_vc_id = $this->Voting_Classification_model->add_voting_classification();//添加活动分类,返回新插入数据ID
 
 	       $new_name = $this->Voting_Classification_model->get_voting_classification_by_vc_id($new_vc_id);//根据ID获取新插入数据的名称
 

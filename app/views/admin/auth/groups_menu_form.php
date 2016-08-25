@@ -13,7 +13,7 @@
         <section class="content-header">
             <h1>
                 <b>
-                    <?php if($gm_action == 'edit'){echo lang('gml_form_title_edit');} ?>  
+                    <?php echo lang('gml_form_title_edit_menu'); ?>  
                 </b>
             </h1>
             <ol class="breadcrumb">
@@ -30,14 +30,13 @@
                     <!-- general form elements disabled -->
                     <div class="box box-warning">
                         <div class="box-body" id="groups_menu">
-                            <?php if($gm_action == 'edit'){ $action = 'edit/'.$groups['id']; }?>  
-                            <?php echo form_open('admin/groups_menu/'.$action); ?>
+                            <?php echo form_open('admin/groups/edit_menu/'.$groups['id']); ?>
                             <div class="box-body">
 
                                 <!-- name -->
                                 <div class="form-group">
                                     <div class="col-xs-2 text-right">
-                                        <label class="control-label" for="groups_name"><?php echo lang('gml_groups_name'); ?></label>
+                                        <label class="control-label" for="groups_name"><?php echo lang('gl_groups_name'); ?></label>
                                     </div>
                                     <div class="col-xs-10 <?php if(form_error('groups_name')){echo 'has-error';}?>">
                                         <input type="text" class="form-control" id="groups_name" name="groups_name" value="<?php echo $groups['name']; ?>" readonly>
@@ -49,7 +48,7 @@
                                 <!-- description -->
                                 <div class="form-group">
                                     <div class="col-xs-2 text-right">
-                                        <label class="control-label" for="groups_description"><?php echo lang('gml_groups_description'); ?></label>
+                                        <label class="control-label" for="groups_description"><?php echo lang('gl_groups_description'); ?></label>
                                     </div>
                                     <div class="col-xs-10 <?php if(form_error('groups_description')){echo 'has-error';}?>">
                                         <input type="text" class="form-control" id="groups_description" name="groups_description" value="<?php echo $groups['description']; ?>" readonly>
@@ -130,8 +129,8 @@
 
 
                                 <div class="box-footer pull-right">
-                                    <button type="submit" class="btn btn-default"><?php echo lang('gml_save'); ?></button>
-                                    <a href="javascript:history.go(-1);location.reload()" class="btn btn-default"><?php echo lang('gml_return'); ?></a>
+                                    <button type="submit" class="btn btn-default"><?php echo lang('gl_save'); ?></button>
+                                    <a href="javascript:history.go(-1);location.reload()" class="btn btn-default"><?php echo lang('gl_return'); ?></a>
                                 </div>
 
                             </div>

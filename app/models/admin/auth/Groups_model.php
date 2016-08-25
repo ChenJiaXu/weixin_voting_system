@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Groups_Menu_model extends CI_Model{
+class Groups_model extends CI_Model{
 
 	public function __construct()
     {
@@ -36,6 +36,29 @@ class Groups_Menu_model extends CI_Model{
 		
 	}
 
+	//更新权限组-参数设置
+	public function edit_groups_setting($groups_id){
+		$groups_setting = $this->get_groups_setting_by_groups_id($groups_id);
+		if($groups_setting == null || $groups_setting == ''){
+			$data = array(
+				'groups_id' => $groups_id,
+			    'vote_more' => $this->input->post('vote_more',TRUE)
+			);
+			$this->db->insert('groups_setting', $this->security->xss_clean($data));
+		}else{
+			
+			$data = array(
+			    'vote_more' => $this->input->post('vote_more',TRUE)
+			);
+
+			$this->db->where('groups_id', $this->security->xss_clean($groups_id));
+
+			$this->db->update('groups_setting', $data);
+
+		}
+		
+	}
+
 	//根据ID返回数据
 	public function get_groups_by_groups_id($groups_id){
 		$query = $this->db->get_where('groups', array('id' => $this->security->xss_clean((int)$groups_id)));
@@ -46,6 +69,12 @@ class Groups_Menu_model extends CI_Model{
 	public function get_groups_menu_by_groups_id($groups_id){
 		$query = $this->db->get_where('groups_menu', array('groups_id' => $this->security->xss_clean((int)$groups_id)));
 		return $query->result_array();
+	}
+
+	//根据groups_id返回关联的参数设置
+	public function get_groups_setting_by_groups_id($groups_id){
+		$query = $this->db->get_where('groups_setting', array('groups_id' => $this->security->xss_clean((int)$groups_id)));
+		return $query->row_array();
 	}
 
 
