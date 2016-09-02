@@ -55,7 +55,7 @@
 										  <div class="modal-body">
 											  <div class="form-group">
 												<label for="bp_id" class="control-label">编号</label>
-												<input type="text" class="form-control" id="bp_id" value="" readonly>
+												<input type="text" class="form-control" id="vm_bp_id" value="" readonly>
 												<input type="text" class="form-control" readonly value="<?php if($ap){ echo $ap['vm_id'];}?>" id="vm_id">
 											  </div>
 										  </div>
@@ -189,7 +189,7 @@
 														
 													</div>
 													<div class="content">
-														<a class="ui bottom attached inverted blue label" data-toggle="modal" data-target="#myModal" data-whatever="<?php echo $vb['bp_id'];?>">
+														<a class="ui bottom attached inverted blue label" data-toggle="modal" data-target="#myModal" data-whatever="<?php echo $vb['vm_bp_id'];?>">
 															<i class="star icon"></i>
 															<?php echo $vb['votes'];?>票
 														</a>
@@ -285,16 +285,16 @@
 							  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 							  var modal = $(this)
 							  /*modal.find('.modal-title').text('为【' + recipient + '】投票');*/
-							  modal.find('.modal-body #bp_id').val(recipient)
+							  modal.find('.modal-body #vm_bp_id').val(recipient)
 							})
 
 							$('#ap_votes').on('click',function(){
 								$vm_id = $("#vm_id").val();
-								$bp_id = $("#bp_id").val();
+								$vm_bp_id = $("#vm_bp_id").val();
 								$.ajax({
 									url: "<?php echo $base_url;?>/admin/voting_management/votes",  
 									type: "POST",
-									data:{vm_id:$vm_id,bp_id:$bp_id},
+									data:{vm_id:$vm_id,vm_bp_id:$vm_bp_id},
 									//dataType: "json",
 									error: function(){  
 										alert('投票异常');

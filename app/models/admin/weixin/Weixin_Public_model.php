@@ -8,13 +8,20 @@ class Weixin_Public_model extends CI_Model{
     }
     
 	public function getWXP(){
-
-		$this->db->select('*');
-		$this->db->from('weixin_public');
-		$this->db->join('weixin_public_users', 'weixin_public.wxp_id = weixin_public_users.wxp_id', 'left');
-		$this->db->where('weixin_public_users.user_id', $this->session->userdata('user_id'));//根据当前用户读取对应数据
-		$query = $this->db->get()->result_array();
-		return $query;
+		
+		$result = $this->check_user_has_global_groups($this->session->userdata('user_id'));
+		if($result == TRUE){
+			$query = $this->db->get('weixin_public');
+			return $query->result_array();
+		}else{
+			$this->db->select('*');
+			$this->db->from('weixin_public');
+			$this->db->join('weixin_public_users', 'weixin_public.wxp_id = weixin_public_users.wxp_id', 'left');
+			$this->db->where('weixin_public_users.user_id', $this->session->userdata('user_id'));//根据当前用户读取对应数据
+			$query = $this->db->get()->result_array();
+			return $query;
+		}
+		
 	}
 
 	//添加微信公众号
@@ -102,4 +109,19 @@ class Weixin_Public_model extends CI_Model{
 		return $this->db->get_where('weixin_public_users', array('user_id' => (int)$user_id))->num_rows();
 	}
 
+	//判断当前用户是否拥有最高权限
+	public function check_user_has_global_groups($user_id){
+
+		//获取当前全局配置中,最高权限组别ID
+		$global_groups = $this->db->get_where('config', array('key' => 'global_groups'))->row_array();
+		
+		//匹配当前用户是否拥有对应权限
+		$users_groups = $this->db->get_where('users_groups', array('user_id' => $user_id, 'group_id' => (int)$global_groups['value']))->row_array();
+		
+		if($users_groups != null || $users_groups != ''){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
 }

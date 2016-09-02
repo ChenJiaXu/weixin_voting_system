@@ -7,15 +7,22 @@ class Voting_Management_model extends CI_Model{
         $this->load->database();
     }
     
-	public function getVM(){
+	public function getVM($user_id){
 
-		$this->db->select('*');
-		$this->db->from('voting_management');
-		$this->db->join('vm_user', 'voting_management.vm_id = vm_user.vm_id', 'left');
-		$this->db->where('vm_user.user_id', $this->session->userdata('user_id'));//根据当前用户读取对应数据
-		$query = $this->db->get()->result_array();
-		return $query;
-		
+		$result = $this->check_user_has_global_groups($user_id);
+		if($result == TRUE){
+			$query = $this->db->get('voting_management');
+			return $query->result_array();
+		}else{
+
+			$this->db->select('*');
+			$this->db->from('voting_management');
+			$this->db->join('vm_user', 'voting_management.vm_id = vm_user.vm_id', 'left');
+			$this->db->where('vm_user.user_id', $this->session->userdata('user_id'));//根据当前用户读取对应数据
+			$query = $this->db->get()->result_array();
+			return $query;
+			
+		}	
 	}
 
 	//添加活动
@@ -332,28 +339,30 @@ class Voting_Management_model extends CI_Model{
 		}
 	}
 	
+	
 	//用户投票
-	public function add_votes_by_vm_bp($vm_id,$bp_id){
-		
-		//取出当前活动对应的用户的票数
-		$query = $this->db->get_where('vm_bp', array('vm_id' => $this->security->xss_clean((int)$vm_id),'bp_id' => $this->security->xss_clean((int)$bp_id)))->result_array();
-		
-		//访问量+1
-		foreach($query as $q){
-			$vm_bp_id = $q['vm_bp_id'];
-			$votes = $q['votes'];
-		}
-		
-		//更新访问量
-		$data = array(
-			'votes' => $this->security->xss_clean($votes+1)
-		);
-		$this->db->where('vm_bp_id', $this->security->xss_clean($vm_bp_id));
+	public function add_vm_bp_vote_list($vm_id,$vm_bp_id,$wxf_id,$name,$ip,$voting_time){
 
-		$this->db->update('vm_bp', $data);
-		
+		 $data = array(
+		 	'vm_id' => $vm_id,
+		    'vm_bp_id' => $vm_bp_id,
+		    'wxf_id' => $wxf_id,
+		    'name' => $name,
+		    'ip' => $ip,
+		    'voting_time' => $voting_time
+		);
+		$this->db->insert('vm_bp_vote_list', $this->security->xss_clean($data));	
 	}
 	
+	//根据IP地址查询上一次投票时间
+	public function get_vm_bp_vote_list_by_ip($vm_id,$ip){
+		return $this->db->order_by('voting_time','desc')->order_by('vbvl_id','desc')->get_where('vm_bp_vote_list', array('vm_id' => $this->security->xss_clean($vm_id),'ip' => $this->security->xss_clean($ip)))->row_array();
+	}
+
+	//
+	public function get_vm_bp_vote_list_totalvotes_by_ip($vm_id,$ip){
+		return $this->db->get_where('vm_bp_vote_list', array('vm_id' => $this->security->xss_clean($vm_id),'ip' => $this->security->xss_clean($ip)))->num_rows();
+	}
 
 	//删除活动广告图
 	public function delete_vm_banner_by_vm_banner_id($vm_banner_id){
@@ -365,5 +374,21 @@ class Voting_Management_model extends CI_Model{
 	public function getOptionValue($data){
 		$query = $this->db->order_by('value', 'ASC')->get_where('option_value', array('key' => $this->security->xss_clean($data)));
 		return $query->result_array();
+	}
+
+	//判断当前用户是否拥有最高权限
+	public function check_user_has_global_groups($user_id){
+
+		//获取当前全局配置中,最高权限组别ID
+		$global_groups = $this->db->get_where('config', array('key' => 'global_groups'))->row_array();
+		
+		//匹配当前用户是否拥有对应权限
+		$users_groups = $this->db->get_where('users_groups', array('user_id' => $user_id, 'group_id' => (int)$global_groups['value']))->row_array();
+		
+		if($users_groups != null || $users_groups != ''){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
 }

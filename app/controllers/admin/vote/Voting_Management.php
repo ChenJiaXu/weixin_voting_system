@@ -35,7 +35,7 @@ class Voting_Management extends MY_Controller {
 		$this->Voting_Management_model->update_voting_management_by_now();
 		
 		//获取列表数据
-		$data['voting_managements'] = $this->Voting_Management_model->getVM();
+		$data['voting_managements'] = $this->Voting_Management_model->getVM($this->session->userdata('user_id'));
 		
 		$this->load_view('vote/voting_management',$data);
 	
@@ -45,7 +45,7 @@ class Voting_Management extends MY_Controller {
 	public function add(){
 		
 		//------------------------vc----------------------------------------
-		$data['vcs'] = $this->Voting_Classification_model->getVC();
+		$data['vcs'] = $this->Voting_Classification_model->getVC($this->session->userdata('user_id'));
 
 		//-----------------------basic_personnel----------------------------
 		$data['bps'] = array();
@@ -159,7 +159,7 @@ class Voting_Management extends MY_Controller {
 
 			//------------------------vc----------------------------------------
 			//$data['vcl_name'] = lang('vcl_name');
-			$data['vcs'] = $this->Voting_Classification_model->getVC();
+			$data['vcs'] = $this->Voting_Classification_model->getVC($this->session->userdata('user_id'));
 
 			//-----------------------basic_personnel----------------------------
 			//$data['vml_basic_personnel'] = lang('vml_basic_personnel');
@@ -352,6 +352,7 @@ class Voting_Management extends MY_Controller {
 		//加载数据
 		$data['ap'] = $this->Voting_Management_model->get_voting_management_by_vm_id($vm_id);//根据投票活动ID获取对应数据
 		$data['vm_bp'] = $this->Voting_Management_model->get_ap_by_vm_id($vm_id);//根据投票活动ID获取本次活动参与者
+
 		$data['bp_image'] = array();
 		foreach ($data['vm_bp'] as $vm_bp) {
 			$bp_image = $this->Voting_Management_model->get_bp_image_by_bp_id($vm_bp['bp_id'],$main_image = 1);
@@ -371,12 +372,109 @@ class Voting_Management extends MY_Controller {
 	
 	//投票
 	public function votes(){
-		$vm_id = $_POST['vm_id'];
-		$bp_id = $_POST['bp_id'];
-		$this->Voting_Management_model->add_votes_by_vm_bp($vm_id,$bp_id);
-		echo '投票成功';
+		
+		$vm_id = $_POST['vm_id'];//活动ID
+		
+		$vm_bp_id = $_POST['vm_bp_id'];//vm_bp_id 当前活动下对应人员ID
+
+		//验证判断当前活动对应的规则
+		$vm_rules = $this->Voting_Management_model->get_vm_rules_by_vm_id($vm_id);
+
+		$focus = $vm_rules['focus'];//关注后投票0否1是
+		$vote_limit = $vm_rules['vote_limit'];//投票次数限制0关闭1开启
+		$select_vote_limit = $vm_rules['select_vote_limit'];//可投票次数0无次数限制
+		$interval_time = $vm_rules['interval_time'];//投票间隔时间0不限制
+
+		//执行投票方法,插入数据（活动与人员ID,微信粉丝ID(0),姓名/昵称,ip地址,投票时间）
+		if($focus == 0){//无需关注
+			
+			if($vote_limit == 0){//关闭投票次数限制
+
+				if($interval_time == 0){//不限制投票间隔时间
+
+					$wxf_id = 0; $name = '游客'; $ip = $_SERVER["REMOTE_ADDR"]; $voting_time = date('Y-m-d H:i:s');
+					$this->Voting_Management_model->add_vm_bp_vote_list($vm_id,$vm_bp_id,$wxf_id,$name,$ip,$voting_time);
+					echo "投票成功！！！";
+
+				}else{//限制投票间隔时间
+
+					//根据IP地址查询上一次投票时间
+					$voting_time = $this->Voting_Management_model->get_vm_bp_vote_list_by_ip($vm_id,$_SERVER["REMOTE_ADDR"]);
+
+					if($voting_time == null || $voting_time == ''){
+
+						$wxf_id = 0; $name = '游客'; $ip = $_SERVER["REMOTE_ADDR"]; $voting_time = date('Y-m-d H:i:s');
+						$this->Voting_Management_model->add_vm_bp_vote_list($vm_id,$vm_bp_id,$wxf_id,$name,$ip,$voting_time);
+						echo "投票成功！！！";
+
+					}else{
+						//当前时间与上一次投票时间差是否大于（投票间隔时间）
+						$time = (int)strtotime(date('Y-m-d H:i:s')) - (int)strtotime($voting_time['voting_time']);
+
+						if($time > (int)$interval_time){
+							$wxf_id = 0; $name = '游客'; $ip = $_SERVER["REMOTE_ADDR"]; $voting_time = date('Y-m-d H:i:s');
+							$this->Voting_Management_model->add_vm_bp_vote_list($vm_id,$vm_bp_id,$wxf_id,$name,$ip,$voting_time);
+							echo "投票成功！！！";
+						}else if($time == (int)$interval_time || $time < (int)$interval_time){
+							echo '请在【'.-(int)($time-$interval_time).'】秒后，再进行投票！';
+						}
+					}
+					
+				}
+
+			}else{//开启投票次数限制
+
+				//获取当前IP对本次活动相关人员进行的投票次数总计
+				$total = $this->Voting_Management_model->get_vm_bp_vote_list_totalvotes_by_ip($vm_id,$_SERVER["REMOTE_ADDR"]);
+
+				if($total < $select_vote_limit){
+
+					if($interval_time == 0){//不限制投票间隔时间
+
+						$wxf_id = 0; $name = '游客'; $ip = $_SERVER["REMOTE_ADDR"]; $voting_time = date('Y-m-d H:i:s');
+						$this->Voting_Management_model->add_vm_bp_vote_list($vm_id,$vm_bp_id,$wxf_id,$name,$ip,$voting_time);
+						echo "投票成功！！！";
+
+
+					}else{//限制投票间隔时间
+
+						//根据IP地址查询上一次投票时间
+						$voting_time = $this->Voting_Management_model->get_vm_bp_vote_list_by_ip($vm_id,$_SERVER["REMOTE_ADDR"]);
+
+						if($voting_time == null || $voting_time == ''){
+
+							$wxf_id = 0; $name = '游客'; $ip = $_SERVER["REMOTE_ADDR"]; $voting_time = date('Y-m-d H:i:s');
+							$this->Voting_Management_model->add_vm_bp_vote_list($vm_id,$vm_bp_id,$wxf_id,$name,$ip,$voting_time);
+							echo "投票成功！！！";
+
+						}else{
+							//当前时间与上一次投票时间差是否大于（投票间隔时间）
+							$time = (int)strtotime(date('Y-m-d H:i:s')) - (int)strtotime($voting_time['voting_time']);
+
+							if($time > (int)$interval_time){
+								$wxf_id = 0; $name = '游客'; $ip = $_SERVER["REMOTE_ADDR"]; $voting_time = date('Y-m-d H:i:s');
+								$this->Voting_Management_model->add_vm_bp_vote_list($vm_id,$vm_bp_id,$wxf_id,$name,$ip,$voting_time);
+								echo "投票成功！！！";
+							}else if($time == (int)$interval_time || $time < (int)$interval_time){
+								echo '请在【'.-(int)($time-$interval_time).'】秒后，再进行投票！';
+							}
+						}
+						
+					}
+
+				}else{
+					echo '本次活动只允许每个用户进行【'.$select_vote_limit.'】次投票';
+				}
+			}
+
+		}else{
+			
+			//判断当前微信用户是否关注了该公众号
+			//引导用户授权登录后,重定向回投票页面
+		}
 	}
 
+	
 	//广告图上传
 	public function upload(){
 		

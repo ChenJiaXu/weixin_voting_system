@@ -7,14 +7,20 @@ class Voting_Classification_model extends CI_Model{
         $this->load->database();
     }
     
-	public function getVC(){
+	public function getVC($user_id){
 
-		$this->db->select('*');
-		$this->db->from('voting_classification');
-		$this->db->join('vc_user', 'voting_classification.vc_id = vc_user.vc_id', 'left');
-		$this->db->where('vc_user.user_id', $this->session->userdata('user_id'));//根据当前用户读取对应数据
-		$query = $this->db->get()->result_array();
-		return $query;
+		$result = $this->check_user_has_global_groups($user_id);
+		if($result == TRUE){
+			$query = $this->db->get('voting_classification');
+			return $query->result_array();
+		}else{
+			$this->db->select('*');
+			$this->db->from('voting_classification');
+			$this->db->join('vc_user', 'voting_classification.vc_id = vc_user.vc_id', 'left');
+			$this->db->where('vc_user.user_id', $user_id);//根据当前用户读取对应数据
+			$query = $this->db->get()->result_array();
+			return $query;
+		}
 
 	}
 
@@ -71,6 +77,22 @@ class Voting_Classification_model extends CI_Model{
 	//返回最新一条数据的ID
 	public function get_voting_classification_new_vc_id(){
 		return $this->db->insert_id();
+	}
+
+	//判断当前用户是否拥有最高权限
+	public function check_user_has_global_groups($user_id){
+
+		//获取当前全局配置中,最高权限组别ID
+		$global_groups = $this->db->get_where('config', array('key' => 'global_groups'))->row_array();
+		
+		//匹配当前用户是否拥有对应权限
+		$users_groups = $this->db->get_where('users_groups', array('user_id' => $user_id, 'group_id' => (int)$global_groups['value']))->row_array();
+		
+		if($users_groups != null || $users_groups != ''){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
 
 }

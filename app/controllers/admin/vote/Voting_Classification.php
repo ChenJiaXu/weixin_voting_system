@@ -24,7 +24,7 @@ class Voting_Classification extends MY_Controller {
 		$data['base_url'] = $this->config->item('base_url');
 
 		//获取列表数据
-		$data['voting_classifications'] = $this->Voting_Classification_model->getVC();
+		$data['voting_classifications'] = $this->Voting_Classification_model->getVC($this->session->userdata('user_id'));
 		
 		$this->load_view('vote/voting_classification',$data); 
 	

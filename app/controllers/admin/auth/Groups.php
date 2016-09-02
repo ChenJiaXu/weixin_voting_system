@@ -71,14 +71,15 @@ class Groups extends MY_Controller {
 			$this->load->helper('form');
 		    $this->load->library('form_validation');
 
-		    $this->form_validation->set_rules('groups[]', lang('gml_help_groups'),array('trim','required','min_length[1]'));
+		    $this->form_validation->set_rules('groups_menu[]', lang('gml_help_groups'),array('trim','required','min_length[1]'));
 
 		    if($this->form_validation->run() === FALSE){
 		    	
 		        $this->load_view('auth/groups_menu_form',$data); 
-
+		        
 		    }else{
 
+		    	
 		    	$this->Groups_model->edit_groups_menu($groups_id);//编辑权限组
 
 		    	$groups_name = $this->Groups_model->get_groups_by_groups_id($groups_id);//获取更新后的分类名
