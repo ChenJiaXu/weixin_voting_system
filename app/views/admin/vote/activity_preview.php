@@ -123,16 +123,8 @@
 											<tr>
 											  <td class="center aligned"><?php echo count($vm_bp);?>人</td>
 											  <td class="center aligned">
-												<?php if($vm_bp){
-													$count = 0;
-													foreach($vm_bp as $vb){
-														if(isset($vb['votes'])){
-															$count += (int)$vb['votes'];
-														}else{
-															$count += 0;
-														}
-													}
-													echo $count;
+												<?php if(isset($vm_bp_vote_list)){
+													echo count($vm_bp_vote_list);
 												} ?>
 												票
 											  </td>

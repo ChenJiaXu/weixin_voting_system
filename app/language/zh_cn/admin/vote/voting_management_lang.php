@@ -66,6 +66,8 @@ $lang['vml_add']				 = '新增';
 $lang['vml_chioce_all']			 = '全选';
 $lang['vml_save']			 	 = '保存';
 $lang['vml_return']			 	 = '返回';
+$lang['vml_create_link']		 = '生成链接';
+$lang['vml_copy_link']			 = '复制链接';
 
 //模块标题
 $lang['vml_form_title_add']		 = '新增-活动信息';

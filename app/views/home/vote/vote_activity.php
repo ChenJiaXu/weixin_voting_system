@@ -39,17 +39,17 @@
 						<h4 class="modal-title" id="myModalLabel">投票</h4>
 					  </div>
 					  
-						  <div class="modal-body">
-							  <div class="form-group">
+						 <div class="modal-body">
+						  	<div class="form-group">
 								<label for="bp_id" class="control-label">编号</label>
-								<input type="text" class="form-control" id="bp_id" value="" readonly>
+								<input type="text" class="form-control" id="vm_bp_id" value="" readonly>
 								<input type="text" class="form-control" readonly value="<?php if($ap){ echo $ap['vm_id'];}?>" id="vm_id">
-							  </div>
-						  </div>
-						  <div class="modal-footer">
+						  	</div>
+					  	</div>
+					  	<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">再考虑一下</button>
 							<button type="button" class="btn btn-primary" id="ap_votes">投票</button>
-						  </div>
+					  	</div>
 					  
 					</div>
 				  </div>
@@ -58,12 +58,18 @@
 
 			
 			<div class="row">
-				
-				<!-- banner -->
+								
+				<!-- banner-top -->
 				<div class="col-xs-12">
-					<a class="fluid ui image">
-						<img class="ui fluid image" src="<?php echo $base_url;?>/upload/banner/top.png" />
-					</a>
+					<?php if($vm_banner){ ?>
+						<?php foreach ($vm_banner as $vmb) { ?>
+							<?php if($vmb['layout'] == 1){ ?> 
+							<a class="fluid ui image">
+								<img class="ui fluid image" src="<?php echo $base_url;?>/upload/voting_management/<?php echo $vmb['banner'];?>" />
+							</a>
+							<?php } ?>
+						<?php } ?>
+					<?php } ?>
 				</div>
 
 				<div class="col-xs-12">
@@ -104,16 +110,8 @@
 							<tr>
 							  <td class="center aligned"><?php echo count($vm_bp);?>人</td>
 							  <td class="center aligned">
-								<?php if($vm_bp){
-									$count = 0;
-									foreach($vm_bp as $vb){
-										if(isset($vb['votes'])){
-											$count += (int)$vb['votes'];
-										}else{
-											$count += 0;
-										}
-									}
-									echo $count;
+								<?php if(isset($vm_bp_vote_list)){
+									echo count($vm_bp_vote_list);
 								} ?>
 								票
 							  </td>
@@ -121,6 +119,19 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+
+				<!-- banner-content -->
+				<div class="col-xs-12">
+					<?php if($vm_banner){ ?>
+						<?php foreach ($vm_banner as $vmb) { ?>
+							<?php if($vmb['layout'] == 2){ ?> 
+							<a class="fluid ui image">
+								<img class="ui fluid image" src="<?php echo $base_url;?>/upload/voting_management/<?php echo $vmb['banner'];?>" />
+							</a>
+							<?php } ?>
+						<?php } ?>
+					<?php } ?>
 				</div>
 
 				<div class="col-xs-12">
@@ -149,10 +160,15 @@
 								<div class="ui fluid doubling card">
 									<div class="image">
 										<a class="ui red ribbon label"><?php echo $vb['name'];?></a>
-										<img src="<?php echo $base_url;?>/upload/<?php echo $vb['image'];?>">
+										<?php foreach ($bp_image as $bpi) { ?>
+											<?php if($bpi['bp_id'] == $vb['bp_id']){ ?>
+											<img src="<?php echo $base_url;?>/upload/basic_personnel/<?php echo $bpi['image'];?>">
+											<?php } ?>
+										<?php } ?>
+										
 									</div>
 									<div class="content">
-										<a class="ui bottom attached inverted blue label" data-toggle="modal" data-target="#myModal" data-whatever="<?php echo $vb['bp_id'];?>">
+										<a class="ui bottom attached inverted blue label" data-toggle="modal" data-target="#myModal" data-whatever="<?php echo $vb['vm_bp_id'];?>">
 											<i class="star icon"></i>
 											<?php echo $vb['votes'];?>票
 										</a>
@@ -192,21 +208,9 @@
 
 					<div class="fluid ui fluid tab" data-tab="third">
 						<div class="ui message">
-							<div class="header">
-								本次活动规则
-							</div>
-							<div class="ui divided ordered list">
-							  <div class="item">规则1</div>
-							  <div class="item">规则2</div>
-							  <div class="item">规则3
-								<div class="list">
-								  <div class="item">规则3.1</div>
-								  <div class="item">规则3.2</div>
-								  <div class="item">规则3.3</div>
-								</div>
-							  </div>
-							  <div class="item">规则4</div>
-							</div>
+							<?php if($ap){?>
+								<?php echo $ap['rules_config']; ?>
+							<?php } ?>
 						</div>
 					</div>
 
@@ -216,10 +220,17 @@
 					<div class="ui piled segment"></div>
 				</div>
 
+				<!-- banner-down -->
 				<div class="col-xs-12">
-					<a class="fluid ui image">
-						<img src="<?php echo $base_url;?>/upload/banner/footer.png" />
-					</a>
+					<?php if($vm_banner){ ?>
+						<?php foreach ($vm_banner as $vmb) { ?>
+							<?php if($vmb['layout'] == 3){ ?> 
+							<a class="fluid ui image">
+								<img class="ui fluid image" src="<?php echo $base_url;?>/upload/voting_management/<?php echo $vmb['banner'];?>" />
+							</a>
+							<?php } ?>
+						<?php } ?>
+					<?php } ?>
 				</div>
 
 			</div>
@@ -255,16 +266,16 @@
 		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 		  var modal = $(this)
 		  /*modal.find('.modal-title').text('为【' + recipient + '】投票');*/
-		  modal.find('.modal-body #bp_id').val(recipient)
+		  modal.find('.modal-body #vm_bp_id').val(recipient)
 		})
 
 		$('#ap_votes').on('click',function(){
 			$vm_id = $("#vm_id").val();
-			$bp_id = $("#bp_id").val();
+			$vm_bp_id = $("#vm_bp_id").val();
 			$.ajax({
-				url: "<?php echo $base_url;?>/admin/voting_management/votes",  
+				url: "<?php echo $base_url;?>/home/vote_activity/votes",  
 				type: "POST",
-				data:{vm_id:$vm_id,bp_id:$bp_id},
+				data:{vm_id:$vm_id,vm_bp_id:$vm_bp_id},
 				//dataType: "json",
 				error: function(){  
 					alert('投票异常');

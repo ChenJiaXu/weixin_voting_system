@@ -25,6 +25,11 @@ class Voting_Management_model extends CI_Model{
 		}	
 	}
 
+	//获取已生成链接的活动
+	public function get_vm_link_by_vm_id($vm_id){
+		return $this->db->get_where('vm_link', array('vm_id' => $vm_id))->row_array();
+	}
+
 	//添加活动
 	public function add_voting_management(){
 		
@@ -128,8 +133,14 @@ class Voting_Management_model extends CI_Model{
 		$this->db->from('basic_personnel');
 		$this->db->join('vm_bp','vm_bp.bp_id = basic_personnel.bp_id');
 		$this->db->where('vm_id', $this->security->xss_clean((int)$vm_id));
+		$this->db->order_by('votes','desc');
 		$query = $this->db->get();
 		return $query->result_array();
+	}
+
+	//根据活动ID获取详细人员对应的投票列表数据
+	public function get_vm_bp_vote_list_by_vm_id($vm_id){
+		return $this->db->get_where('vm_bp_vote_list', array('vm_id' => $vm_id))->result_array();
 	}
 
 	//获取对应人员的照片
@@ -343,7 +354,7 @@ class Voting_Management_model extends CI_Model{
 	//用户投票
 	public function add_vm_bp_vote_list($vm_id,$vm_bp_id,$wxf_id,$name,$ip,$voting_time){
 
-		 $data = array(
+		$data = array(
 		 	'vm_id' => $vm_id,
 		    'vm_bp_id' => $vm_bp_id,
 		    'wxf_id' => $wxf_id,
@@ -351,7 +362,16 @@ class Voting_Management_model extends CI_Model{
 		    'ip' => $ip,
 		    'voting_time' => $voting_time
 		);
-		$this->db->insert('vm_bp_vote_list', $this->security->xss_clean($data));	
+		$this->db->insert('vm_bp_vote_list', $this->security->xss_clean($data));
+
+		//根据vm_bp_id查询共有几条投票记录
+		$count = $this->db->get_where('vm_bp_vote_list', array('vm_bp_id' => $vm_bp_id))->num_rows();
+		$data_votes = array(
+			'votes' => $count
+		);
+		$this->db->where('vm_bp_id', $this->security->xss_clean($vm_bp_id));
+
+		$this->db->update('vm_bp', $data_votes);
 	}
 	
 	//根据IP地址查询上一次投票时间
@@ -390,5 +410,19 @@ class Voting_Management_model extends CI_Model{
 		}else{
 			return FALSE;
 		}
+	}
+
+	//检查链接是否已存在
+	public function check_vm_link_by_vm_id($vm_id){
+		return $this->db->get_where('vm_link', array('vm_id' => $vm_id))->num_rows();
+	}
+
+	//生成链接
+	public function create_link_by_vm_id($vm_id,$vote_link){
+		$data = array(
+		    'vm_id' => $vm_id,
+		    'link' => $vote_link
+		);
+		$this->db->insert('vm_link', $this->security->xss_clean($data));
 	}
 }

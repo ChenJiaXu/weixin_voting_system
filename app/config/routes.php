@@ -85,6 +85,7 @@ $route['admin/voting_management/edit/(:any)'] = 'admin/vote/Voting_Management/ed
 $route['admin/voting_management/delete/(:any)'] = 'admin/vote/Voting_Management/delete/$1';//投票活动信息管理-删除
 $route['admin/voting_management/ap/(:any)'] = 'admin/vote/Voting_Management/ap/$1';//活动预览
 $route['admin/voting_management/votes'] = 'admin/vote/Voting_Management/votes';//投票
+$route['admin/voting_management/create_link/(:any)'] = 'admin/vote/Voting_Management/create_link/$1';//生成链接
 
 //--------------------------基础人员信息模块-----------------------//
 $route['admin/basic_personnel'] = 'admin/user/Basic_Personnel';//基础人员
@@ -99,7 +100,8 @@ $route['admin/image_space/edit/(:any)'] = 'admin/user/Image_Space/edit/$1';//图
 $route['admin/image_space/delete/(:any)'] = 'admin/user/Image_Space/delete/$1';//图片空间-删除
 
 //----------------------------------前台投票访问路径-----------------------------------------//
-$route['home/vote/vote_activity/index/(:any)'] = 'home/vote/Vote_Activity/index/$1'; //投票
+$route['home/vote/vote_activity/index/(:any)'] = 'home/vote/Vote_Activity/index/$1'; //投票主页
+$route['home/vote_activity/votes'] = 'home/vote/Vote_Activity/votes';//投票方法
 
 //----------------------------------菜单配置模块---------------------------------------//
 $route['admin/menu'] = 'admin/menu/Menu'; //菜单配置

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?09 �?02 �?17:32
+-- 生成日期: 2016 �?09 �?03 �?16:47
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -405,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', NULL, 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 1, 'ADMIN', '0'),
-(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1472796022, 1, 'company', '12345678910'),
+(2, '127.0.0.1', 'jiaxu chen', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1472868490, 1, 'company', '12345678910'),
 (3, '127.0.0.1', '该装就_装', '$2y$08$wWqlCmSQhXR/aWxkeDeUdukdNXYBagLsVKVSahoxLTyQM45M89RqG', NULL, '1105858345@qq.com', NULL, NULL, NULL, NULL, 1471944446, 1472788117, 1, '1', '12345678');
 
 -- --------------------------------------------------------
@@ -494,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `vm_bp` (
   `vm_bp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '活动与基础人员关联ID',
   `vm_id` int(11) NOT NULL COMMENT '活动信息ID',
   `bp_id` int(11) NOT NULL COMMENT '基础人员ID',
-  `votes` int(11) NOT NULL DEFAULT '0' COMMENT '票数',
+  `votes` varchar(255) NOT NULL DEFAULT '0' COMMENT '投票合计',
   PRIMARY KEY (`vm_bp_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与基础人员关联表' AUTO_INCREMENT=91 ;
 
@@ -503,18 +503,18 @@ CREATE TABLE IF NOT EXISTS `vm_bp` (
 --
 
 INSERT INTO `vm_bp` (`vm_bp_id`, `vm_id`, `bp_id`, `votes`) VALUES
-(82, 8, 5, 0),
-(81, 8, 4, 0),
-(80, 8, 3, 0),
-(79, 8, 2, 0),
-(78, 8, 1, 0),
-(75, 9, 1, 1),
-(76, 9, 2, 0),
-(77, 9, 3, 0),
-(90, 10, 4, 0),
-(89, 10, 3, 0),
-(88, 10, 2, 0),
-(87, 10, 1, 1);
+(82, 8, 5, '0'),
+(81, 8, 4, '0'),
+(80, 8, 3, '0'),
+(79, 8, 2, '0'),
+(78, 8, 1, '0'),
+(75, 9, 1, '0'),
+(76, 9, 2, '0'),
+(77, 9, 3, '0'),
+(90, 10, 4, '0'),
+(89, 10, 3, '0'),
+(88, 10, 2, '0'),
+(87, 10, 1, '0');
 
 -- --------------------------------------------------------
 
@@ -531,18 +531,28 @@ CREATE TABLE IF NOT EXISTS `vm_bp_vote_list` (
   `voting_time` datetime NOT NULL COMMENT '投票时间',
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   PRIMARY KEY (`vbvl_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动-人员-投票详细列表' AUTO_INCREMENT=50 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动-人员-投票详细列表' AUTO_INCREMENT=90 ;
+
+-- --------------------------------------------------------
 
 --
--- 转存表中的数据 `vm_bp_vote_list`
+-- 表的结构 `vm_link`
 --
 
-INSERT INTO `vm_bp_vote_list` (`vbvl_id`, `vm_bp_id`, `wxf_id`, `name`, `ip`, `voting_time`, `vm_id`) VALUES
-(49, 77, 0, '游客', '127.0.0.1', '2016-09-02 17:13:59', 9),
-(48, 76, 0, '游客', '127.0.0.1', '2016-09-02 17:13:48', 9),
-(47, 75, 0, '游客', '127.0.0.1', '2016-09-02 17:13:42', 9),
-(46, 75, 0, '游客', '127.0.0.1', '2016-09-02 17:13:25', 9),
-(45, 75, 0, '游客', '127.0.0.1', '2016-09-02 17:12:42', 9);
+CREATE TABLE IF NOT EXISTS `vm_link` (
+  `vml_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '活动链接ID',
+  `vm_id` int(11) NOT NULL COMMENT '活动ID',
+  `link` text NOT NULL COMMENT '活动链接',
+  PRIMARY KEY (`vml_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动链接表' AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `vm_link`
+--
+
+INSERT INTO `vm_link` (`vml_id`, `vm_id`, `link`) VALUES
+(1, 9, 'http://weixin_voting_system.com/home/vote/vote_activity/index/9'),
+(4, 10, 'http://weixin_voting_system.com/home/vote/vote_activity/index/10');
 
 -- --------------------------------------------------------
 
@@ -554,7 +564,7 @@ CREATE TABLE IF NOT EXISTS `vm_rules` (
   `vmr_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '活动规则配置ID',
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   `focus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '关注后投票0:否1:是',
-  `vote_limit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '投票次数限制0:无限制1:有限制',
+  `vote_limit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '投票次数限制0:关闭1:开启',
   `select_vote_limit` varchar(255) NOT NULL DEFAULT '0' COMMENT '可投票次数0:无限制',
   `interval_time` varchar(255) NOT NULL COMMENT '投票间隔时间0:不限制',
   `online_reg` tinyint(1) NOT NULL DEFAULT '0' COMMENT '在线报名0:未开启1:开启',
@@ -566,9 +576,9 @@ CREATE TABLE IF NOT EXISTS `vm_rules` (
 --
 
 INSERT INTO `vm_rules` (`vmr_id`, `vm_id`, `focus`, `vote_limit`, `select_vote_limit`, `interval_time`, `online_reg`) VALUES
-(12, 8, 1, 1, '1', '5', 1),
-(11, 9, 0, 1, '5', '5', 0),
-(14, 10, 1, 1, '5', '5', 1);
+(12, 8, 0, 1, '1', '5', 1),
+(11, 9, 0, 1, '10', '5', 0),
+(14, 10, 0, 0, '5', '5', 1);
 
 -- --------------------------------------------------------
 
@@ -589,8 +599,8 @@ CREATE TABLE IF NOT EXISTS `vm_traffic` (
 
 INSERT INTO `vm_traffic` (`vt_id`, `vm_id`, `traffic`) VALUES
 (8, 8, 3),
-(9, 9, 238),
-(10, 10, 8);
+(9, 9, 267),
+(10, 10, 84);
 
 -- --------------------------------------------------------
 

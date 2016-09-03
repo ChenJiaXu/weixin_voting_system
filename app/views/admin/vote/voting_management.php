@@ -149,6 +149,20 @@
 												<?php echo lang('vml_delete'); ?>
 											</a>
 											<?php } ?>
+											<!-- 活动链接-生成-复制 -->
+											<?php if($vm['statusing'] == 2 || $vm['statusing'] == 3){ ?>
+												<?php if($vm['link'] == true){ ?>
+													<a type="button" class="btn btn-default btn-sm copy_link" data-clipboard-text="<?php echo $vm['link'];?>" onclick='copy_link()'>
+														<i class="fa fa-files-o" aria-hidden="true"></i>
+														<?php echo lang('vml_copy_link'); ?>
+													</a>
+												<?php }else{ ?>
+													<a type="button" class="btn btn-default btn-sm" onclick='create_link("<?php echo $vm['vm_id'];?>")'>
+														<i class="fa fa-spinner" aria-hidden="true"></i>
+														<?php echo lang('vml_create_link'); ?>
+													</a>
+												<?php } ?>
+											<?php } ?>
 										</td>
 									</tr>
 									<?php } ?>	
@@ -176,4 +190,43 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
+	<script src="<?php echo $base_url;?>/static/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+	<script src="<?php echo $base_url;?>/static/plugins/clipboard/clipboard.min.js"></script>
+	<script>
+		//生成链接
+		function create_link(vm_id){
+            $.ajax({
+                url: "<?php echo $base_url;?>/admin/vote/voting_management/create_link",  
+                type: "POST",
+                data:{vm_id:vm_id},
+                //dataType: "json",
+                error: function(){  
+                    alert('异常');
+                },  
+                success: function(data,status){//如果调用php成功    
+                    //解码，显示汉字
+                    window.location.reload();
+                }
+            });
+        }
+        //复制链接
+        function copy_link(){
+        	var clipboard = new Clipboard('.copy_link');
 
+			clipboard.on('success', function(e) {
+			    console.info('Action:', e.action);
+			    console.info('Text:', e.text);
+			    console.info('Trigger:', e.trigger);
+
+			    e.clearSelection();
+			    alert('链接复制成功【' + e.text + '】');
+			    clipboard.destroy();
+			});
+
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+
+        }
+	</script>
