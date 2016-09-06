@@ -93,6 +93,7 @@ $route['admin/basic_personnel/add'] = 'admin/user/Basic_Personnel/add';//基础�
 $route['admin/basic_personnel/edit/(:any)'] = 'admin/user/Basic_Personnel/edit/$1';//基础人员-编辑
 $route['admin/basic_personnel/delete/(:any)'] = 'admin/user/Basic_Personnel/delete/$1';//基础人员-删除
 $route['admin/basic_personnel/upload'] = 'admin/user/Basic_Personnel/upload';//基础人员-图片上传
+$route['admin/basic_personnel/force_del/(:any)'] = 'admin/user/Basic_Personnel/force_del/$1';//基础人员-删除
 
 $route['admin/image_space'] = 'admin/user/Image_Space';//图片空间
 $route['admin/image_space/add'] = 'admin/user/Image_Space/add';//图片空间-新增

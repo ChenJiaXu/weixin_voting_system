@@ -1534,6 +1534,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function update($id, array $data)
 	{
+		
 		$this->trigger_events('pre_update_user');
 
 		$user = $this->user($id)->row();

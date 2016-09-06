@@ -290,7 +290,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo $base_url;?>/admin/auth/Auth/logout" class="btn btn-default btn-flat">注销</a>
                 </div>
               </li>
             </ul>

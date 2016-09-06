@@ -42,12 +42,14 @@ class Groups_model extends CI_Model{
 		if($groups_setting == null || $groups_setting == ''){
 			$data = array(
 				'groups_id' => $groups_id,
+				'level' => $this->input->post('level',TRUE),
 			    'vote_more' => $this->input->post('vote_more',TRUE)
 			);
 			$this->db->insert('groups_setting', $this->security->xss_clean($data));
 		}else{
 			
 			$data = array(
+				'level' => $this->input->post('level',TRUE),
 			    'vote_more' => $this->input->post('vote_more',TRUE)
 			);
 

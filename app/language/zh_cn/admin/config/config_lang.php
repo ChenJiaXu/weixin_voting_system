@@ -15,6 +15,7 @@ $lang['cl_vm_upload_path']		 		= '广告图上传路径';
 $lang['cl_vm_music_upload_path'] 		= '背景音乐上传路径';
 $lang['cl_allow_image_type']	 		= '允许上传的图片类型';
 $lang['cl_bp_image_limit']		 		= '人员照片张数限制';
+$lang['cl_default_bp_image_name']		= '默认人员图片文件名';
 //全局配置
 $lang['cl_global_groups']		 		= '最高权限组';
 
@@ -26,6 +27,7 @@ $lang['cl_help_vm_upload_path']  		= '请填写投票活动广告图上传路径
 $lang['cl_help_vm_music_upload_path']  	= '请填写投票活动背景音乐上传路径！';
 $lang['cl_help_allow_image_type']  		= '请填写上传的图片类型！';
 $lang['cl_help_bp_image_limit']  		= '请填写人员照片张数限制！';
+$lang['cl_help_default_bp_image_name']	= '请设置默认人员图片的文件名';
 //全局
 $lang['cl_help_global_groups']		 	= '请设置最高权限组！';
 

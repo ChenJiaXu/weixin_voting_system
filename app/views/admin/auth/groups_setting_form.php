@@ -49,6 +49,18 @@
                                     </div>
                                 </div>
 
+                                <!-- level -->
+                                <div class="form-group">
+                                    <div class="col-xs-2 text-right">
+                                        <label class="control-label" for="level"><?php echo lang('gsl_level'); ?></label>
+                                    </div>
+                                    <div class="col-xs-10 <?php if(form_error('level')){echo 'has-error';}?>">
+                                        <input type="text" class="form-control" id="level" name="level" value="<?php echo $groups_settings['level']; ?>">
+                                        <span class="help-block">
+                                        </span>
+                                    </div>
+                                </div>
+
                                 <!-- vote_more -->
                                 <div class="form-group">
                                     <div class="col-xs-2 text-right">

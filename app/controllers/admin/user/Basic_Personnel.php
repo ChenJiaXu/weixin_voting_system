@@ -26,7 +26,21 @@ class Basic_Personnel extends MY_Controller {
 		$data['base_url'] = $this->config->item('base_url');
 
 		//获取列表数据
-		$data['basic_personnels'] = $this->Basic_Personnel_model->getBP();
+		$data['basic_personnels'] = array();
+		$basic_personnels = $this->Basic_Personnel_model->getBP($this->session->userdata('user_id'));
+		$check_user_has_global_groups = $this->Basic_Personnel_model->check_user_has_global_groups($this->session->userdata('user_id'));
+		foreach ($basic_personnels as $bps) {
+			$data['basic_personnels'][] = array(
+				'bp_id'	=>	$bps['bp_id'],
+				'name'	=> $bps['name'],
+				'date_add'	=>	$bps['date_add'],
+				'date_update'	=>	$bps['date_update'],
+				'status'	=>	$bps['status'],
+				'edit'	=>	 'basic_personnel/edit/'.$bps['bp_id'],
+				'delete' => 'basic_personnel/delete/'.$bps['bp_id'],
+				'force_del'	=> $check_user_has_global_groups == TRUE ? 'basic_personnel/force_del/'.$bps['bp_id']:null
+			);
+		}
 		
 		$this->load_view('user/basic_personnel',$data);
 	
@@ -71,7 +85,7 @@ class Basic_Personnel extends MY_Controller {
 			$this->load_view('user/basic_personnel_form',$data);
 
 	    }else{
-	       $new_bp_id = $this->Basic_Personnel_model->add_basic_personnel();//添加活动分类,返回新插入数据ID
+	       $new_bp_id = $this->Basic_Personnel_model->add_basic_personnel($this->session->userdata('user_id'));//添加活动分类,返回新插入数据ID
 
 	       $new_name = $this->Basic_Personnel_model->get_basic_personnel_by_bp_id($new_bp_id);//根据ID获取新插入数据的名称
 
@@ -174,13 +188,59 @@ class Basic_Personnel extends MY_Controller {
 		
 		if(is_int($bp_id) || is_integer($bp_id)){
 
+			//先判断当前人员是否已经关联到相关功能模块
+			$is_relevance_vm = $this->Basic_Personnel_model->check_vm_bp_by_bp_id($bp_id);
+
+			if($is_relevance_vm == '' || $is_relevance_vm == null){
+
+				//删除本地文件
+				$bp_images = $this->Basic_Personnel_model->get_bp_image_by_bp_id($bp_id);
+				foreach ($bp_images as $bpi) {
+					unlink($this->Config_model->getConfig('bp_upload_path').$bpi['image']);
+				}
+
+				$result = $this->Basic_Personnel_model->delete_basic_personnel_by_bp_id($bp_id);
+
+				if($result){
+					
+					$this->session->set_flashdata('success', lang('bpl_success_delete'));
+					redirect('admin/basic_personnel','refresh');
+
+				}else{
+					
+					$this->session->set_flashdata('error', lang('bpl_error_delete'));
+					redirect('admin/basic_personnel','refresh');
+				}
+
+			}else{
+				
+				$new_name = $this->Basic_Personnel_model->get_basic_personnel_by_bp_id($bp_id);//获取更新后的姓名
+				$this->session->set_flashdata('error', '【'.$new_name['name'].'】'.lang('bpl_help_relevance_vm'));
+				redirect('admin/basic_personnel','refresh');
+
+			}
+
+		}else{
+
+			$this->session->set_flashdata('error', lang('bpl_error_global').gettype($bp_id));
+			redirect('admin/basic_personnel','refresh');
+		}
+	}
+
+	//强制删除人员方法
+	public function force_del($bp_id){
+
+		$bp_id = (int)$bp_id;//类型转换处理不严格，后面修改
+		
+		if(is_int($bp_id) || is_integer($bp_id)){
+
 			//删除本地文件
 			$bp_images = $this->Basic_Personnel_model->get_bp_image_by_bp_id($bp_id);
 			foreach ($bp_images as $bpi) {
 				unlink($this->Config_model->getConfig('bp_upload_path').$bpi['image']);
 			}
 
-			$result = $this->Basic_Personnel_model->delete_basic_personnel_by_bp_id($bp_id);
+			$result = $this->Basic_Personnel_model->force_del_basic_personnel_by_bp_id($bp_id);
 
 			if($result){
 				
@@ -192,6 +252,7 @@ class Basic_Personnel extends MY_Controller {
 				$this->session->set_flashdata('error', lang('bpl_error_delete'));
 				redirect('admin/basic_personnel','refresh');
 			}
+
 		}else{
 
 			$this->session->set_flashdata('error', lang('bpl_error_global').gettype($bp_id));
@@ -201,9 +262,7 @@ class Basic_Personnel extends MY_Controller {
 
 	//用户图片上传
 	public function upload(){
-		/**
-		 * 上传路径目前默认固定,后面再系统设置可以配置上传目录
-		 */
+		
 		$config['upload_path']      = $this->Config_model->getConfig('bp_upload_path');
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = 0;

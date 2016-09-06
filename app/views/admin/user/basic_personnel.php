@@ -88,14 +88,20 @@
 												<i class="fa fa-search"></i>
 												<?php echo lang('bpl_search'); ?>
 											</a>
-											<a type="button" class="btn btn-default btn-sm" href="<?php echo $bp_edit_link.'/'.$bp['bp_id']; ?>">
+											<a type="button" class="btn btn-default btn-sm" href="<?php echo $bp['edit']; ?>">
 												<i class="fa fa-edit"></i>
 												<?php echo lang('bpl_edit'); ?>
 											</a>
-											<a type="button" class="btn btn-default btn-sm" href="<?php echo $bp_delete_link.'/'.$bp['bp_id']; ?>">
+											<a type="button" class="btn btn-default btn-sm" href="<?php echo $bp['delete']; ?>" onclick="if(confirm('确定删除?')==false)return false;">
 												<i class="fa fa-trash-o"></i>
 												<?php echo lang('bpl_delete'); ?>
 											</a>
+											<?php if($bp['force_del'] == TRUE){ ?> 
+											<a type="button" class="btn btn-default btn-sm" href="<?php echo $bp['force_del']; ?>" onclick="if(confirm('确定强制删除么?')==false)return false;">
+												<i class="fa fa-trash-o"></i>
+												<?php echo lang('bpl_force_del'); ?>
+											</a>
+											<?php } ?>
 										</td>
 									</tr>
 									<?php } ?>	

@@ -4,15 +4,17 @@
 */
 
 // 列信息
-$lang['gsl_head_title'] 	  	 = '用户组 - 参数设置';
+$lang['gsl_head_title'] 	  	 		= '用户组 - 参数设置';
 
 //用户组
-$lang['gsl_vote_more'] 	  	 	 = '发布活动数量';
+$lang['gsl_level']						= '用户组级别';
+$lang['gsl_vote_more'] 	  	 	 		= '发布活动数量';
 
-$lang['gsl_form_title_edit_setting']= '用户组 - 参数设置';
+$lang['gsl_form_title_edit_setting']	= '用户组 - 参数设置';
 
 //提示文本
-$lang['gsl_help_vote_more']	 	= '请为该用户组设置可发布活动数量！';
+$lang['gsl_help_level']	 				= '0为最高级别,99为最低级别,按升序规则！';
+$lang['gsl_help_vote_more']	 			= '请为该用户组设置可发布活动数量！';
 
 
 

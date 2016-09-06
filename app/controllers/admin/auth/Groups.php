@@ -121,6 +121,7 @@ class Groups extends MY_Controller {
 		    $this->load->library('form_validation');
 
 		    $this->form_validation->set_rules('vote_more', lang('gsl_help_vote_more'),array('trim','required','min_length[1]'));
+		    $this->form_validation->set_rules('level', lang('gsl_help_level'),array('trim','required','min_length[1]'));
 
 		    if($this->form_validation->run() === FALSE){
 		    	

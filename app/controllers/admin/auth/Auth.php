@@ -120,7 +120,7 @@ class Auth extends CI_Controller {
 
 		//log the user out
 		$logout = $this->ion_auth->logout();
-
+		
 		//redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
 		redirect('admin/auth/login', 'refresh');
@@ -516,7 +516,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('user_name', $this->lang->line('edit_user_validation_name_label'), 'required');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
 		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
-		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'required');
+		$this->form_validation->set_rules('groups[]', $this->lang->line('edit_user_validation_groups_label'), 'required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -527,7 +527,7 @@ class Auth extends CI_Controller {
 			}
 
 			$data = array(
-				'user_name' => $this->input->post('user_name'),
+				'username' => $this->input->post('user_name'),
 				'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone'),
 			);
@@ -560,6 +560,7 @@ class Auth extends CI_Controller {
 
 			if ($this->form_validation->run() === TRUE)
 			{
+
 				$this->ion_auth->update($user->id, $data);
 
 				//check to see if we are creating the user

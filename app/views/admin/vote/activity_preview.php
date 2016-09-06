@@ -52,17 +52,17 @@
 										<h4 class="modal-title" id="myModalLabel">投票</h4>
 									  </div>
 									  
-										  <div class="modal-body">
-											  <div class="form-group">
-												<label for="bp_id" class="control-label">编号</label>
-												<input type="text" class="form-control" id="vm_bp_id" value="" readonly>
-												<input type="text" class="form-control" readonly value="<?php if($ap){ echo $ap['vm_id'];}?>" id="vm_id">
-											  </div>
-										  </div>
-										  <div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">再考虑一下</button>
-											<button type="button" class="btn btn-primary" id="ap_votes">投票</button>
-										  </div>
+										  	<div class="modal-body">
+											  	<div class="form-group">
+													<label for="bp_id" class="control-label">编号</label>
+													<input type="text" class="form-control" id="vm_bp_id" value="" readonly>
+													<input type="text" class="form-control" readonly value="<?php if($ap){ echo $ap['vm_id'];}?>" id="vm_id">
+											  	</div>
+										  	</div>
+										  	<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">再考虑一下</button>
+												<button type="button" class="btn btn-primary" id="ap_votes">投票</button>
+										  	</div>
 									  
 									</div>
 								  </div>

@@ -69,15 +69,13 @@
                                                 <?php if($bpi['main_image'] == 0){ ?> 
                                                 
                                                     <a onclick="add_main_image('<?php echo $bps['bp_id'];?>','<?php echo $bpi['bp_image_id'];?>');" class="btn btn-primary" role="button"><?php echo lang('bpl_main_image');?></a>
-                                                
+                                                    <a onclick="del_image('<?php echo $bpi['bp_image_id'];?>','<?php echo $bpi['image'];?>');" class="btn btn-primary" role="button">删除</a>
                                                 <?php }else if($bpi['main_image'] == 1){ ?>
                                                 
                                                     <a onclick="cancel_main_image('<?php echo $bps['bp_id'];?>','<?php echo $bpi['bp_image_id'];?>');" class="btn btn-primary" role="button"><?php echo lang('bpl_cancel_main_image');?></a>
                                                 
                                                 <?php } ?>
-                                                
-                                                    <a onclick="del_image('<?php echo $bpi['bp_image_id'];?>','<?php echo $bpi['image'];?>');" class="btn btn-primary" role="button">删除</a>
-                                                
+
                                             </div>
                                         </div>
                                     </div>

@@ -38,10 +38,14 @@ class Vote_Activity extends CI_Controller {
 		$data['bp_image'] = array();
 		foreach ($data['vm_bp'] as $vm_bp) {
 			$bp_image = $this->Voting_Management_model->get_bp_image_by_bp_id($vm_bp['bp_id'],$main_image = 1);
-
+			if($bp_image['image'] == null || $bp_image['image'] == ''){
+				$image = 'default.png';
+			}else{
+				$image = $bp_image['image'];
+			}
 			$data['bp_image'][] = array(
 				'bp_id' => $vm_bp['bp_id'],
-				'image' => $bp_image['image']
+				'image' => $image
 			);	
 		}
 		$data['vm_banner'] = $this->Voting_Management_model->get_vm_banner_by_vm_id($vm_id);//根据投票活动ID获取对应广告图数据

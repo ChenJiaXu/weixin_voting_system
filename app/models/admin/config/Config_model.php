@@ -27,6 +27,7 @@ class Config_model extends CI_Model{
 		$this->update('bp_upload_path',$this->input->post('bp_upload_path',TRUE),'config');
 		$this->update('vm_upload_path',$this->input->post('vm_upload_path',TRUE),'config');
 		$this->update('bp_image_limit',$this->input->post('bp_image_limit',TRUE),'config');
+		$this->update('default_bp_image_name',$this->input->pos('default_bp_image_name',TRUE),'config');
 
 		//全局配置
 		$this->update('global_groups',$this->input->post('global_groups',TRUE),'config');

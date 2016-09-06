@@ -29,6 +29,8 @@ $lang['bpl_add']				 = '新增';
 $lang['bpl_chioce_all']			 = '全选';
 $lang['bpl_save']			 	 = '保存';
 $lang['bpl_return']			 	 = '返回';
+$lang['bpl_confirm']			 = '确认删除？';
+$lang['bpl_force_del']			 = '强制删除';//最高权限管理员专属
 
 $lang['bpl_form_title_add']		 = '新增-基础人员信息';
 $lang['bpl_form_title_edit']	 = '编辑-基础人员信息';
@@ -37,6 +39,9 @@ $lang['bpl_form_title_edit']	 = '编辑-基础人员信息';
 //提示文本
 $lang['bpl_help_name']			 = '请填写姓名！';
 $lang['bpl_help_description']	 = '请填写自我描述！';
+
+//删除辅助文本
+$lang['bpl_help_relevance_vm']	 = '当前人员已经关联了投票活动,不允许删除！';
 
 $lang['bpl_help_date_add']		 = '该项内容不填，由系统自动生成！';
 $lang['bpl_help_date_update']	 = '该项内容不填，由系统自动生成！';

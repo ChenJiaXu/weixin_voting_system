@@ -103,6 +103,18 @@
                                         </div>
                                     </div>
 
+                                    <!-- 默认人员图片名 -->
+                                    <div class="form-group">
+                                        <div class="col-xs-2 text-right">
+                                            <label class="control-label" for="default_bp_image_name"><?php echo lang('cl_default_bp_image_name'); ?></label>
+                                        </div>
+                                        <div class="col-xs-10 <?php if(form_error('default_bp_image_name')){echo 'has-error';}?>">
+                                            <input type="text" class="form-control" id="default_bp_image_name" name="default_bp_image_name" placeholder="<?php echo lang('cl_help_default_bp_image_name'); ?>" value="<?php echo $default_bp_image_name; ?>">
+                                            <span class="help-block"><?php if(form_error('default_bp_image_name')){echo "<i class='fa fa-times-circle-o'></i>".form_error('default_bp_image_name');} ?></span>
+                                        </div>
+                                    </div>
+
+
 
                                     <div class="box-footer pull-right">
                                         <button type="submit" class="btn btn-default"><?php echo lang('cl_save'); ?></button>
