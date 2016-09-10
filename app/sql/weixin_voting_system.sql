@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?09 �?06 �?17:35
+-- 生成日期: 2016 �?09 �?10 �?16:42
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -420,9 +420,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '40d63b5b3a4c280934d49dee001c2d84807f6b06', 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 0, 'ADMIN', '0'),
-(2, '127.0.0.1', '系统管理员', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1473142839, 1, 'company', '12345678910'),
+(2, '127.0.0.1', '系统管理员', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1473320356, 1, 'company', '12345678910'),
 (3, '127.0.0.1', '该装就_装', '$2y$08$wWqlCmSQhXR/aWxkeDeUdukdNXYBagLsVKVSahoxLTyQM45M89RqG', NULL, '1105858345@qq.com', NULL, NULL, NULL, NULL, 1471944446, 1473146455, 1, '1', '12345678'),
-(4, '127.0.0.1', '极创汇', '$2y$08$KKblqHD81l4/81qJ9f8NkO2Cui0PnmQ1XGDUC5kQATiJV7hvpwAoy', NULL, 'jichuanghui@qq.com', NULL, NULL, NULL, NULL, 1473045821, 1473057715, 1, '极创汇网络科技有限公司', '123456789'),
+(4, '127.0.0.1', '极创汇', '$2y$08$KKblqHD81l4/81qJ9f8NkO2Cui0PnmQ1XGDUC5kQATiJV7hvpwAoy', NULL, 'jichuanghui@qq.com', NULL, NULL, NULL, NULL, 1473045821, 1473320339, 1, '极创汇网络科技有限公司', '123456789'),
 (5, '127.0.0.1', '普通管理员', '$2y$08$QkHqL0gx.KfRjGXrY0AYceaoCY0pZQc4XuK8mSIUlNJ1Qyv3WVpQy', NULL, 'admin@qq.com', NULL, NULL, NULL, NULL, 1473045972, 1473057722, 1, '个人公司', '123456789');
 
 -- --------------------------------------------------------

@@ -154,3 +154,6 @@ $route['admin/option_value'] = 'admin/option/Option_Value';//选项值
 $route['admin/option_value/add'] = 'admin/option/Option_Value/add';//选项值-新增
 $route['admin/option_value/edit/(:any)'] = 'admin/option/Option_Value/edit/$1';//选项值-编辑
 $route['admin/option_value/delete/(:any)'] = 'admin/option/Option_Value/delete/$1';//选项值-删除
+
+//--------------------------------------- 重置系统 ------------------------------------//
+$route['admin/reset_system'] = 'admin/reset_system/Reset_System';
