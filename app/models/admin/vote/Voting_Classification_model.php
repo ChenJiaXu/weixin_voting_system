@@ -37,7 +37,7 @@ class Voting_Classification_model extends CI_Model{
 		//获取最新插入的ID
 		$vc_id = $this->get_voting_classification_new_vc_id();
 
-		//vm_user
+		//vc_user
 		$data_vc_user = array(
 			'vc_id' => $this->security->xss_clean($vc_id),
 			'user_id' => $this->security->xss_clean($this->session->userdata('user_id'))

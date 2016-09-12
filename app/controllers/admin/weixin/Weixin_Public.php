@@ -25,7 +25,7 @@ class Weixin_Public extends MY_Controller {
 		$data['base_url'] = $this->config->item('base_url');
 
 		//获取列表数据
-		$weixin_publics = $this->Weixin_Public_model->getWXP();
+		$weixin_publics = $this->Weixin_Public_model->getWXP($this->session->userdata('user_id'));
 
 		$data['weixin_publics'] = array();
 

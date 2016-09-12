@@ -70,7 +70,7 @@
 							</div>
 
 							
-							<div class="row">
+							<div class="row" style="background-image:url('<?php echo $base_url;?>/upload/voting_management/bg-image.png')">
 								
 								<!-- banner-top -->
 								<div class="col-xs-12">

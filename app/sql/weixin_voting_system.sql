@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2016 �?09 �?10 �?16:42
+-- 生成日期: 2016 �?09 �?12 �?17:22
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -34,15 +34,14 @@ CREATE TABLE IF NOT EXISTS `basic_personnel` (
   `date_update` datetime NOT NULL COMMENT '更新日期',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0:未启用1:启用',
   PRIMARY KEY (`bp_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='基础人员信息管理表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `basic_personnel`
 --
 
 INSERT INTO `basic_personnel` (`bp_id`, `name`, `description`, `date_add`, `date_update`, `status`) VALUES
-(9, '测试', '一张图片', '2016-09-06 08:23:01', '2016-09-06 16:23:01', 1),
-(10, '测试2', '两张图片', '2016-09-06 08:23:41', '2016-09-06 16:25:43', 1);
+(1, '示例人员', '这是系统默认展示的示例人员信息', '2016-09-12 08:13:24', '2016-09-12 16:13:24', 1);
 
 -- --------------------------------------------------------
 
@@ -57,16 +56,14 @@ CREATE TABLE IF NOT EXISTS `bp_image` (
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `main_image` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:不是 1:是主图',
   PRIMARY KEY (`bp_image_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='基础人员-图片关联表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `bp_image`
 --
 
 INSERT INTO `bp_image` (`bp_image_id`, `bp_id`, `image`, `date_add`, `main_image`) VALUES
-(9, 9, 'user1_128x128.jpg', '2016-09-06 08:23:01', 0),
-(11, 10, 'user3_128x128.jpg', '2016-09-06 08:23:41', 1),
-(12, 10, 'user4_128x128.jpg', '2016-09-06 08:23:41', 0);
+(1, 1, 'default.png', '2016-09-12 08:13:24', 1);
 
 -- --------------------------------------------------------
 
@@ -79,15 +76,14 @@ CREATE TABLE IF NOT EXISTS `bp_user` (
   `bp_id` int(11) NOT NULL COMMENT '人员ID',
   `user_id` int(11) NOT NULL COMMENT '管理员ID',
   PRIMARY KEY (`bpu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='基础人员与管理员关联表' AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='基础人员与管理员关联表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `bp_user`
 --
 
 INSERT INTO `bp_user` (`bpu_id`, `bp_id`, `user_id`) VALUES
-(9, 9, 2),
-(10, 10, 2);
+(1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -420,7 +416,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '40d63b5b3a4c280934d49dee001c2d84807f6b06', 'mr2M2btTX.Zzt5chLDF3Y.a55e9920b4ffb49fc8', 1467446402, NULL, 1268889823, 1467448103, 0, 'ADMIN', '0'),
-(2, '127.0.0.1', '系统管理员', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1473320356, 1, 'company', '12345678910'),
+(2, '127.0.0.1', '系统管理员', '$2y$08$lJwuETjVSwdPE48imLKpDOWF.iLBLEoxbkirwtVxsJmORaVR.j9ja', NULL, '1029128229@qq.com', NULL, NULL, NULL, 'GqbtIJrf9iPjBZBEoCAqy.', 1467448011, 1473668003, 1, 'company', '12345678910'),
 (3, '127.0.0.1', '该装就_装', '$2y$08$wWqlCmSQhXR/aWxkeDeUdukdNXYBagLsVKVSahoxLTyQM45M89RqG', NULL, '1105858345@qq.com', NULL, NULL, NULL, NULL, 1471944446, 1473146455, 1, '1', '12345678'),
 (4, '127.0.0.1', '极创汇', '$2y$08$KKblqHD81l4/81qJ9f8NkO2Cui0PnmQ1XGDUC5kQATiJV7hvpwAoy', NULL, 'jichuanghui@qq.com', NULL, NULL, NULL, NULL, 1473045821, 1473320339, 1, '极创汇网络科技有限公司', '123456789'),
 (5, '127.0.0.1', '普通管理员', '$2y$08$QkHqL0gx.KfRjGXrY0AYceaoCY0pZQc4XuK8mSIUlNJ1Qyv3WVpQy', NULL, 'admin@qq.com', NULL, NULL, NULL, NULL, 1473045972, 1473057722, 1, '个人公司', '123456789');
@@ -466,14 +462,14 @@ CREATE TABLE IF NOT EXISTS `vc_user` (
   `vc_id` int(11) NOT NULL COMMENT '活动分类ID',
   `user_id` int(11) NOT NULL COMMENT '管理员ID',
   PRIMARY KEY (`vcu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动分类与管理员关联表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动分类与管理员关联表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `vc_user`
 --
 
 INSERT INTO `vc_user` (`vcu_id`, `vc_id`, `user_id`) VALUES
-(2, 2, 2);
+(1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -489,15 +485,16 @@ CREATE TABLE IF NOT EXISTS `vm_banner` (
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
   `layout` tinyint(1) NOT NULL COMMENT '布局1:顶部2:中间3:底部',
   PRIMARY KEY (`vm_banner_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动-广告图关联表' AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动-广告图关联表' AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `vm_banner`
 --
 
 INSERT INTO `vm_banner` (`vm_banner_id`, `vm_id`, `banner`, `banner_sort`, `date_add`, `layout`) VALUES
-(5, 2, 'photo1.png', '1', '2016-09-06 08:34:55', 1),
-(6, 2, 'photo2.png', '1', '2016-09-06 08:34:55', 3);
+(1, 1, 'top.png', '1', '2016-09-12 08:13:24', 1),
+(2, 1, 'content.png', '1', '2016-09-12 08:13:24', 2),
+(3, 1, 'footer.png', '1', '2016-09-12 08:13:24', 3);
 
 -- --------------------------------------------------------
 
@@ -511,15 +508,14 @@ CREATE TABLE IF NOT EXISTS `vm_bp` (
   `bp_id` int(11) NOT NULL COMMENT '基础人员ID',
   `votes` varchar(255) NOT NULL DEFAULT '0' COMMENT '投票合计',
   PRIMARY KEY (`vm_bp_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与基础人员关联表' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与基础人员关联表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `vm_bp`
 --
 
 INSERT INTO `vm_bp` (`vm_bp_id`, `vm_id`, `bp_id`, `votes`) VALUES
-(3, 2, 9, '5'),
-(4, 2, 10, '1');
+(1, 1, 1, '0');
 
 -- --------------------------------------------------------
 
@@ -536,19 +532,7 @@ CREATE TABLE IF NOT EXISTS `vm_bp_vote_list` (
   `voting_time` datetime NOT NULL COMMENT '投票时间',
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   PRIMARY KEY (`vbvl_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动-人员-投票详细列表' AUTO_INCREMENT=10 ;
-
---
--- 转存表中的数据 `vm_bp_vote_list`
---
-
-INSERT INTO `vm_bp_vote_list` (`vbvl_id`, `vm_bp_id`, `wxf_id`, `name`, `ip`, `voting_time`, `vm_id`) VALUES
-(4, 3, 0, '游客', '127.0.0.1', '2016-09-06 16:35:33', 2),
-(5, 4, 0, '游客', '127.0.0.1', '2016-09-06 16:35:36', 2),
-(6, 3, 0, '游客', '127.0.0.1', '2016-09-06 16:35:39', 2),
-(7, 3, 0, '游客', '127.0.0.1', '2016-09-06 16:35:42', 2),
-(8, 3, 0, '游客', '127.0.0.1', '2016-09-06 16:35:44', 2),
-(9, 3, 0, '游客', '127.0.0.1', '2016-09-06 16:35:46', 2);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='活动-人员-投票详细列表' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -561,14 +545,14 @@ CREATE TABLE IF NOT EXISTS `vm_link` (
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   `link` text NOT NULL COMMENT '活动链接',
   PRIMARY KEY (`vml_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动链接表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动链接表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `vm_link`
 --
 
 INSERT INTO `vm_link` (`vml_id`, `vm_id`, `link`) VALUES
-(2, 2, 'http://weixin_voting_system.com/home/vote/vote_activity/index/2');
+(1, 1, 'http://weixin_voting_system.com/home/vote/vote_activity/index/1');
 
 -- --------------------------------------------------------
 
@@ -585,14 +569,14 @@ CREATE TABLE IF NOT EXISTS `vm_rules` (
   `interval_time` varchar(255) NOT NULL COMMENT '投票间隔时间0:不限制',
   `online_reg` tinyint(1) NOT NULL DEFAULT '0' COMMENT '在线报名0:未开启1:开启',
   PRIMARY KEY (`vmr_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动规则配置表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动规则配置表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `vm_rules`
 --
 
 INSERT INTO `vm_rules` (`vmr_id`, `vm_id`, `focus`, `vote_limit`, `select_vote_limit`, `interval_time`, `online_reg`) VALUES
-(2, 2, 0, 0, '0', '0', 0);
+(1, 1, 0, 1, '0', '60', 0);
 
 -- --------------------------------------------------------
 
@@ -605,14 +589,14 @@ CREATE TABLE IF NOT EXISTS `vm_traffic` (
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   `traffic` int(11) NOT NULL DEFAULT '0' COMMENT '流量ID',
   PRIMARY KEY (`vt_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动访问总流量' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动访问总流量' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `vm_traffic`
 --
 
 INSERT INTO `vm_traffic` (`vt_id`, `vm_id`, `traffic`) VALUES
-(2, 2, 71);
+(1, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -625,14 +609,14 @@ CREATE TABLE IF NOT EXISTS `vm_user` (
   `vm_id` int(11) NOT NULL COMMENT '活动ID',
   `user_id` int(11) NOT NULL COMMENT '管理员ID',
   PRIMARY KEY (`vmu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与管理员关联表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与管理员关联表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `vm_user`
 --
 
 INSERT INTO `vm_user` (`vmu_id`, `vm_id`, `user_id`) VALUES
-(2, 2, 2);
+(1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -645,14 +629,14 @@ CREATE TABLE IF NOT EXISTS `vm_vc` (
   `vm_id` int(11) NOT NULL COMMENT '活动信息ID',
   `vc_id` int(11) NOT NULL COMMENT '活动分类ID',
   PRIMARY KEY (`vm_vc_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与活动分类关联表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='活动信息与活动分类关联表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `vm_vc`
 --
 
 INSERT INTO `vm_vc` (`vm_vc_id`, `vm_id`, `vc_id`) VALUES
-(2, 2, 2);
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -667,14 +651,14 @@ CREATE TABLE IF NOT EXISTS `voting_classification` (
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '1:启用0:未启用',
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`vc_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动分类表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动分类表' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `voting_classification`
 --
 
 INSERT INTO `voting_classification` (`vc_id`, `name`, `code`, `status`, `date_add`) VALUES
-(2, '示例活动分类', '8e6d7b4c184a35a342ed23e194ff7dde', 1, '2016-09-06 08:34:01');
+(1, '示例分类', 'c161b5ec86781b83392ead2029ed16d7', 1, '2016-09-12 08:13:24');
 
 -- --------------------------------------------------------
 
@@ -694,14 +678,14 @@ CREATE TABLE IF NOT EXISTS `voting_management` (
   `statusing` int(1) NOT NULL DEFAULT '1' COMMENT '1:未进行2:进行中3:已结束',
   `rules_config` text COMMENT '规则配置',
   PRIMARY KEY (`vm_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动信息管理' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='投票活动信息管理' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `voting_management`
 --
 
 INSERT INTO `voting_management` (`vm_id`, `title`, `description`, `code`, `date_add`, `date_start`, `date_end`, `status`, `statusing`, `rules_config`) VALUES
-(2, '示例投票活动', '111111111111111111111', 'b34334cf7818946171cf02723d04a34f', '2016-09-06 08:34:55', '2016-09-06 16:34:22', '2016-09-30 16:30:11', 1, 2, '齐全去去去去去去去去去去去去去去去去去去            ');
+(1, '投票活动例子', '这是一个默认的投票展示示例例子,简单进行数据展示!', 'c161b5ec86781b83392ead2029ed16d7', '2016-09-12 08:13:24', '2016-01-01 00:00:01', '2016-12-31 23:59:59', 1, 2, '这是活动规则的配置信息');
 
 -- --------------------------------------------------------
 
