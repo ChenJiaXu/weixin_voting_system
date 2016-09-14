@@ -36,13 +36,13 @@ class Voting_Management_model extends CI_Model{
 		//voting_management表
         $data = array(
 		    'title' => $this->input->post('title',TRUE),
-		    'description' => $this->input->post('description',TRUE),
+		    'description' => $this->security->xss_clean(htmlspecialchars(html_escape($this->input->post('description')))),
 		    'code' => md5(NOW()),
 		    'date_start' => $this->input->post('date_start',TRUE),
 		    'date_end' => $this->input->post('date_end',TRUE),
 		    'status' => $this->input->post('status',TRUE),
 		    'statusing' => $this->input->post('statusing',TRUE),
-		    'rules_config' => $this->input->post('rules_config',TRUE)
+		    'rules_config' => $this->security->xss_clean(htmlspecialchars(html_escape($this->input->post('rules_config'))))
 		);
 		$this->db->insert('voting_management', $this->security->xss_clean($data));
 
@@ -210,12 +210,12 @@ class Voting_Management_model extends CI_Model{
 
 		$data = array(
 			'title' => $this->input->post('title',TRUE),
-		    'description' => $this->input->post('description',TRUE),
+		    'description' => $this->security->xss_clean(htmlspecialchars(html_escape($this->input->post('description')))),
 		    'date_start' => $this->input->post('date_start',TRUE),
 		    'date_end' => $this->input->post('date_end',TRUE),
 		    'status' => $this->input->post('status',TRUE),
 		    'statusing' => $this->input->post('statusing',TRUE),
-		    'rules_config' => $this->input->post('rules_config',TRUE)
+		    'rules_config' => $this->security->xss_clean(htmlspecialchars(html_escape($this->input->post('rules_config'))))
 		);
 
 		$this->db->where('vm_id', $this->security->xss_clean((int)$vm_id));

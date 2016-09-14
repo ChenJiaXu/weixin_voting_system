@@ -21,6 +21,51 @@
 			.ui.card>.content{
 				min-height:0px;
 			}
+			/* 小火箭css */
+			#gotop {
+			    width: 50px;
+			    position: fixed;
+			    bottom: 0px;
+			    cursor: pointer;
+			    z-index: 99998;
+			    right: -2%;
+			    margin-right: 1%;
+			}
+			/* 小火箭悬停特效 */
+			#gotop:hover {
+			    animation: rubberBand 1s;
+			}
+
+			@keyframes rubberBand {
+			  from {
+			    transform: scale3d(1, 1, 1);
+			  }
+
+			  30% {
+			    transform: scale3d(1.25, 0.75, 1);
+			  }
+
+			  40% {
+			    transform: scale3d(0.75, 1.25, 1);
+			  }
+
+			  50% {
+			    transform: scale3d(1.15, 0.85, 1);
+			  }
+
+			  65% {
+			    transform: scale3d(.95, 1.05, 1);
+			  }
+
+			  75% {
+			    transform: scale3d(1.05, .95, 1);
+			  }
+
+			  to {
+			    transform: scale3d(1, 1, 1);
+			  }
+			}
+			/* end 小火箭 */
 		</style>
 
 	</head>
@@ -72,17 +117,14 @@
 					<?php } ?>
 				</div>
 
-				<div class="col-xs-12">
-					<div class="ui piled segment"></div>
-				</div>
-
 				<!-- title  -->
 				<div class="col-xs-12">
-					<h3 class="ui justified blue huge header">
+					<h3 class="ui blue huge header">
 						<?php if($ap){?>
 							<?php echo $ap['title']; ?>
 						<?php } ?>
 					</h3>
+					<hr />
 				</div>
 
 				<!-- description -->
@@ -90,10 +132,11 @@
 					<div class="ui teal dividing header">
 						<h5>
 							<?php if($ap){?>
-								<?php echo $ap['description']; ?>
+								<?php echo htmlspecialchars_decode(html_entity_decode($ap['description'])); ?>
 							<?php } ?>
 						</h5>
 					</div>
+					<hr />
 				</div>
 
 				<!-- data_count -->
@@ -209,15 +252,13 @@
 					<div class="fluid ui fluid tab" data-tab="third">
 						<div class="ui message">
 							<?php if($ap){?>
-								<?php echo $ap['rules_config']; ?>
+								<?php echo htmlspecialchars_decode(html_entity_decode($ap['rules_config'])); ?>
 							<?php } ?>
 						</div>
 					</div>
 
-				</div>
-
-				<div class="col-xs-12">
-					<div class="ui piled segment"></div>
+					<hr />
+					
 				</div>
 
 				<!-- banner-down -->
@@ -231,6 +272,11 @@
 							<?php } ?>
 						<?php } ?>
 					<?php } ?>
+				</div>
+
+				<!-- 右侧小火箭图标返回顶部 -->
+				<div id="gotop">
+					<img src="<?php echo $base_url;?>/upload/system/huojian.svg" alt="返回顶部小火箭">
 				</div>
 
 			</div>
@@ -288,5 +334,17 @@
 			});
 		});
 	</script>
-	
+	<script src="http://cdn.bootcss.com/gsap/1.19.0/TweenMax.min.js"></script>
+	<script src="http://cdn.bootcss.com/gsap/1.19.0/plugins/ScrollToPlugin.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+
+			// 默认速度
+			$("#gotop").click(function() {
+				TweenMax.to(window, 1, {scrollTo:0});
+			});
+
+		});
+	</script>
+
 </html>

@@ -70,7 +70,7 @@
 							</div>
 
 							
-							<div class="row" style="background-image:url('<?php echo $base_url;?>/upload/voting_management/bg-image.png')">
+							<div class="row">
 								
 								<!-- banner-top -->
 								<div class="col-xs-12">
@@ -85,10 +85,6 @@
 									<?php } ?>
 								</div>
 
-								<div class="col-xs-12">
-									<div class="ui piled segment"></div>
-								</div>
-
 								<!-- title  -->
 								<div class="col-xs-12">
 									<h3 class="ui justified blue huge header">
@@ -96,6 +92,7 @@
 											<?php echo $ap['title']; ?>
 										<?php } ?>
 									</h3>
+									<hr />
 								</div>
 
 								<!-- description -->
@@ -103,10 +100,11 @@
 									<div class="ui teal dividing header">
 										<h5>
 											<?php if($ap){?>
-												<?php echo $ap['description']; ?>
+												<?php echo htmlspecialchars_decode(html_entity_decode($ap['description'])); ?>
 											<?php } ?>
 										</h5>
 									</div>
+									<hr />
 								</div>
 
 								<!-- data_count -->
@@ -222,15 +220,12 @@
 									<div class="fluid ui fluid tab" data-tab="third">
 										<div class="ui message">
 											<?php if($ap){?>
-												<?php echo $ap['rules_config']; ?>
+												<?php echo htmlspecialchars_decode(html_entity_decode($ap['rules_config'])); ?>
 											<?php } ?>
 										</div>
 									</div>
 
-								</div>
-
-								<div class="col-xs-12">
-									<div class="ui piled segment"></div>
+									<hr />
 								</div>
 
 								<!-- banner-down -->

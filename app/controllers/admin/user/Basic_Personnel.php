@@ -85,13 +85,14 @@ class Basic_Personnel extends MY_Controller {
 			$this->load_view('user/basic_personnel_form',$data);
 
 	    }else{
-	       $new_bp_id = $this->Basic_Personnel_model->add_basic_personnel($this->session->userdata('user_id'));//添加活动分类,返回新插入数据ID
+	    	
+	       	$new_bp_id = $this->Basic_Personnel_model->add_basic_personnel($this->session->userdata('user_id'));//添加活动分类,返回新插入数据ID
 
-	       $new_name = $this->Basic_Personnel_model->get_basic_personnel_by_bp_id($new_bp_id);//根据ID获取新插入数据的名称
+	       	$new_name = $this->Basic_Personnel_model->get_basic_personnel_by_bp_id($new_bp_id);//根据ID获取新插入数据的名称
 
-	       $this->session->set_flashdata('success', '【'.$new_name['name'].'】'.lang('bpl_success_add'));
+	       	$this->session->set_flashdata('success', '【'.$new_name['name'].'】'.lang('bpl_success_add'));
 
-	       redirect('admin/basic_personnel','refresh');
+	       	redirect('admin/basic_personnel','refresh');
 	    }
 
 	}

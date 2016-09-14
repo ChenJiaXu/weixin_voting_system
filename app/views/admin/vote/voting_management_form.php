@@ -1,4 +1,5 @@
     <link href="<?php echo $base_url;?>/static/plugins/fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $base_url;?>/static/ueditor/themes/iframe.css" media="all" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .file-drop-zone{
             height: 200px;
@@ -8,6 +9,7 @@
         .thumbnail>img{
             height: 200px;
         }
+        
     </style>
 
     <!-- Content Wrapper. Contains page content -->
@@ -63,10 +65,12 @@
                                     <!-- 活动信息描述 -->
                                     <div class="form-group">
                                         <div class="col-xs-2 text-right">
-                                            <label class="control-label" for="title"><?php echo lang('vml_description'); ?></label>
+                                            <label class="control-label" for="description"><?php echo lang('vml_description'); ?></label>
                                         </div>
-                                        <div class="col-xs-10 <?php if(form_error('description')){echo 'has-error';}?>">
-                                            <input type="text" class="form-control" id="description" name="description" placeholder="<?php echo lang('vml_help_description'); ?>" value="<?php echo $vm_action == 'add'?set_value(html_escape('description')):$vms['description']; ?>">
+                                        <div class="col-xs-10 <?php if(form_error('description')){echo 'has-error';}?>" id="img-width-height">
+                                            <script id="description" name="description" type="text/plain">
+                                                <?php echo $vm_action == 'add'?set_value(html_escape('description')):htmlspecialchars_decode(html_entity_decode($vms['description'])); ?>
+                                            </script>
                                             <span class="help-block"><?php if(form_error('description')){echo "<i class='fa fa-times-circle-o'></i>".form_error('description');} ?></span>
                                         </div>
                                     </div>
@@ -245,11 +249,12 @@
                                     <!-- 规则配置 -->
                                     <div class="form-group">
                                         <div class="col-xs-2 text-right">
-                                            <label class="control-label" for="title"><?php echo lang('vml_rules_config'); ?></label>
+                                            <label class="control-label" for="rules_config"><?php echo lang('vml_rules_config'); ?></label>
                                         </div>
                                         <div class="col-xs-10 <?php if(form_error('rules_config')){echo 'has-error';}?>">
-                                            <textarea class="form-control" id="rules_config" name="rules_config" placeholder="<?php echo lang('vml_help_rules_config'); ?>"><?php echo $vm_action == 'add'?set_value(html_escape('rules_config')):$vms['rules_config']; ?>
-                                            </textarea>
+                                            <script id="rules_config" name="rules_config" type="text/plain">
+                                                <?php echo $vm_action == 'add'?set_value(html_escape('rules_config')):htmlspecialchars_decode(html_entity_decode($vms['rules_config'])); ?>
+                                            </script>
                                             <span class="help-block"><?php if(form_error('rules_config')){echo "<i class='fa fa-times-circle-o'></i>".form_error('rules_config');} ?></span>
                                         </div>
                                     </div>
@@ -561,5 +566,20 @@
             });
         }
 
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="<?php echo $base_url;?>/static/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<?php echo $base_url;?>/static/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="<?php echo $base_url;?>/static/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript">
+        var ue_description = UE.getEditor('description');
+        ue_description.ready(function() {
+            ue_description.setHeight(200);
+            ue_description.getEditor('description').focus();
+        });
+        var ue_rules_config = UE.getEditor('rules_config');
+        ue_rules_config.ready(function() {
+            ue_rules_config.setHeight(500);
+        });
     </script>
 

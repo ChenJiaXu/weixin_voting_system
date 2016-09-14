@@ -30,7 +30,7 @@ class Basic_Personnel_model extends CI_Model{
 
         $data = array(
 		    'name' => $this->input->post('name',TRUE),
-		    'description' => $this->input->post('description',TRUE),
+		    'description' => $this->security->xss_clean(htmlspecialchars(html_escape($this->input->post('description')))),
 		    'status' => $this->input->post('status',TRUE),
 		    'date_update' => date('Y-m-d H:i:s')
 		);
@@ -62,7 +62,7 @@ class Basic_Personnel_model extends CI_Model{
 		return $bp_id;
 	}
 
-	//更新活动分类
+	//更新人员信息
 	public function edit_basic_personnel($bp_id){
 		
 
@@ -82,7 +82,7 @@ class Basic_Personnel_model extends CI_Model{
 
 		$data = array(
 			'name' => $this->input->post('name',TRUE),
-			'description' => $this->input->post('description',TRUE),
+			'description' => $this->security->xss_clean(htmlspecialchars(html_escape($this->input->post('description')))),
 			'status' => $this->input->post('status',TRUE),
 			'date_update' => date('Y-m-d H:i:s')
 		);

@@ -187,7 +187,7 @@ class Voting_Management extends MY_Controller {
 			//-----------------------basic_personnel----------------------------
 			//$data['vml_basic_personnel'] = lang('vml_basic_personnel');
 			$data['bps'] = array();
-			$result = $this->Basic_Personnel_model->getBP();
+			$result = $this->Basic_Personnel_model->getBP($this->session->userdata('user_id'));
 			foreach ($result as $r) {
 				$data['bps'][] = array(
 					'id' => $r['bp_id'],
